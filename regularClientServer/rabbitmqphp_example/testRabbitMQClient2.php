@@ -32,9 +32,9 @@ else
 }
 
 $request = array();
-//$request['type'] = "login";
-$request['username'] = "steve";
-$request['password'] = "password";
+$request['type'] = "login";
+$request['username'] = "bob";
+$request['password'] = "pass";
 $request['message'] = $msg;
 $response = $client->send_request($request);
 //$response = $client->publish($request);
@@ -51,9 +51,9 @@ if ($response == "Incorrect Credentials"){
 	makeLog($logs);
 }
 
-if ($response == "Welcome Steve!"){
+if ($response == "Welcome Bob!"){
 	
-	$logs = "User: steve logged in"; 
+	$logs = "User: bob logged in"; 
         makeLog($logs);
 }
 
