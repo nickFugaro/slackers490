@@ -31,8 +31,8 @@ function requestProcessor($request)
       return doLogin($request['username'],$request['password']);
     case "validate_session":
       return doValidate($request['sessionId']);
-    case "recieve_log":
-	return doRecieveLog($request['log']);
+    case "send_log":
+	return doRecieveLog($request['log'],$request['file'],$request['date']);
   }
   return array("returnCode" => '0', 'message'=>"Server received request and processed");
 }
