@@ -2,14 +2,26 @@
 
 import pika, sys, os
 import simplejson as json
+import datetime
 
 def main():
 
     def reciever(ch,method,properties,body):
         data = json.loads(body.decode('utf-8'))
-        for key in data:
-            print(key,' = ',data.get(key))
+        switchCase = {
+            'log':log(datetime.datetime.now(),data.get('vm_name'),data.get('function'),data.get('message'))
+        }
 
+        func = switchCase.get(data.get('type'))
+
+        func
+    
+    def log(date,vm_name,func,msg):
+        #DATE VM_NAME FUNCTION MESSAGE
+        file_log = open('logs.txt','a') 
+        data = date.strftime("%m/%d/%Y, %H:%M:%S")+' | '+vm_name+' | '+func+' | '+msg+'\n'
+        file_log.write(data)
+        file_log.close()
     
     creds = pika.PlainCredentials('test','test')
     connection = pika.BlockingConnection(pika.ConnectionParameters('localhost',5672,'testHost',creds))
