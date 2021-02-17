@@ -10,10 +10,9 @@ try:
     channel = connection.channel()
 
     body = json.dumps({
-            'type' : 'log',
-            'vm_name' : 'pyClient',
-            'function' : 'ClientFunction',
-            'message' : 'ERROR MS9G'
+            'type' : 'signup',
+            'email' : 'EMAIL',
+            'password' : 'PASSWORD'
         })
     print('Message: ',body)
     channel.basic_publish(exchange='testExchange',routing_key='*',body=body)
