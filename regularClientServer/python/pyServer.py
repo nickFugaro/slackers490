@@ -3,9 +3,21 @@
 import pika, sys, os
 import simplejson as json
 import datetime
-import pyodbc
+import mysql.connector
 from Crypto.Hash import SHA512
 import uuid
+from pyJWT import JWT
+
+jwt_obj = JWT()
+
+config = {
+    'user' : 'admin',
+    'password' : 'adminIT490Ubuntu!',
+    'host' : 'localhost',
+    'database' : 'IT490'
+}
+db = mysql.connector.connect(**config)
+cursor = db.cursor(dictionary=True)
 
 def log(date,vm_name,func,msg):
     #DATE VM_NAME FUNCTION MESSAGE
@@ -15,47 +27,68 @@ def log(date,vm_name,func,msg):
     file_log.close()
 
 def signup(email,password):
-    conn = pyodbc.connect('Driver={ODBC Driver 17 for SQL Server};Server=localhost;DATABASE=IT490;UID=SA;PWD=IT490Ubuntu')
-    cursor = conn.cursor()
-    salt = str(uuid.uuid4())
-    print('salt '+salt)
-    password += salt
-    print('password+salt '+password)
-    hashed = SHA512.new(str(password).encode('utf-8'))
-    hashed = hashed.digest()
-    print('hashed ',hashed)
-    
-    cursor.execute("""select email from Account where email=?""",email) 
+    query = ("select email from Account where email=%(email)s")
+    cursor.execute(query,{'email':email}) 
     result = cursor.fetchall()
-    cursor.commit()
-    print(result)
+    print("Select statement: ",result)
+    
     if len(result) != 0:
-        print('Email Already Registered')
+        print('RETURN: Email Already Registered')
     else:
         try:
-            cursor.execute("""INSERT INTO Account VALUES (?,?,?)""",email,hashed,salt)
-            cursor.commit()
-            print('User Registered Successfully')
-        except error:
-            print(error)
-   
+            salt = str(uuid.uuid4())
+            password += salt
+            hashed = SHA512.new(str(password).encode('utf-8'))
+            hashed = hashed.hexdigest()
+            query = ("INSERT INTO Account VALUES (%s,%s,%s)")
+            cursor.execute(query,(email,hashed,salt))
+            cursor.fetchall()
+            db.commit()
+            token = jwt_obj.getToken(email)
+            print('RETURN: User Registered Successfully',token)
+        except mysql.connector.Error as error:
+            print("Error: ",error)
+
+def login(email,password):
+
+    query = ("select salt from Account where email=%(email)s")
+    cursor.execute(query,{'email':email})
+    result = cursor.fetchall()
+    
+    if len(result) != 0:
+        
+        salt = result[0].get('salt')
+        passHash = SHA512.new(str(password+salt).encode('utf-8'))
+        query = ("select email from Account where password=%(passHash)s")
+        cursor.execute(query,{'passHash':passHash.hexdigest()})
+        result = cursor.fetchall()
+
+        if len(result) > 0 and email == result[0].get('email'):
+            token = jwt_obj.getToken(email)
+            print("VERIFY TOKEN: ",jwt_obj.verifyToken(token))
+            print('LOGIN SUCCESSFUL/n',token)
+        else:
+            print('LOGIN UNSUCCESSFUL')
+        
+    else:
+        print('RETURN: Could Not Find Account')
     
 def getMethod(methodName,data):
     return{
             'log': lambda data : log(datetime.datetime.now(),data.get('vm_name'),data.get('function'),data.get('message')),
-            'signup': lambda data : signup(data.get('email'),data.get('password'))
+            'signup': lambda data : signup(data.get('email'),data.get('password')),
+            'login' : lambda data : login(data.get('email'), data.get('password'))
     }.get(methodName)(data)
 
 def main():
 
     def reciever(ch,method,properties,body):
         data = json.loads(body.decode('utf-8'))
-        print(data.get('type'))
         func = getMethod(data.get('type'),data)
         func 
     
     creds = pika.PlainCredentials('test','test')
-    connection = pika.BlockingConnection(pika.ConnectionParameters('localhost',5672,'testHost',creds))
+    connection = pika.BlockingConnection(pika.ConnectionParameters('localhost',5672,'vhost',creds))
     channel = connection.channel()
 
     channel.basic_consume(queue='testQueue',on_message_callback=reciever, auto_ack=True)
