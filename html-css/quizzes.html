@@ -1,57 +1,130 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<style>
- h1 {
-   color: white;
-   text-align: center;
-   background: #343840;
-   border-radius: 10px;
- }
- body  {
-  background-image: url("https://i.pinimg.com/originals/80/9b/43/809b43102a7b4bcb18ad66cf48886579.jpg");
-  background-color: #cccccc;
-}
+<html>
+  <style>
+    h1 {
+    color: white;
+    text-align: center;
+    background: #343840;
+    border-radius: 10px;
+  }
+  body {
+    background-image: url("https://i.pinimg.com/originals/80/9b/43/809b43102a7b4bcb18ad66cf48886579.jpg");
+    background-color: #cccccc;
+  }
+  </style>
 
-</style>
+  <head lang="en">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Quiz</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </head>
 
-  <title>Star Wars</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</head>
-<body>
+  <body>
+    <div class="container">
+      <h1>Star Wars</h1>
+      <a href="login-signup.html"><button type="button" class="btn btn-dark float-right">Login</button></a>
+      <center>
+        <a href="index.html"
+          ><button type="button" class="btn btn-dark">Home</button></a
+        >
+        <a href="movies.html"
+          ><button type="button" class="btn btn-dark">Movies</button></a
+        >
+        <a href="forum.html"
+          ><button type="button" class="btn btn-dark">Forum</button></a
+        >
+        <a href="quizzes.html"
+          ><button type="button" class="btn btn-danger">Quizzes</button></a
+        >
+        <a href="news.html"
+          ><button type="button" class="btn btn-dark">News Feed</button></a
+        >
+        <a href="about.html"
+          ><button type="button" class="btn btn-dark">About</button></a
+        >
+      </center>
+    </div>
+    <br>
+    <br>
+    <center>
+    <div class= "container text-white bg-dark ">
+    <div class="wrapper" id="results">
+      <div id="quiz">
+        <h1 id="head">Question</h1>
+        <h3 id="details"></h3>
+        <div id="word"></div>
+        <div id="hint"></div>
+        <div id="options" class = "h3">
+          OPTIONS:
 
-<div class="container">
-  <h1>Star Wars</h1>
-  <center>
-    <a href="index.html"><button type="button" class="btn btn-dark">Home</button></a>
-    <a href="movies.html"><button type="button" class="btn btn-dark">Movies</button></a>
-    <a href="forum.html"><button type="button" class="btn btn-dark">Forum</button></a>
-    <a href="quizzes.html"><button type="button" class="btn btn-danger">Quizzes</button></a>
-    <a href="news.html"><button type="button" class="btn btn-dark">News Feed</button></a>
-    <a href="about.html"><button type="button" class="btn btn-dark">About</button></a>
-  </center>
+          <div class="option">
+            <button
+              type="button"
+              class="btn text-light h4"
+              onclick="checkAnswer()"
+              id="option1"
+            ></button>
+          </div>
 
-</div>
+          <div class="option">
+            <button
+              type="button"
+              class="btn text-light h4"
+              onclick="checkAnswer()"
+              id="option2"
+            ></button>
+          </div>
 
-<br>
-<br>
-<center>
-<div class="jumbotron text-white bg-dark mb-3 w-75">
-  <h1 class="display-4">Hi There!</h1>
-  <br>
-  <p class="lead">There this is my site about How the Internet Works, click the button below to learn more about or page, or feel free to look through our pages!.</p>
-  <hr class="my-4">
-  <p class="lead">In this site, we will be looking through topics such as why domain names exist and how computers retrieve this given information on a site when a user looks one up. We will look into how that lookup is done, and also how these packets of data are retrieved and sent out to other networks to get the data we desire to send or retrieve from other people or entities. Alongside this, we will see what HTML pages are and how they are formed and styled.</p>
-</div>
+          <div class="option">
+            <button
+              type="button"
+              class="btn text-light h4"
+              onclick="checkAnswer()"
+              id="option3"
+            ></button>
+          </div>
 
+          <div class="option">
+            <button
+              type="button"
+              class="btn text-light h4"
+              onclick="checkAnswer()"
+              id="option4"
+            ></button>
+          </div>
+        </div>
+      </div>
+        <div class="jumbotron text-white bg-dark mb-3 w-75">
+          <h1 class="display-4">Test your star wars knowledge, lets!</h1>
+          <br />
+          <a id="ready" onclick="printQuestion()"
+            ><button
+              id="ready"
+              class="btn btn-danger"
+              type="button"
+              onclick="startButton()"
+            >
+              START
+            </button></a
+          >
+        </div>
+    </div>
+    <div>
+    </center>
 
-</center>
+    <a id="restart" href="index.html"
+      ><button id="restart" type="button" class="btn btn-danger" class="restart">
+        RESTART GAME
+      </button></a
+    >
 
-
-</body>
+    <script type="text/javascript" src="javascript/main.js"></script>
+  </body>
 </html>
