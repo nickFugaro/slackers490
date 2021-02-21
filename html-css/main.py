@@ -5,6 +5,15 @@ import requests
 
 app = flask.Flask(__name__)
 
+
+def movieCall():
+    req = requests.get("https://swapi.dev/api/films/1/")
+    json = req.json()
+    print(json)
+    return json
+
+
+
 @app.route('/')
 def indexload():
     return flask.render_template(
@@ -38,6 +47,8 @@ def login():
 
 @app.route('/movies.html')
 def movies():
+    movie1 = movieCall()
+    print(movie1)
     return flask.render_template(
         "movies.html",
         )
