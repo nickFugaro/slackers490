@@ -7,12 +7,17 @@ app = flask.Flask(__name__)
 
 @app.route('/')
 def index():
- 
     return flask.render_template(
-        "movies.html",
-        title="HELLO"
+        "index.html",
         )
-    
+
+
+@app.route('/forum')
+def forum():
+    return flask.render_template(
+        "forum.html",
+        )
+
 app.run(
     host=os.getenv('IP', '0.0.0.0')
 )
