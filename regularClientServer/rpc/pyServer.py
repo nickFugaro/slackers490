@@ -2,28 +2,30 @@
 
 import pika, sys, os
 import simplejson as json
-#import datetime
-#import mysql.connector
-#from Crypto.Hash import SHA512
-#import uuid
-#from pyJWT import JWT
+import datetime
+import mysql.connector
+from Crypto.Hash import SHA512
+import uuid
+from pyJWT import JWT
 
-#jwt_obj = JWT()
+jwt_obj = JWT()
 
 config = {
     'user' : 'admin',
-    'password' : 'adminIT490Ubuntu!',
+    'password' : 'catdog123',
     'host' : 'localhost',
     'database' : 'IT490'
 }
-#db = mysql.connector.connect(**config)
-#cursor = db.cursor(dictionary=True)
+db = mysql.connector.connect(**config)
+cursor = db.cursor(dictionary=True)
 
 creds = pika.PlainCredentials('test','test')
 connection = pika.BlockingConnection(pika.ConnectionParameters('localhost',5672,'/',creds))
 channel = connection.channel()
 channel.queue_declare(queue='rpc_queue')
 channel.queue_bind(exchange='testExchange', queue='rpc_queue')
+
+theReturn = ""
 
 def log(date,vm_name,func,msg):
     #DATE VM_NAME FUNCTION MESSAGE
@@ -40,6 +42,8 @@ def signup(email,password):
     
     if len(result) != 0:
         print('RETURN: Email Already Registered')
+        global theReturn
+        theReturn = "Email Already Registered"
     else:
         try:
             salt = str(uuid.uuid4())
@@ -52,8 +56,12 @@ def signup(email,password):
             db.commit()
             token = jwt_obj.getToken(email)
             print('RETURN: User Registered Successfully',token)
+            
+            theReturn = "Registered Successfully"
         except mysql.connector.Error as error:
             print("Error: ",error)
+            
+            theReturn = "Error!"
 
 def login(email,password):
 
@@ -73,11 +81,17 @@ def login(email,password):
             token = jwt_obj.getToken(email)
             print("VERIFY TOKEN: ",jwt_obj.verifyToken(token))
             print('LOGIN SUCCESSFUL/n',token)
+            global theReturn
+            theReturn = "Login Successful!"
         else:
             print('LOGIN UNSUCCESSFUL')
+            
+            theReturn = "Login Unsuccessful!"
         
     else:
         print('RETURN: Could Not Find Account')
+        
+        theReturn = "Could Not Find Account"
     
 def getMethod(methodName,data):
     return{
@@ -91,14 +105,14 @@ def reciever(ch, method, props, body):
     data = json.loads(body.decode('utf-8'))
     dog = data.get('type')
     print(dog)
-	#func = getMethod(data.get('type'),data)
-        #func
+    func = getMethod(data.get('type'),data)
+    func
     
     ch.basic_publish(exchange='',
                      routing_key=props.reply_to,
                      properties=pika.BasicProperties(correlation_id = \
                                                          props.correlation_id),
-                     body=dog)
+                     body=theReturn)
     ch.basic_ack(delivery_tag=method.delivery_tag)
 channel.basic_qos(prefetch_count=1)
 channel.basic_consume(queue='rpc_queue', on_message_callback=reciever)
