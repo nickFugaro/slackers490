@@ -24,7 +24,7 @@ class theClient(object):
         self.corr_id = str(uuid.uuid4())
         self.channel.basic_publish(exchange='testExchange', routing_key='rpc_queue', properties=pika.BasicProperties(reply_to=self.callback_queue, correlation_id=self.corr_id),
         body = json.dumps({
-            'type' : 'login',
+            'type' : 'signup',
             'email' : 'EMAIL',
             'password' : 'PASSWORD'
             }))
