@@ -3,96 +3,18 @@
 import pika, sys, os
 import simplejson as json
 import datetime
-import mysql.connector
-from Crypto.Hash import SHA512
 import uuid
 from pyJWT import JWT
-
-jwt_obj = JWT()
-
-config = {
-    'user' : 'admin',
-    'password' : 'adminIT490Ubuntu!',
-    'host' : 'localhost',
-    'database' : 'IT490'
-}
-db = mysql.connector.connect(**config)
-cursor = db.cursor(dictionary=True)
+from pyLogin import login
+from pySignup import signup
+from pyLogger import log
 
 creds = pika.PlainCredentials('test','test')
-connection = pika.BlockingConnection(pika.ConnectionParameters('localhost',5672,'vhost',creds))
+connection = pika.BlockingConnection(pika.ConnectionParameters('localhost',5672,'/',creds))
 channel = connection.channel()
 channel.queue_declare(queue='rpc_queue')
 channel.queue_bind(exchange='testExchange', queue='rpc_queue')
 
-theReturn = ""
-
-def log(date,vm_name,func,msg):
-    #DATE VM_NAME FUNCTION MESSAGE
-    file_log = open('logs.txt','a') 
-    data = date.strftime("%m/%d/%Y, %H:%M:%S")+' | '+vm_name+' | '+func+' | '+msg+'\n'
-    file_log.write(data)
-    file_log.close()
-    return {'sucess':True, 'message':"Error Logged"}
-
-def signup(email,password):
-    query = ("select email from Account where email=%(email)s")
-    cursor.execute(query,{'email':email}) 
-    result = cursor.fetchall()
-    print("Select statement: ",result)
-    
-    if len(result) != 0:
-        print('RETURN: Email Already Registered')
-        return {'success':False, 'message':'Email Already Registered'}
-		#global theReturn
-        #theReturn = "Email Already Registered"
-    else:
-        try:
-            salt = str(uuid.uuid4())
-            password += salt
-            hashed = SHA512.new(str(password).encode('utf-8'))
-            hashed = hashed.hexdigest()
-            query = ("INSERT INTO Account VALUES (%s,%s,%s)")
-            cursor.execute(query,(email,hashed,salt))
-            cursor.fetchall()
-            db.commit()
-            token = jwt_obj.getToken(email)
-            return {'success':True,'message':token}
-			#print('RETURN: User Registered Successfully',token)
-            #theReturn = "Registered Successfully"
-        except mysql.connector.Error as error:
-            print("Error: ",error)
-            return {'success':False,'message':'Could Not Create Account'}
-
-def login(email,password):
-
-    query = ("select salt from Account where email=%(email)s")
-    cursor.execute(query,{'email':email})
-    result = cursor.fetchall()
-    
-    if len(result) != 0:
-        
-        salt = result[0].get('salt')
-        passHash = SHA512.new(str(password+salt).encode('utf-8'))
-        query = ("select email from Account where password=%(passHash)s")
-        cursor.execute(query,{'passHash':passHash.hexdigest()})
-        result = cursor.fetchall()
-
-        if len(result) > 0 and email == result[0].get('email'):
-            token = jwt_obj.getToken(email)
-            return {'success':True,'message':token}
-			#print('LOGIN SUCCESSFUL/n',token)
-            #global theReturn
-            #theReturn = "Login Successful!"
-        else:
-            return {'success':False, 'message':'Wrong Password, Please Try Again'}
-			#print('LOGIN UNSUCCESSFUL')
-            #theReturn = "Login Unsuccessful!"
-        
-    else:        
-        return {'success':False, 'message':'Could Not Find Account, Please SignUp'}
-		#theReturn = "Could Not Find Account"
-    
 def getMethod(methodName,data):
     return{
             'log': lambda data : log(datetime.datetime.now(),data.get('vm_name'),data.get('function'),data.get('message')),
@@ -119,13 +41,3 @@ channel.basic_consume(queue='rpc_queue', on_message_callback=reciever)
 
 print('Waiting For Messages')
 channel.start_consuming()
-
-#if __name__=='__main__':
-#    try:
-#        main()
-#    except KeyboardInterrupt:
-#        try:
-#            sys.exit(0)
-#        except SystemExit:
-#            os._exit(0)
-
