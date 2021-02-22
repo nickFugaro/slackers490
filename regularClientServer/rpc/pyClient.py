@@ -9,7 +9,7 @@ class theClient(object):
 
     def __init__(self):
         try:
-            creds = pika.PlainCredentials('tst','test')
+            creds = pika.PlainCredentials('test','test')
             print('Establishing Connection To Server')
             self.connection = pika.BlockingConnection(pika.ConnectionParameters('localhost',5672,'/',creds))
             self.channel = self.connection.channel()
