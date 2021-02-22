@@ -9,7 +9,7 @@ class theClient(object):
     def __init__(self):
         creds = pika.PlainCredentials('test','test')
         print('Establishing Connection To Server')
-        self.connection = pika.BlockingConnection(pika.ConnectionParameters('localhost',5672,'/',creds))
+        self.connection = pika.BlockingConnection(pika.ConnectionParameters('localhost',5672,'vhost',creds))
         self.channel = self.connection.channel()
         result = self.channel.queue_declare(queue='', exclusive=True)
         self.callback_queue = result.method.queue
@@ -17,7 +17,7 @@ class theClient(object):
 
     def on_response(self, ch, method, props, body):
         if self.corr_id == props.correlation_id:
-            self.response = body
+            self.response = json.loads(body.decode('utf-8'))
 
     def call(self):
         self.response = None
@@ -36,4 +36,4 @@ message = theClient()
 
 print("Sending")
 response = message.call()
-print(response)
+print(response.get('success'))

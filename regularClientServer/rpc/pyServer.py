@@ -12,7 +12,7 @@ jwt_obj = JWT()
 
 config = {
     'user' : 'admin',
-    'password' : 'catdog123',
+    'password' : 'adminIT490Ubuntu!',
     'host' : 'localhost',
     'database' : 'IT490'
 }
@@ -20,7 +20,7 @@ db = mysql.connector.connect(**config)
 cursor = db.cursor(dictionary=True)
 
 creds = pika.PlainCredentials('test','test')
-connection = pika.BlockingConnection(pika.ConnectionParameters('localhost',5672,'/',creds))
+connection = pika.BlockingConnection(pika.ConnectionParameters('localhost',5672,'vhost',creds))
 channel = connection.channel()
 channel.queue_declare(queue='rpc_queue')
 channel.queue_bind(exchange='testExchange', queue='rpc_queue')
@@ -33,6 +33,7 @@ def log(date,vm_name,func,msg):
     data = date.strftime("%m/%d/%Y, %H:%M:%S")+' | '+vm_name+' | '+func+' | '+msg+'\n'
     file_log.write(data)
     file_log.close()
+    return {'sucess':True, 'message':"Error Logged"}
 
 def signup(email,password):
     query = ("select email from Account where email=%(email)s")
@@ -42,8 +43,9 @@ def signup(email,password):
     
     if len(result) != 0:
         print('RETURN: Email Already Registered')
-        global theReturn
-        theReturn = "Email Already Registered"
+        return {'success':False, 'message':'Email Already Registered'}
+		#global theReturn
+        #theReturn = "Email Already Registered"
     else:
         try:
             salt = str(uuid.uuid4())
@@ -55,13 +57,12 @@ def signup(email,password):
             cursor.fetchall()
             db.commit()
             token = jwt_obj.getToken(email)
-            print('RETURN: User Registered Successfully',token)
-            
-            theReturn = "Registered Successfully"
+            return {'success':True,'message':token}
+			#print('RETURN: User Registered Successfully',token)
+            #theReturn = "Registered Successfully"
         except mysql.connector.Error as error:
             print("Error: ",error)
-            
-            theReturn = "Error!"
+            return {'success':False,'message':'Could Not Create Account'}
 
 def login(email,password):
 
@@ -79,19 +80,18 @@ def login(email,password):
 
         if len(result) > 0 and email == result[0].get('email'):
             token = jwt_obj.getToken(email)
-            print("VERIFY TOKEN: ",jwt_obj.verifyToken(token))
-            print('LOGIN SUCCESSFUL/n',token)
-            global theReturn
-            theReturn = "Login Successful!"
+            return {'success':True,'message':token}
+			#print('LOGIN SUCCESSFUL/n',token)
+            #global theReturn
+            #theReturn = "Login Successful!"
         else:
-            print('LOGIN UNSUCCESSFUL')
-            
-            theReturn = "Login Unsuccessful!"
+            return {'success':False, 'message':'Wrong Password, Please Try Again'}
+			#print('LOGIN UNSUCCESSFUL')
+            #theReturn = "Login Unsuccessful!"
         
-    else:
-        print('RETURN: Could Not Find Account')
-        
-        theReturn = "Could Not Find Account"
+    else:        
+        return {'success':False, 'message':'Could Not Find Account, Please SignUp'}
+		#theReturn = "Could Not Find Account"
     
 def getMethod(methodName,data):
     return{
@@ -106,13 +106,13 @@ def reciever(ch, method, props, body):
     dog = data.get('type')
     print(dog)
     func = getMethod(data.get('type'),data)
-    func
+    rtn = json.JSONEncoder().encode(func)
     
     ch.basic_publish(exchange='',
                      routing_key=props.reply_to,
                      properties=pika.BasicProperties(correlation_id = \
                                                          props.correlation_id),
-                     body=theReturn)
+                     body=rtn)
     ch.basic_ack(delivery_tag=method.delivery_tag)
 channel.basic_qos(prefetch_count=1)
 channel.basic_consume(queue='rpc_queue', on_message_callback=reciever)
