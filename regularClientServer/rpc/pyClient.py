@@ -11,7 +11,7 @@ class theClient(object):
         try:
             creds = pika.PlainCredentials('test','test')
             print('Establishing Connection To Server')
-            self.connection = pika.BlockingConnection(pika.ConnectionParameters('localhost',5672,'/',creds))
+            self.connection = pika.BlockingConnection(pika.ConnectionParameters('localhost',5672,'vhost',creds))
             self.channel = self.connection.channel()
             result = self.channel.queue_declare(queue='clientCallback', exclusive=True)
             self.callback_queue = result.method.queue
@@ -40,7 +40,7 @@ class theClient(object):
             self.corr_id = str(uuid.uuid4())
             self.channel.basic_publish(exchange='testExchange', routing_key='rpc_queue', properties=pika.BasicProperties(reply_to=self.callback_queue, correlation_id=self.corr_id),
             body = json.dumps({
-                'type' : 'signup',
+                'type' : 'login',
                 'email' : 'bMAIL',
                 'password' : 'PASSWORD'
                 }))

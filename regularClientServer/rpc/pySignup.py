@@ -10,7 +10,7 @@ jwt_obj = JWT()
 
 config = {
     'user' : 'admin',
-    'password' : 'catdog123',
+    'password' : 'adminIT490Ubuntu!',
     'host' : 'localhost',
     'database' : 'IT490'
 }
@@ -18,30 +18,30 @@ db = mysql.connector.connect(**config)
 cursor = db.cursor(dictionary=True)
 
 def signup(email,password):
-    query = ("select email from Account where email=%(email)s")
+    query = ("select account_email from Account where account_email=%(email)s")
     cursor.execute(query,{'email':email}) 
     result = cursor.fetchall()
-    print("Select statement: ",result)
-    
+
     if len(result) != 0:
-        print('RETURN: Email Already Registered')
+
+        db.close()
         return {'success':False, 'message':'Email Already Registered'}
-		#global theReturn
-        #theReturn = "Email Already Registered"
+
     else:
         try:
+
             salt = str(uuid.uuid4())
             password += salt
             hashed = SHA512.new(str(password).encode('utf-8'))
             hashed = hashed.hexdigest()
-            query = ("INSERT INTO Account VALUES (%s,%s,%s)")
+            query = ("INSERT INTO Account (account_email, account_password , account_salt) VALUES (%s,%s,%s)")
             cursor.execute(query,(email,hashed,salt))
             cursor.fetchall()
             db.commit()
             token = jwt_obj.getToken(email)
+            db.close()
             return {'success':True,'message':token}
-			#print('RETURN: User Registered Successfully',token)
-            #theReturn = "Registered Successfully"
+
         except mysql.connector.Error as error:
             print("Error: ",error)
             return {'success':False,'message':'Could Not Create Account'}

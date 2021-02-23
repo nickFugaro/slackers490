@@ -5,12 +5,13 @@ import simplejson as json
 import datetime
 import uuid
 from pyJWT import JWT
+from pyLogger import log
+#from auth import login, signup
 from pyLogin import login
 from pySignup import signup
-from pyLogger import log
 
 creds = pika.PlainCredentials('test','test')
-connection = pika.BlockingConnection(pika.ConnectionParameters('localhost',5672,'/',creds))
+connection = pika.BlockingConnection(pika.ConnectionParameters('localhost',5672,'vhost',creds))
 channel = connection.channel()
 channel.queue_declare(queue='rpc_queue')
 channel.queue_bind(exchange='testExchange', queue='rpc_queue')

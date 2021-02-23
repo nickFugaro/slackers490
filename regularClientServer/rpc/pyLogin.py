@@ -9,7 +9,7 @@ jwt_obj = JWT()
 
 config = {
     'user' : 'admin',
-    'password' : 'catdog123',
+    'password' : 'adminIT490Ubuntu!',
     'host' : 'localhost',
     'database' : 'IT490'
 }
@@ -18,29 +18,25 @@ cursor = db.cursor(dictionary=True)
 
 def login(email,password):
 
-    query = ("select salt from Account where email=%(email)s")
+    query = ("select account_salt from Account where account_email=%(email)s")
     cursor.execute(query,{'email':email})
     result = cursor.fetchall()
-    
+
     if len(result) != 0:
-        
-        salt = result[0].get('salt')
+
+        salt = result[0].get('account_salt')
         passHash = SHA512.new(str(password+salt).encode('utf-8'))
-        query = ("select email from Account where password=%(passHash)s")
+        query = ("select account_email from Account where account_password=%(passHash)s")
         cursor.execute(query,{'passHash':passHash.hexdigest()})
         result = cursor.fetchall()
 
-        if len(result) > 0 and email == result[0].get('email'):
+        if len(result) > 0 and email == result[0].get('account_email'):
+
             token = jwt_obj.getToken(email)
             return {'success':True,'message':token}
-			#print('LOGIN SUCCESSFUL/n',token)
-            #global theReturn
-            #theReturn = "Login Successful!"
+
         else:
             return {'success':False, 'message':'Wrong Password, Please Try Again'}
-			#print('LOGIN UNSUCCESSFUL')
-            #theReturn = "Login Unsuccessful!"
-        
-    else:        
+
+    else:
         return {'success':False, 'message':'Could Not Find Account, Please SignUp'}
-		#theReturn = "Could Not Find Account"
