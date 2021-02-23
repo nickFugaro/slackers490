@@ -47,8 +47,8 @@ def login():
 
 @app.route('/login-signup.html/login', methods=['POST'])
 def loginaction():
-    email = request.form.get('email')
-    password = request.form.get('password')
+    email = request.form.get('emaillogin')
+    password = request.form.get('passwordlogin')
     print("Email:" + str(email))
     print(password)
     return redirect("/", code=302)
