@@ -2,21 +2,21 @@
 <html>
   <style>
     h1 {
-    color: white;
-    text-align: center;
-    background: #343840;
-    border-radius: 10px;
-  }
-  body {
-    background-image: url("https://i.pinimg.com/originals/80/9b/43/809b43102a7b4bcb18ad66cf48886579.jpg");
-    background-color: #cccccc;
-  }
+      color: white;
+      text-align: center;
+      background: #343840;
+      border-radius: 10px;
+    }
+    body {
+      background-image: url("https://i.pinimg.com/originals/80/9b/43/809b43102a7b4bcb18ad66cf48886579.jpg");
+      background-color: #cccccc;
+    }
   </style>
 
   <head lang="en">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Quiz</title>
+    <title>Star Wars</title>
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
@@ -29,7 +29,11 @@
   <body>
     <div class="container">
       <h1>Star Wars</h1>
-      <a href="login-signup.html"><button type="button" class="btn btn-dark float-right">Login</button></a>
+      <a href="login-signup.html"
+        ><button type="button" class="btn btn-dark float-right">
+          Login
+        </button></a
+      >
       <center>
         <a href="index.html"
           ><button type="button" class="btn btn-dark">Home</button></a
@@ -51,80 +55,43 @@
         >
       </center>
     </div>
-    <br>
-    <br>
+    <br />
+    <br />
     <center>
-    <div class= "container text-white bg-dark ">
-    <div class="wrapper" id="results">
-      <div id="quiz">
-        <h1 id="head">Question</h1>
-        <h3 id="details"></h3>
-        <div id="word"></div>
-        <div id="hint"></div>
-        <div id="options" class = "h3">
-          OPTIONS:
-
-          <div class="option">
-            <button
-              type="button"
-              class="btn text-light h4"
-              onclick="checkAnswer()"
-              id="option1"
-            ></button>
+      <div>
+        <div class="container jumbotron jumbotron-fluid bg-dark">
+          <div class="text-white">
+            <b>Q. Question 1?</b>
           </div>
-
-          <div class="option">
-            <button
-              type="button"
-              class="btn text-light h4"
-              onclick="checkAnswer()"
-              id="option2"
-            ></button>
-          </div>
-
-          <div class="option">
-            <button
-              type="button"
-              class="btn text-light h4"
-              onclick="checkAnswer()"
-              id="option3"
-            ></button>
-          </div>
-
-          <div class="option">
-            <button
-              type="button"
-              class="btn text-light h4"
-              onclick="checkAnswer()"
-              id="option4"
-            ></button>
+          <br />
+          <br />
+          <div id="options">
+            <label class="text-white"
+              >Option 1
+              <input type="radio" name="radio" />
+              <span class="checkmark"></span>
+            </label>
+            <br />
+            <label class="text-white"
+              >Option 2 <input type="radio" name="radio" />
+              <span class="checkmark"></span>
+            </label>
+            <br />
+            <label class="text-white"
+              >Option 3 <input type="radio" name="radio" />
+              <span class="checkmark"></span>
+            </label>
+            <br />
+            <label class="text-white"
+              >Option 4 <input type="radio" name="radio" />
+              <span class="checkmark"></span>
+            </label>
           </div>
         </div>
       </div>
-        <div class="jumbotron text-white bg-dark mb-3 w-75">
-          <h1 class="display-4">Test your star wars knowledge, lets!</h1>
-          <br />
-          <a id="ready" onclick="printQuestion()"
-            ><button
-              id="ready"
-              class="btn btn-danger"
-              type="button"
-              onclick="startButton()"
-            >
-              START
-            </button></a
-          >
+      <div class="container bg-dark">
+          <button class="btn btn-danger float-right">Submit</button>
         </div>
-    </div>
-    <div>
     </center>
-
-    <a id="restart" href="index.html"
-      ><button id="restart" type="button" class="btn btn-danger" class="restart">
-        RESTART GAME
-      </button></a
-    >
-
-    <script type="text/javascript" src="javascript/main.js"></script>
   </body>
 </html>
