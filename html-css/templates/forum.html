@@ -8,7 +8,9 @@
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/forum.css') }}"
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/forum.css') }}"
     />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -61,7 +63,7 @@
               <!-- Inner sidebar header -->
               <div class="inner-sidebar-header justify-content-center">
                 <button
-                  class="btn btn-primary has-icon btn-block"
+                  class="btn btn-danger has-icon btn-block"
                   type="button"
                   data-toggle="modal"
                   data-target="#threadModal"
@@ -102,12 +104,20 @@
                           class="simplebar-content-wrapper"
                           style="height: 100%; overflow: hidden scroll"
                         >
-                          <div class="simplebar-content" style="padding: 16px">
+                          <div class="simplebar-content" style="padding: 16px" id = "categories">
                             <nav class="nav nav-pills nav-gap-y-1 flex-column">
                               <a
-                                href="javascript:void(0)"
-                                class="nav-link nav-link-faded has-icon active"
+                                class="nav-link nav-link-faded has-icon active my-1"
                                 >All Threads</a
+                              >
+                              <a
+                                class="nav-link nav-link-faded has-icon my-1"
+                                >Lores</a
+                              >
+                              <a
+                                href=""
+                                class="nav-link nav-link-faded has-icon my-1"
+                                >Events</a
                               >
                             </nav>
                           </div>
@@ -151,15 +161,6 @@
             <div class="inner-main">
               <!-- Inner main header -->
               <div class="inner-main-header">
-                <a
-                  class="nav-link nav-icon rounded-circle nav-link-faded mr-3 d-md-none"
-                  href="#"
-                  data-toggle="inner-sidebar"
-                  ><i class="material-icons">arrow_forward_ios</i></a
-                >
-                <select class="custom-select custom-select-sm w-auto mr-1">
-                  <option selected="">Latest</option>
-                </select>
                 <span class="input-icon input-icon-sm ml-auto w-auto">
                   <input
                     type="text"
@@ -183,12 +184,7 @@
                         href="#"
                         data-toggle="collapse"
                         data-target=".forum-content"
-                        ><img
-                          src="https://bootdey.com/img/Content/avatar/avatar1.png"
-                          class="mr-3 rounded-circle"
-                          width="50"
-                          alt="User"
-                      /></a>
+                      ></a>
                       <div class="media-body">
                         <h6>
                           <a
@@ -207,229 +203,6 @@
                           <a href="javascript:void(0)">drewdan</a> replied
                           <span class="text-secondary font-weight-bold"
                             >13 minutes ago</span
-                          >
-                        </p>
-                      </div>
-                      
-                    </div>
-                  </div>
-                </div>
-                <div class="card mb-2">
-                  <div class="card-body p-2 p-sm-3">
-                    <div class="media forum-item">
-                      <a
-                        href="#"
-                        data-toggle="collapse"
-                        data-target=".forum-content"
-                        ><img
-                          src="https://bootdey.com/img/Content/avatar/avatar2.png"
-                          class="mr-3 rounded-circle"
-                          width="50"
-                          alt="User"
-                      /></a>
-                      <div class="media-body">
-                        <h6>
-                          <a
-                            href="#"
-                            data-toggle="collapse"
-                            data-target=".forum-content"
-                            class="text-body"
-                            >Laravel 7 database backup</a
-                          >
-                        </h6>
-                        <p class="text-secondary">
-                          lorem ipsum dolor sit amet lorem ipsum dolor sit amet
-                          lorem ipsum dolor sit amet
-                        </p>
-                        <p class="text-muted">
-                          <a href="javascript:void(0)">jlrdw</a> replied
-                          <span class="text-secondary font-weight-bold"
-                            >3 hours ago</span
-                          >
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="card mb-2">
-                  <div class="card-body p-2 p-sm-3">
-                    <div class="media forum-item">
-                      <a
-                        href="#"
-                        data-toggle="collapse"
-                        data-target=".forum-content"
-                        ><img
-                          src="https://bootdey.com/img/Content/avatar/avatar3.png"
-                          class="mr-3 rounded-circle"
-                          width="50"
-                          alt="User"
-                      /></a>
-                      <div class="media-body">
-                        <h6>
-                          <a
-                            href="#"
-                            data-toggle="collapse"
-                            data-target=".forum-content"
-                            class="text-body"
-                            >Http client post raw content</a
-                          >
-                        </h6>
-                        <p class="text-secondary">
-                          lorem ipsum dolor sit amet lorem ipsum dolor sit amet
-                          lorem ipsum dolor sit amet
-                        </p>
-                        <p class="text-muted">
-                          <a href="javascript:void(0)">ciungulete</a> replied
-                          <span class="text-secondary font-weight-bold"
-                            >7 hours ago</span
-                          >
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="card mb-2">
-                  <div class="card-body p-2 p-sm-3">
-                    <div class="media forum-item">
-                      <a
-                        href="#"
-                        data-toggle="collapse"
-                        data-target=".forum-content"
-                        ><img
-                          src="https://bootdey.com/img/Content/avatar/avatar4.png"
-                          class="mr-3 rounded-circle"
-                          width="50"
-                          alt="User"
-                      /></a>
-                      <div class="media-body">
-                        <h6>
-                          <a
-                            href="#"
-                            data-toggle="collapse"
-                            data-target=".forum-content"
-                            class="text-body"
-                            >Top rated filter not working</a
-                          >
-                        </h6>
-                        <p class="text-secondary">
-                          lorem ipsum dolor sit amet lorem ipsum dolor sit amet
-                          lorem ipsum dolor sit amet
-                        </p>
-                        <p class="text-muted">
-                          <a href="javascript:void(0)">bugsysha</a> replied
-                          <span class="text-secondary font-weight-bold"
-                            >11 hours ago</span
-                          >
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="card mb-2">
-                  <div class="card-body p-2 p-sm-3">
-                    <div class="media forum-item">
-                      <a
-                        href="#"
-                        data-toggle="collapse"
-                        data-target=".forum-content"
-                        ><img
-                          src="https://bootdey.com/img/Content/avatar/avatar5.png"
-                          class="mr-3 rounded-circle"
-                          width="50"
-                          alt="User"
-                      /></a>
-                      <div class="media-body">
-                        <h6>
-                          <a
-                            href="#"
-                            data-toggle="collapse"
-                            data-target=".forum-content"
-                            class="text-body"
-                            >Create a delimiter field</a
-                          >
-                        </h6>
-                        <p class="text-secondary">
-                          lorem ipsum dolor sit amet lorem ipsum dolor sit amet
-                          lorem ipsum dolor sit amet
-                        </p>
-                        <p class="text-muted">
-                          <a href="javascript:void(0)">jackalds</a> replied
-                          <span class="text-secondary font-weight-bold"
-                            >12 hours ago</span
-                          >
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="card mb-2">
-                  <div class="card-body p-2 p-sm-3">
-                    <div class="media forum-item">
-                      <a
-                        href="#"
-                        data-toggle="collapse"
-                        data-target=".forum-content"
-                        ><img
-                          src="https://bootdey.com/img/Content/avatar/avatar1.png"
-                          class="mr-3 rounded-circle"
-                          width="50"
-                          alt="User"
-                      /></a>
-                      <div class="media-body">
-                        <h6>
-                          <a
-                            href="#"
-                            data-toggle="collapse"
-                            data-target=".forum-content"
-                            class="text-body"
-                            >One model 4 tables</a
-                          >
-                        </h6>
-                        <p class="text-secondary">
-                          lorem ipsum dolor sit amet lorem ipsum dolor sit amet
-                          lorem ipsum dolor sit amet
-                        </p>
-                        <p class="text-muted">
-                          <a href="javascript:void(0)">bugsysha</a> replied
-                          <span class="text-secondary font-weight-bold"
-                            >14 hours ago</span
-                          >
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="card mb-2">
-                  <div class="card-body p-2 p-sm-3">
-                    <div class="media forum-item">
-                      <a
-                        href="#"
-                        data-toggle="collapse"
-                        data-target=".forum-content"
-                        ><img
-                          src="https://bootdey.com/img/Content/avatar/avatar1.png"
-                          class="mr-3 rounded-circle"
-                          width="50"
-                          alt="User"
-                      /></a>
-                      <div class="media-body">
-                        <h6>
-                          <a
-                            href="#"
-                            data-toggle="collapse"
-                            data-target=".forum-content"
-                            class="text-body"
-                            >Auth attempt returns false</a
-                          >
-                        </h6>
-                        <p class="text-secondary">
-                          lorem ipsum dolor sit amet lorem ipsum dolor sit amet
-                          lorem ipsum dolor sit amet
-                        </p>
-                        <p class="text-muted">
-                          <a href="javascript:void(0)">michaeloravec</a> replied
-                          <span class="text-secondary font-weight-bold"
-                            >18 hours ago</span
                           >
                         </p>
                       </div>
@@ -474,17 +247,6 @@
                 <div class="card mb-2">
                   <div class="card-body">
                     <div class="media forum-item">
-                      <a href="javascript:void(0)" class="card-link">
-                        <img
-                          src="https://bootdey.com/img/Content/avatar/avatar1.png"
-                          class="rounded-circle"
-                          width="50"
-                          alt="User"
-                        />
-                        <small class="d-block text-center text-muted"
-                          >Newbie</small
-                        >
-                      </a>
                       <div class="media-body ml-3">
                         <a href="javascript:void(0)" class="text-secondary"
                           >Mokrani</a
@@ -505,39 +267,51 @@
                     </div>
                   </div>
                 </div>
+                <div class="container">
+                  <div class="card mb-3">
+                    <div class="card-body">
+                      <div class="media forum-item">
+                        <div class="media-body ml-3">
+                          <a href="javascript:void(0)" class="text-secondary"
+                            >drewdan</a
+                          >
+                          <small class="text-muted ml-2">1 hour ago</small>
+                          <div class="mt-3 font-size-sm">
+                            <p>
+                              What exactly doesn't work with your ajax calls?
+                            </p>
+                            <p>
+                              Also, WebSockets are a great solution for realtime
+                              data on a dashboard. Laravel offers this out of
+                              the box using broadcasting
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <div class="card mb-2">
                   <div class="card-body">
                     <div class="media forum-item">
-                      <a href="javascript:void(0)" class="card-link">
-                        <img
-                          src="https://bootdey.com/img/Content/avatar/avatar2.png"
-                          class="rounded-circle"
-                          width="50"
-                          alt="User"
-                        />
-                        <small class="d-block text-center text-muted"
-                          >Pro</small
-                        >
-                      </a>
                       <div class="media-body ml-3">
-                        <a href="javascript:void(0)" class="text-secondary"
-                          >drewdan</a
-                        >
-                        <small class="text-muted ml-2">1 hour ago</small>
-                        <div class="mt-3 font-size-sm">
-                          <p>What exactly doesn't work with your ajax calls?</p>
-                          <p>
-                            Also, WebSockets are a great solution for realtime
-                            data on a dashboard. Laravel offers this out of the
-                            box using broadcasting
-                          </p>
+                        <div class="form-group">
+                          <label for="commenting"></label>
+                          <textarea
+                            class="form-control"
+                            id="commenting"
+                            rows="3"
+                            placeholder="Start adding to the discussion"
+                          >
+                          </textarea>
+                          <button
+                            type="button"
+                            id="commentSubmitting"
+                            class="btn btn-danger float-right my-1"
+                          >
+                            Submit
+                          </button>
                         </div>
-                        <button class="btn btn-xs text-muted has-icon">
-                          <i class="fa fa-heart" aria-hidden="true"></i>1
-                        </button>
-                        <a href="javascript:void(0)" class="text-muted small"
-                          >Reply</a
-                        >
                       </div>
                     </div>
                   </div>
@@ -563,7 +337,7 @@
               <div class="modal-content">
                 <form>
                   <div
-                    class="modal-header d-flex align-items-center bg-primary text-white"
+                    class="modal-header d-flex align-items-left bg-dark text-white"
                   >
                     <h6 class="modal-title mb-0" id="threadModalLabel">
                       New Discussion
@@ -579,7 +353,6 @@
                   </div>
                   <div class="modal-body">
                     <div class="form-group">
-                      <label for="threadTitle">Title</label>
                       <input
                         type="text"
                         class="form-control"
@@ -588,26 +361,24 @@
                         autofocus=""
                       />
                     </div>
-                    <textarea
-                      class="form-control summernote"
-                      style="display: none"
-                    ></textarea>
-
-                    <div
-                      class="custom-file form-control-sm mt-3"
-                      style="max-width: 300px"
-                    >
+                    <div class="form-group">
                       <input
-                        type="file"
-                        class="custom-file-input"
-                        id="customFile"
-                        multiple=""
+                        type="text"
+                        class="form-control"
+                        id="threadDiscription"
+                        placeholder="Enter Discription"
+                        autofocus=""
                       />
-                      <label class="custom-file-label" for="customFile"
-                        >Attachment</label
-                      >
                     </div>
-                  </div>
+                    <div class="form-row align-items-center">
+                      <div class="col-auto my-1">
+                      <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+                      <option selected>Categories</option>
+                      <option value="lores">Lores</option>
+                      <option value="events">Events</option>
+                      </select>
+                    </div>
+                    <input class = "btn btn-light" type="file" class="form-control" id="customFile" />
                   <div class="modal-footer">
                     <button
                       type="button"
@@ -616,7 +387,7 @@
                     >
                       Cancel
                     </button>
-                    <button type="button" class="btn btn-primary">Post</button>
+                    <button type="Submit" class="btn btn-danger">Post</button>
                   </div>
                 </form>
               </div>
@@ -625,5 +396,14 @@
         </div>
       </div>
     </center>
+    <!-- Code to show 10 threads at a page-->
+    <script>
+      $(document).ready(function () {
+        $("#topics").DataTable({
+          responsive: true,
+          pageLength: 10,
+        });
+      });
+    </script>
   </body>
 </html>
