@@ -2,6 +2,7 @@ import flask
 import os
 import random
 import requests
+from flask import request, Response, redirect
 
 app = flask.Flask(__name__)
 
@@ -42,6 +43,27 @@ def login():
     return flask.render_template(
         "login-signup.html",
         )
+
+
+@app.route('/login-signup.html/login', methods=['POST'])
+def loginaction():
+    email = request.form.get('email')
+    password = request.form.get('password')
+    print("Email:" + str(email))
+    print(password)
+    return redirect("/", code=302)
+
+
+@app.route('/login-signup.html/signup', methods=['POST'])
+def signupaction():
+    name = request.form.get('name')
+    email = request.form.get('email')
+    password = request.form.get('password')
+    password2 = request.form.get('password2')
+    print("Email:" + str(email))
+    print(password)
+    return redirect("/", code=302)
+
 
 @app.route('/movies.html')
 def movies():
