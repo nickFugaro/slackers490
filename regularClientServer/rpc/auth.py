@@ -8,7 +8,7 @@ from pyJWT import JWT
 
 jwt_obj = JWT()
 
-def connectToDB():
+def connectDB():
 	config = {
 		'user' : 'admin',
 		'password' : 'adminIT490Ubuntu!',
@@ -16,18 +16,19 @@ def connectToDB():
 		'database' : 'IT490'
 	}
 	db = mysql.connector.connect(**config)
-	return db.cursor(dictionary=True)
+	return db
 
 	
 def login(email,password):
-	cursor = connectToDB()
+	db = connectDB()
+	cursor = db.cursor(dictionary=True)
 	query = ("select account_salt from Account where account_email=%(email)s")
 	cursor.execute(query,{'email':email})
 	result = cursor.fetchall()
 
 	if len(result) != 0:
 
-		salt = result[0].get('salt')
+		salt = result[0].get('account_salt')
 		passHash = SHA512.new(str(password+salt).encode('utf-8'))
 		query = ("select account_email from Account where account_password=%(passHash)s")
 		cursor.execute(query,{'passHash':passHash.hexdigest()})
@@ -36,26 +37,31 @@ def login(email,password):
 		if len(result) > 0 and email == result[0].get('account_email'):
 
 			token = jwt_obj.getToken(email)
+			cursor.close()
 			db.close()
 			return {'success':True,'message':token}
 
 		else:
+			cursor.close()
 			db.close()
 			return {'success':False, 'message':'Wrong Password, Please Try Again'}
 
 	else:
+		cursor.close()
 		db.close()
 		return {'success':False, 'message':'Could Not Find Account, Please SignUp'}
 
 
 def signup(email,password):
-	cursor = connectToDB()
+	db = connectDB()
+	cursor = db.cursor(dictionary=True)
 	query = ("select account_email from Account where account_email=%(email)s")
 	cursor.execute(query,{'email':email}) 
 	result = cursor.fetchall()
 
 	if len(result) != 0:
 
+		cursor.close()
 		db.close()
 		return {'success':False, 'message':'Email Already Registered'}
 
@@ -71,9 +77,12 @@ def signup(email,password):
 			cursor.fetchall()
 			db.commit()
 			token = jwt_obj.getToken(email)
-			db.close()
+			cursor.close()
+			db.close()			
 			return {'success':True,'message':token}
 
 		except mysql.connector.Error as error:
+			cursor.close()
+			db.close()
 			print("Error: ",error)
 			return {'success':False,'message':'Could Not Create Account'}

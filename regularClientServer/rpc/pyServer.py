@@ -6,9 +6,7 @@ import datetime
 import uuid
 from pyJWT import JWT
 from pyLogger import log
-#from auth import login, signup
-from pyLogin import login
-from pySignup import signup
+from auth import login, signup
 
 creds = pika.PlainCredentials('test','test')
 connection = pika.BlockingConnection(pika.ConnectionParameters('localhost',5672,'vhost',creds))
