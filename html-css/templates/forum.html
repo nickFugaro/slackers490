@@ -291,7 +291,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="card mb-2">
+                <form action="/forum.html/comment", method="post" class="card mb-2">
                   <div class="card-body">
                     <div class="media forum-item">
                       <div class="media-body ml-3">
@@ -299,13 +299,14 @@
                           <label for="commenting"></label>
                           <textarea
                             class="form-control"
-                            id="commenting"
+                            id="threadComment"
+                            name ="threadComment"
                             rows="3"
                             placeholder="Start adding to the discussion"
                           >
                           </textarea>
                           <button
-                            type="button"
+                            type="Submit"
                             id="commentSubmitting"
                             class="btn btn-danger float-right my-1"
                           >
@@ -315,7 +316,7 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </form>
               </div>
               <!-- /Forum Detail -->
 
@@ -335,7 +336,7 @@
           >
             <div class="modal-dialog modal-lg" role="document">
               <div class="modal-content">
-                <form>
+                <form action="/forum.html/discussion", method="post">
                   <div
                     class="modal-header d-flex align-items-left bg-dark text-white"
                   >
@@ -357,6 +358,7 @@
                         type="text"
                         class="form-control"
                         id="threadTitle"
+                        name="threadTitle"
                         placeholder="Enter title"
                         autofocus=""
                       />
@@ -366,13 +368,14 @@
                         type="text"
                         class="form-control"
                         id="threadDiscription"
+                        name="threadDiscription"
                         placeholder="Enter Discription"
                         autofocus=""
                       />
                     </div>
                     <div class="form-row align-items-center">
                       <div class="col-auto my-1">
-                      <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+                      <select class="custom-select mr-sm-2" id="threadCategory" name="threadCategory">
                       <option selected>Categories</option>
                       <option value="lores">Lores</option>
                       <option value="events">Events</option>

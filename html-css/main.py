@@ -32,6 +32,22 @@ def forum():
         "forum.html",
         )
 
+@app.route('/forum.html/discussion', methods=['POST'])
+def discussionaction():
+    topic = request.form.get('threadTitle')
+    discription = request.form.get('threadDiscription')
+    category = request.form.get('threadCategory')
+    print("Topic:" + str(topic))
+    print("Discription:" + str(discription))
+    print("Category:" + str(category))
+    return redirect("/forum.html", code=302)
+
+@app.route('/forum.html/comment', methods=['POST'])
+def commentaction():
+    comment = request.form.get('threadComment')
+    print("Comment:" + str(comment))
+    return redirect("/forum.html", code=302)
+
 @app.route('/about.html')
 def about():
     return flask.render_template(
