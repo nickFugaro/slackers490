@@ -24,8 +24,6 @@ class JWT:
 		try:
 			decodedToken = jwt.decode(token,self.secretKey,algorithm=self.algo)
 		except jwt.ExpiredSignatureError as error:
-			print("RETURN TOKEN EXPIRED")
-			return("TOKEN EXPIRED, Please Signin Again")
+			return{'success':False,'message':"TOKEN EXPIRED, Please Signin Again"}
 			   
-		print("RETURN: ",decodedToken.get('email'))
-		return(decodedToken.get('email'))
+		return {'success':True, 'email':decodedToken.get('email')}

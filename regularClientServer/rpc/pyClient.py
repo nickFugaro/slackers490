@@ -5,6 +5,10 @@ import simplejson as json
 import uuid
 import inspect
 from pySendLog import main
+
+#'email' : 'bMAIL',
+#'password' : 'PASSWORD'
+
 class theClient(object):
 
     def __init__(self):
@@ -34,16 +38,14 @@ class theClient(object):
             stack = str(they)
             main(file, stack)
 
-    def call(self):
+    def call(self,data):
         try:
             self.response = None
             self.corr_id = str(uuid.uuid4())
             self.channel.basic_publish(exchange='testExchange', routing_key='rpc_queue', properties=pika.BasicProperties(reply_to=self.callback_queue, correlation_id=self.corr_id),
-            body = json.dumps({
-                'type' : 'login',
-                'email' : 'bMAIL',
-                'password' : 'PASSWORD'
-                }))
+            
+            body = json.dumps(data))
+            
             while self.response is None:
                 self.connection.process_data_events()
             return self.response
@@ -57,5 +59,24 @@ class theClient(object):
 message = theClient()
 
 print("Sending")
-response = message.call()
+
+loginInfo = {
+    'type' : 'login',
+    'email' : 'bMAIL',
+    'password' : 'PASSWORD'
+}
+
+print('LogingIn')
+response = message.call(loginInfo)
+token = response.get('message')
+
+print('getPosts')
+getPosts = {
+    'type' : 'getTopics',
+    'Authorization' : token,
+    'cat_id' : 1
+}
+
+response = message.call(getPosts)
+
 print(response.get('success'), response.get('message'))
