@@ -21,6 +21,7 @@
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/quiz.css') }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -57,41 +58,25 @@
     </div>
     <br />
     <br />
-    <center>
-      <div>
-        <div class="container jumbotron jumbotron-fluid bg-dark">
-          <div class="text-white">
-            <b>Q. Question 1?</b>
-          </div>
-          <br />
-          <br />
-          <div id="options">
-            <label class="text-white"
-              >Option 1
-              <input type="radio" name="radio" />
-              <span class="checkmark"></span>
-            </label>
-            <br />
-            <label class="text-white"
-              >Option 2 <input type="radio" name="radio" />
-              <span class="checkmark"></span>
-            </label>
-            <br />
-            <label class="text-white"
-              >Option 3 <input type="radio" name="radio" />
-              <span class="checkmark"></span>
-            </label>
-            <br />
-            <label class="text-white"
-              >Option 4 <input type="radio" name="radio" />
-              <span class="checkmark"></span>
-            </label>
-          </div>
+    <div id="container">
+        <div id="start">Start Quiz!</div>
+        <div id="quiz" style="display: none">
+            <div id="question"></div>
+            <div id="qImg"></div>
+            <div id="choices">
+                <div class="choice" id="A" onclick="checkAnswer('A')"></div>
+                <div class="choice" id="B" onclick="checkAnswer('B')"></div>
+                <div class="choice" id="C" onclick="checkAnswer('C')"></div>
+            </div>
+            <div id="timer">
+                <div id="counter"></div>
+                <div id="btimeGauge"></div>
+                <div id="timeGauge"></div>
+            </div>
+            <div id="progress"></div>
         </div>
-      </div>
-      <div class="container bg-dark">
-          <button class="btn btn-danger float-right">Submit</button>
-        </div>
-    </center>
+        <div id="scoreContainer" style="display: none"></div>
+    </div>
+    <script src="{{url_for('static', filename='javascript/quiz.js')}}"></script>
   </body>
 </html>
