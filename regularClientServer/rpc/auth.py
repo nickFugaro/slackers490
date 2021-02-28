@@ -5,8 +5,10 @@ import mysql.connector
 from Crypto.Hash import SHA512
 import uuid
 from pyJWT import JWT
+from pyClient import theClient
 
 jwt_obj = JWT()
+DB = theClient('DB')
 
 def connectDB():
 	config = {
@@ -20,35 +22,35 @@ def connectDB():
 
 	
 def login(email,password):
-	db = connectDB()
-	cursor = db.cursor(dictionary=True)
-	query = ("select account_salt from Account where account_email=%(email)s")
-	cursor.execute(query,{'email':email})
-	result = cursor.fetchall()
+	
+	result = DB.call({
+		'query' : "select account_salt from Account where account_email=%(email)s",
+		'params' : {'email':email}
+	})
+	
+	result = result.get('message')
 
 	if len(result) != 0:
 
 		salt = result[0].get('account_salt')
 		passHash = SHA512.new(str(password+salt).encode('utf-8'))
-		query = ("select account_email from Account where account_password=%(passHash)s")
-		cursor.execute(query,{'passHash':passHash.hexdigest()})
-		result = cursor.fetchall()
+  
+		result = DB.call({
+			'query' : "select account_email from Account where account_password=%(passHash)s",
+			'params': {'passHash':passHash.hexdigest()}
+		})
+  
+		result = result.get('message')
 
 		if len(result) > 0 and email == result[0].get('account_email'):
 
 			token = jwt_obj.getToken(email)
-			cursor.close()
-			db.close()
 			return {'success':True,'message':token}
 
 		else:
-			cursor.close()
-			db.close()
 			return {'success':False, 'message':'Wrong Password, Please Try Again'}
 
 	else:
-		cursor.close()
-		db.close()
 		return {'success':False, 'message':'Could Not Find Account, Please SignUp'}
 
 

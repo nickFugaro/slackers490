@@ -16,10 +16,7 @@ channel.queue_declare(queue='rpc_queue')
 channel.queue_bind(exchange='testExchange', queue='rpc_queue')
 
 def getMethod(methodName,data):
-    return{
-            #This is where all the functions get routed from
-            'log': lambda data : log(datetime.datetime.now(),data.get('vm_name'),data.get('function'),data.get('message')),
-            
+    return{            
             #REGION Auth Functions
             'signup': lambda data : signup(data.get('email'),data.get('password')),
             'login' : lambda data : login(data.get('email'), data.get('password')),
@@ -57,17 +54,23 @@ def reciever(ch, method, props, body):
     if isValid.get('success'):
         data['email'] = isValid.get('email')
         func = getMethod(data.get('type'),data)
-        rtn = json.JSONEncoder().encode(func)    
+        response = func
+        print(response)
+        rtn = json.JSONEncoder().encode(response)    
     else:
         rtn = json.JSONEncoder().encode({'success':False,'message':'Invalid Token'})
     
     
-    ch.basic_publish(exchange='',
-                     routing_key=props.reply_to,
-                     properties=pika.BasicProperties(correlation_id = \
-                                                         props.correlation_id),
-                     body=rtn)
+    ch.basic_publish(
+        exchange='',
+        routing_key=props.reply_to,
+        properties=pika.BasicProperties(correlation_id =\
+            props.correlation_id),
+        body=rtn
+    )
     ch.basic_ack(delivery_tag=method.delivery_tag)
+
+
 channel.basic_qos(prefetch_count=1)
 channel.basic_consume(queue='rpc_queue', on_message_callback=reciever)
 

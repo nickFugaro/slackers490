@@ -7,4 +7,4 @@ def log(date,vm_name,func,msg):
     data = date.strftime("%m/%d/%Y, %H:%M:%S")+' | '+vm_name+' | '+func+' | '+msg+'\n'
     file_log.write(data)
     file_log.close()
-    return {'sucess':True, 'message':"Error Logged"}
+    return {'success':True, 'message':"Error Logged"}
