@@ -5,7 +5,6 @@ import simplejson as json
 import datetime
 import uuid
 from pyJWT import JWT
-from pyLogger import log
 from auth import login, signup
 import forums
 import quiz
@@ -13,8 +12,8 @@ import quiz
 creds = pika.PlainCredentials('test','test')
 connection = pika.BlockingConnection(pika.ConnectionParameters('localhost',5672,'vhost',creds))
 channel = connection.channel()
-channel.queue_declare(queue='rpc_queue')
-channel.queue_bind(exchange='testExchange', queue='rpc_queue')
+channel.queue_declare(queue='be_queue')
+channel.queue_bind(exchange='beExchange', queue='be_queue')
 
 def getMethod(methodName,data):
     return{            
@@ -77,7 +76,7 @@ def reciever(ch, method, props, body):
 
 
 channel.basic_qos(prefetch_count=1)
-channel.basic_consume(queue='rpc_queue', on_message_callback=reciever)
+channel.basic_consume(queue='be_queue', on_message_callback=reciever)
 
 print('Waiting For Messages')
 channel.start_consuming()

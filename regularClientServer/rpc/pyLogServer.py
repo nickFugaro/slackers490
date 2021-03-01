@@ -21,19 +21,19 @@ def getMethod(methodName,data):
 
 def reciever(ch, method, props, body):
     data = json.loads(body.decode('utf-8'))
-    dog = data.get('type')
-    print(dog)
     func = getMethod(data.get('type'),data)
     rtn = json.JSONEncoder().encode(func)
     
-    ch.basic_publish(exchange='',
-                     routing_key=props.reply_to,
-                     properties=pika.BasicProperties(correlation_id = \
-                                                         props.correlation_id),
-                     body=rtn)
+    ch.basic_publish(
+        exchange='',
+        routing_key=props.reply_to,
+        properties=pika.BasicProperties(correlation_id = props.correlation_id),
+        body=rtn
+    )
+    
     ch.basic_ack(delivery_tag=method.delivery_tag)
 channel.basic_qos(prefetch_count=1)
 channel.basic_consume(queue='log_queue', on_message_callback=reciever)
 
-print('Waiting For Messages')
+print('Waiting For Errors to Log')
 channel.start_consuming()

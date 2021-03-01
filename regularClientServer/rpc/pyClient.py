@@ -16,26 +16,27 @@ class theClient:
 				'API' : 'apiExchange',
 				'DB' : 'dbExchange',
 				'LOG' : 'logExchange',
-				'BE' : 'testExchange'
+				'BE' : 'beExchange'
 			}
 			
 			getRoutingKey = {
 				'API': 'api_queue',
 				'DB' : 'db_queue',
 				'LOG' : 'log_queue',
-				'BE' : 'rpc_queue'
+				'BE' : 'be_queue'
 			}
 			
 			self.exchange = getExchange.get(connectionType)
 			self.routing_key = getRoutingKey.get(connectionType)
 			creds = pika.PlainCredentials('test','test')
-			print('Establishing Connection To Server')
+			print('Establishing Connection To '+connectionType+' Server')
 			self.connection = pika.BlockingConnection(pika.ConnectionParameters('localhost',5672,'vhost',creds))
 			self.channel = self.connection.channel()
 			result = self.channel.queue_declare(queue='', exclusive=True)
 			self.callback_queue = result.method.queue
 			self.channel.basic_consume(queue=self.callback_queue, on_message_callback=self.on_response, auto_ack=True)
-		except:
+		except pika.exceptions.AMQPChannelError as error:
+			print('ERROR HAS OCCURED IN __INIT__')
 			file = __file__
 			frame = inspect.currentframe()
 			they = inspect.getframeinfo(frame).function
@@ -47,6 +48,7 @@ class theClient:
 				if self.corr_id == props.correlation_id:
 					self.response = json.loads(body.decode('utf-8'))
 		except:
+			print("ERROR HAS OCCURED IN ON_RESPONSE")
 			file = __file__
 			frame = inspect.currentframe()
 			they = inspect.getframeinfo(frame).function
@@ -63,16 +65,10 @@ class theClient:
 			while self.response is None:
 				self.connection.process_data_events()
 			return self.response
-		except:
+		except pika.exceptions.AMQPChannelError as error:
+			print("ERROR HAS OCCURED IN CALL")
 			file = __file__
 			frame = inspect.currentframe()
 			they = inspect.getframeinfo(frame).function
 			stack = str(they)
 			main(file, stack)
-			
-""" def decider(input,info):
-	message = theClient(input)
-	
-	response = message.call(info)
-	print("Sending to FE")
-	return response """

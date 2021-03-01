@@ -64,12 +64,12 @@ def reciever(ch, method, props, body):
     except mysql.connector.Error as error:
         print(error)
         db.rollback()
-        res = logError.call({'vm_name':'VM_DB','function':'pyServerDB.py/reciever','message':error})
+        res = logError.call({'type':'log','vm_name':'VM_DB','function':'pyServerDB.py/reciever','message':str(error)})
         if res.get('success') == True:
             rtn = {'success': False, 'message':'Error Has Occured Within DB, check logs for more details'}
         else:
             rtn = {'success': False, 'message':'Error Has Occured Within DB, Error could not be recorded in log'}
-
+        
     rtn = json.JSONEncoder().encode(rtn)
 
     ch.basic_publish(
