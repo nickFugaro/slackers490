@@ -8,6 +8,7 @@ from pyJWT import JWT
 from pyLogger import log
 from auth import login, signup
 import forums
+import quiz
 
 creds = pika.PlainCredentials('test','test')
 connection = pika.BlockingConnection(pika.ConnectionParameters('localhost',5672,'vhost',creds))
@@ -27,7 +28,12 @@ def getMethod(methodName,data):
             'getTopics' : lambda data : forums.getTopics(data.get('cat_id')),
             'addTopic' : lambda data : forums.addTopic(data.get('subject'), data.get('cat_id'), data.get('email')),
             'getPosts' : lambda data : forums.getPosts(data.get('id')),
-            'addPost' : lambda data : forums.addPost(data.get('id'),data.get('content'),data.get('email'))
+            'addPost' : lambda data : forums.addPost(data.get('id'),data.get('content'),data.get('email')),
+            
+            #REGION Quiz Functions
+            'getQuestion' : lambda data : quiz.getQuestion(),
+            'checkAnswer' : lambda data : quiz.checkAnswer(data.get('quiz_id'),data.get('userSelection')),
+            'saveAttempt' : lambda data : quiz.saveAttempt(data.get('email'),data.get('quiz_id'),data.get('userSelection'))
         
     }.get(methodName)(data)
 
@@ -55,7 +61,6 @@ def reciever(ch, method, props, body):
         data['email'] = isValid.get('email')
         func = getMethod(data.get('type'),data)
         response = func
-        print(response)
         rtn = json.JSONEncoder().encode(response)    
     else:
         rtn = json.JSONEncoder().encode({'success':False,'message':'Invalid Token'})

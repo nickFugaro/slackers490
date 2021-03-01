@@ -76,13 +76,3 @@ class theClient:
 	response = message.call(info)
 	print("Sending to FE")
 	return response """
-
-backend = theClient('BE')
-
-response = backend.call({
-	'type' : 'login',
-	'email' : 'bMAIL',
-	'password' : 'PASSWORD'
-})
-
-print(response)

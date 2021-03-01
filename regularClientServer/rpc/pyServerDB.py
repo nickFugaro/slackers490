@@ -44,7 +44,10 @@ def reciever(ch, method, props, body):
         db = connectDB()
         cursor = db.cursor(dictionary=True)
         
-        cursor.execute(query,params)
+        if params != 'NA':
+            cursor.execute(query,params)
+        else:
+            cursor.execute(query)
         
         if 'insert' in query or 'INSERT' in query:
             db.commit()
@@ -56,6 +59,7 @@ def reciever(ch, method, props, body):
         cursor.close()
             
         rtn = {'success' : True, 'message' : result}
+        
         
     except mysql.connector.Error as error:
         print(error)
