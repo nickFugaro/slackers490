@@ -1,250 +1,200 @@
-mysql  Ver 8.0.23-0ubuntu0.20.04.1 for Linux on x86_64 ((Ubuntu))
-Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+-- MySQL dump 10.13  Distrib 8.0.23, for Linux (x86_64)
+--
+-- Host: localhost    Database: IT490
+-- ------------------------------------------------------
+-- Server version	8.0.23-0ubuntu0.20.04.1
 
-Oracle is a registered trademark of Oracle Corporation and/or its
-affiliates. Other names may be trademarks of their respective
-owners.
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-Usage: mysql [OPTIONS] [database]
-  -?, --help          Display this help and exit.
-  -I, --help          Synonym for -?
-  --auto-rehash       Enable automatic rehashing. One doesn't need to use
-                      'rehash' to get table and field completion, but startup
-                      and reconnecting may take a longer time. Disable with
-                      --disable-auto-rehash.
-                      (Defaults to on; use --skip-auto-rehash to disable.)
-  -A, --no-auto-rehash 
-                      No automatic rehashing. One has to use 'rehash' to get
-                      table and field completion. This gives a quicker start of
-                      mysql and disables rehashing on reconnect.
-  --auto-vertical-output 
-                      Automatically switch to vertical output mode if the
-                      result is wider than the terminal width.
-  -B, --batch         Don't use history file. Disable interactive behavior.
-                      (Enables --silent.)
-  --bind-address=name IP address to bind to.
-  --binary-as-hex     Print binary data as hex. Enabled by default for
-                      interactive terminals.
-  --character-sets-dir=name 
-                      Directory for character set files.
-  --column-type-info  Display column type information.
-  -c, --comments      Preserve comments. Send comments to the server. The
-                      default is --skip-comments (discard comments), enable
-                      with --comments.
-  -C, --compress      Use compression in server/client protocol.
-  -#, --debug[=#]     This is a non-debug version. Catch this and exit.
-  --debug-check       This is a non-debug version. Catch this and exit.
-  -T, --debug-info    This is a non-debug version. Catch this and exit.
-  -D, --database=name Database to use.
-  --default-character-set=name 
-                      Set the default character set.
-  --delimiter=name    Delimiter to be used.
-  --enable-cleartext-plugin 
-                      Enable/disable the clear text authentication plugin.
-  -e, --execute=name  Execute command and quit. (Disables --force and history
-                      file.)
-  -E, --vertical      Print the output of a query (rows) vertically.
-  -f, --force         Continue even if we get an SQL error.
-  --histignore=name   A colon-separated list of patterns to keep statements
-                      from getting logged into syslog and mysql history.
-  -G, --named-commands 
-                      Enable named commands. Named commands mean this program's
-                      internal commands; see mysql> help . When enabled, the
-                      named commands can be used from any line of the query,
-                      otherwise only from the first line, before an enter.
-                      Disable with --disable-named-commands. This option is
-                      disabled by default.
-  -i, --ignore-spaces Ignore space after function names.
-  --init-command=name SQL Command to execute when connecting to MySQL server.
-                      Will automatically be re-executed when reconnecting.
-  --local-infile      Enable/disable LOAD DATA LOCAL INFILE.
-  -b, --no-beep       Turn off beep on error.
-  -h, --host=name     Connect to host.
-  --dns-srv-name=name Connect to a DNS SRV resource
-  -H, --html          Produce HTML output.
-  -X, --xml           Produce XML output.
-  --line-numbers      Write line numbers for errors.
-                      (Defaults to on; use --skip-line-numbers to disable.)
-  -L, --skip-line-numbers 
-                      Don't write line number for errors.
-  -n, --unbuffered    Flush buffer after each query.
-  --column-names      Write column names in results.
-                      (Defaults to on; use --skip-column-names to disable.)
-  -N, --skip-column-names 
-                      Don't write column names in results.
-  --sigint-ignore     Ignore SIGINT (CTRL-C).
-  -o, --one-database  Ignore statements except those that occur while the
-                      default database is the one named at the command line.
-  --pager[=name]      Pager to use to display results. If you don't supply an
-                      option, the default pager is taken from your ENV variable
-                      PAGER. Valid pagers are less, more, cat [> filename],
-                      etc. See interactive help (\h) also. This option does not
-                      work in batch mode. Disable with --disable-pager. This
-                      option is disabled by default.
-  -p, --password[=name] 
-                      Password to use when connecting to server. If password is
-                      not given it's asked from the tty.
-  -P, --port=#        Port number to use for connection or 0 for default to, in
-                      order of preference, my.cnf, $MYSQL_TCP_PORT,
-                      /etc/services, built-in default (3306).
-  --prompt=name       Set the mysql prompt to this value.
-  --protocol=name     The protocol to use for connection (tcp, socket, pipe,
-                      memory).
-  -q, --quick         Don't cache result, print it row by row. This may slow
-                      down the server if the output is suspended. Doesn't use
-                      history file.
-  -r, --raw           Write fields without conversion. Used with --batch.
-  --reconnect         Reconnect if the connection is lost. Disable with
-                      --disable-reconnect. This option is enabled by default.
-                      (Defaults to on; use --skip-reconnect to disable.)
-  -s, --silent        Be more silent. Print results with a tab as separator,
-                      each row on new line.
-  -S, --socket=name   The socket file to use for connection.
-  --server-public-key-path=name 
-                      File path to the server public RSA key in PEM format.
-  --get-server-public-key 
-                      Get server public key
-  --ssl-mode=name     SSL connection mode.
-  --ssl-ca=name       CA file in PEM format.
-  --ssl-capath=name   CA directory.
-  --ssl-cert=name     X509 cert in PEM format.
-  --ssl-cipher=name   SSL cipher to use.
-  --ssl-key=name      X509 key in PEM format.
-  --ssl-crl=name      Certificate revocation list.
-  --ssl-crlpath=name  Certificate revocation list path.
-  --tls-version=name  TLS version to use, permitted values are: TLSv1, TLSv1.1,
-                      TLSv1.2, TLSv1.3
-  --ssl-fips-mode=name 
-                      SSL FIPS mode (applies only for OpenSSL); permitted
-                      values are: OFF, ON, STRICT
-  --tls-ciphersuites=name 
-                      TLS v1.3 cipher to use.
-  -t, --table         Output in table format.
-  --tee=name          Append everything into outfile. See interactive help (\h)
-                      also. Does not work in batch mode. Disable with
-                      --disable-tee. This option is disabled by default.
-  -u, --user=name     User for login if not current user.
-  -U, --safe-updates  Only allow UPDATE and DELETE that uses keys.
-  -U, --i-am-a-dummy  Synonym for option --safe-updates, -U.
-  -v, --verbose       Write more. (-v -v -v gives the table output format).
-  -V, --version       Output version information and exit.
-  -w, --wait          Wait and retry if connection is down.
-  --connect-timeout=# Number of seconds before connection timeout.
-  --max-allowed-packet=# 
-                      The maximum packet length to send to or receive from
-                      server.
-  --net-buffer-length=# 
-                      The buffer size for TCP/IP and socket communication.
-  --select-limit=#    Automatic limit for SELECT when using --safe-updates.
-  --max-join-size=#   Automatic limit for rows in a join when using
-                      --safe-updates.
-  --show-warnings     Show warnings after every statement.
-  -j, --syslog        Log filtered interactive commands to syslog. Filtering of
-                      commands depends on the patterns supplied via histignore
-                      option besides the default patterns.
-  --plugin-dir=name   Directory for client-side plugins.
-  --default-auth=name Default authentication client-side plugin to use.
-  --binary-mode       By default, ASCII '\0' is disallowed and '\r\n' is
-                      translated to '\n'. This switch turns off both features,
-                      and also turns off parsing of all clientcommands except
-                      \C and DELIMITER, in non-interactive mode (for input
-                      piped to mysql or loaded using the 'source' command).
-                      This is necessary when processing output from mysqlbinlog
-                      that may contain blobs.
-  --connect-expired-password 
-                      Notify the server that this client is prepared to handle
-                      expired password sandbox mode.
-  --network-namespace=name 
-                      Network namespace to use for connection via tcp with a
-                      server.
-  --compression-algorithms=name 
-                      Use compression algorithm in server/client protocol.
-                      Valid values are any combination of
-                      'zstd','zlib','uncompressed'.
-  --zstd-compression-level=# 
-                      Use this compression level in the client/server protocol,
-                      in case --compression-algorithms=zstd. Valid range is
-                      between 1 and 22, inclusive. Default is 3.
-  --load-data-local-dir=name 
-                      Directory path safe for LOAD DATA LOCAL INFILE to read
-                      from.
+--
+-- Table structure for table `Account`
+--
 
-Default options are read from the following files in the given order:
-/etc/my.cnf /etc/mysql/my.cnf ~/.my.cnf 
-The following groups are read: mysql client
-The following options may be given as the first argument:
---print-defaults        Print the program argument list and exit.
---no-defaults           Don't read default options from any option file,
-                        except for login file.
---defaults-file=#       Only read default options from the given file #.
---defaults-extra-file=# Read this file after the global files are read.
---defaults-group-suffix=#
-                        Also read groups with concat(group, suffix)
---login-path=#          Read this path from the login file.
+DROP TABLE IF EXISTS `Account`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Account` (
+  `account_email` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `account_password` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `account_salt` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `account_id` int NOT NULL AUTO_INCREMENT,
+  UNIQUE KEY `id` (`account_id`),
+  UNIQUE KEY `user_email_unique` (`account_email`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-Variables (--variable-name=value)
-and boolean options {FALSE|TRUE}  Value (after reading options)
---------------------------------- ----------------------------------------
-auto-rehash                       TRUE
-auto-vertical-output              FALSE
-bind-address                      (No default value)
-binary-as-hex                     FALSE
-character-sets-dir                (No default value)
-column-type-info                  FALSE
-comments                          FALSE
-compress                          FALSE
-database                          (No default value)
-default-character-set             auto
-delimiter                         ;
-enable-cleartext-plugin           FALSE
-vertical                          FALSE
-force                             FALSE
-histignore                        (No default value)
-named-commands                    FALSE
-ignore-spaces                     FALSE
-init-command                      (No default value)
-local-infile                      FALSE
-no-beep                           FALSE
-host                              (No default value)
-dns-srv-name                      (No default value)
-html                              FALSE
-xml                               FALSE
-line-numbers                      TRUE
-unbuffered                        FALSE
-column-names                      TRUE
-sigint-ignore                     FALSE
-port                              0
-prompt                            mysql> 
-quick                             FALSE
-raw                               FALSE
-reconnect                         FALSE
-socket                            (No default value)
-server-public-key-path            (No default value)
-get-server-public-key             FALSE
-ssl-ca                            (No default value)
-ssl-capath                        (No default value)
-ssl-cert                          (No default value)
-ssl-cipher                        (No default value)
-ssl-key                           (No default value)
-ssl-crl                           (No default value)
-ssl-crlpath                       (No default value)
-tls-version                       (No default value)
-tls-ciphersuites                  (No default value)
-table                             FALSE
-user                              admin
-safe-updates                      FALSE
-i-am-a-dummy                      FALSE
-connect-timeout                   0
-max-allowed-packet                16777216
-net-buffer-length                 16384
-select-limit                      1000
-max-join-size                     1000000
-show-warnings                     FALSE
-plugin-dir                        (No default value)
-default-auth                      (No default value)
-binary-mode                       FALSE
-connect-expired-password          FALSE
-network-namespace                 (No default value)
-compression-algorithms            (No default value)
-zstd-compression-level            3
-load-data-local-dir               (No default value)
+--
+-- Dumping data for table `Account`
+--
+
+LOCK TABLES `Account` WRITE;
+/*!40000 ALTER TABLE `Account` DISABLE KEYS */;
+INSERT INTO `Account` VALUES ('EMAIL','7d32ea9b6fe3f5a12e66680f2698fae06c851664fe0f39501ebc35547dc68eaf14e539dfb967731a674614f2247d31b512de521d6a1f5ecfa0b739c888d37530','a915cd06-2482-41b4-b7d6-67375ef2441b',1),('bMAIL','e108361cafba95815397828d78d865983ce975be0cefa1afe972bf136ae1a00dfed2ec7cb9cfce0ef86cec1f0b063e8fb01210f872ec499365ac501df3709ede','7c766ad0-3235-417e-be47-90445af3fd52',2);
+/*!40000 ALTER TABLE `Account` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Categories`
+--
+
+DROP TABLE IF EXISTS `Categories`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Categories` (
+  `cat_id` int NOT NULL AUTO_INCREMENT,
+  `cat_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `cat_description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  PRIMARY KEY (`cat_id`),
+  UNIQUE KEY `cat_name_unique` (`cat_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Categories`
+--
+
+LOCK TABLES `Categories` WRITE;
+/*!40000 ALTER TABLE `Categories` DISABLE KEYS */;
+INSERT INTO `Categories` VALUES (1,'Category 1','Category 1 Description'),(2,'Category 2','Category 2 Description'),(3,'Category 3','Category 3 Description'),(4,'Category 4','Category 4 Description'),(5,'Category 5','Category 5 Description'),(6,'Category 6','Category 6 Description'),(7,'Category 7','Category 7 Description'),(8,'Category 8','Category 8 Description'),(9,'Category 9','Category 9 Description'),(10,'Category 10','Category 10 Description'),(16,'Category 11','Category 11 Description');
+/*!40000 ALTER TABLE `Categories` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Posts`
+--
+
+DROP TABLE IF EXISTS `Posts`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Posts` (
+  `post_id` int NOT NULL AUTO_INCREMENT,
+  `post_content` text NOT NULL,
+  `post_date` datetime NOT NULL,
+  `post_topic` int NOT NULL,
+  `post_by` int NOT NULL,
+  PRIMARY KEY (`post_id`),
+  KEY `post_topic` (`post_topic`),
+  KEY `post_by` (`post_by`),
+  CONSTRAINT `Posts_ibfk_1` FOREIGN KEY (`post_topic`) REFERENCES `Topics` (`topic_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Posts_ibfk_2` FOREIGN KEY (`post_by`) REFERENCES `Account` (`account_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Posts`
+--
+
+LOCK TABLES `Posts` WRITE;
+/*!40000 ALTER TABLE `Posts` DISABLE KEYS */;
+INSERT INTO `Posts` VALUES (1,'Post Content of Topic 1','2021-02-25 15:02:36',1,2),(2,'Post Content of Topic 1','2021-02-25 15:03:28',1,2);
+/*!40000 ALTER TABLE `Posts` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Quiz`
+--
+
+DROP TABLE IF EXISTS `Quiz`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Quiz` (
+  `quiz_id` int NOT NULL AUTO_INCREMENT,
+  `quiz_question` varchar(100) NOT NULL,
+  `quiz_option_a` varchar(100) NOT NULL,
+  `quiz_option_b` varchar(100) NOT NULL,
+  `quiz_option_c` varchar(100) NOT NULL,
+  `quiz_option_d` varchar(100) NOT NULL,
+  `quiz_option_correct` varchar(1) NOT NULL,
+  PRIMARY KEY (`quiz_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Quiz`
+--
+
+LOCK TABLES `Quiz` WRITE;
+/*!40000 ALTER TABLE `Quiz` DISABLE KEYS */;
+INSERT INTO `Quiz` VALUES (1,'Question 1 ','Q1_Option_A','Q1_Option_B','Q1_Option_C','Q1_Option_D','A'),(2,'Question 2','Q2_Option_A','Q2_Option_B','Q2_Option_C','Q2_Option_D','B'),(3,'Question 3','Q3_Option_A','Q3_Option_B','Q3_Option_C','Q3_Option_D','C'),(4,'Question 4','Q4_Option_A','Q4_Option_B','Q4_Option_C','Q4_Option_D','D'),(5,'Question 5','Q5_Option_A','Q5_Option_B','Q5_Option_C','Q5_Option_D','A'),(6,'Question 6','Q6_Option_A','Q6_Option_B','Q6_Option_C','Q6_Option_D','B'),(7,'Question 7','Q7_Option_A','Q7_Option_B','Q7_Option_C','Q7_Option_D','C'),(8,'Question 8','Q8_Option_A','Q8_Option_B','Q8_Option_C','Q8_Option_D','D'),(9,'Question 9','Q9_Option_A','Q9_Option_B','Q9_Option_C','Q9_Option_D','A'),(10,'Question 10','Q10_Option_A','Q10_Option_B','Q10_Option_C','Q10_Option_D','B');
+/*!40000 ALTER TABLE `Quiz` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `QuizHistory`
+--
+
+DROP TABLE IF EXISTS `QuizHistory`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `QuizHistory` (
+  `account_id` int NOT NULL,
+  `quiz_id` int NOT NULL,
+  `user_selection` varchar(100) NOT NULL,
+  `correct` tinyint(1) NOT NULL,
+  `date` datetime NOT NULL,
+  KEY `account_id` (`account_id`),
+  KEY `quiz_id` (`quiz_id`),
+  CONSTRAINT `QuizHistory_ibfk_1` FOREIGN KEY (`account_id`) REFERENCES `Account` (`account_id`) ON DELETE CASCADE,
+  CONSTRAINT `QuizHistory_ibfk_2` FOREIGN KEY (`quiz_id`) REFERENCES `Quiz` (`quiz_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `QuizHistory`
+--
+
+LOCK TABLES `QuizHistory` WRITE;
+/*!40000 ALTER TABLE `QuizHistory` DISABLE KEYS */;
+/*!40000 ALTER TABLE `QuizHistory` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Topics`
+--
+
+DROP TABLE IF EXISTS `Topics`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Topics` (
+  `topic_id` int NOT NULL AUTO_INCREMENT,
+  `topic_subject` varchar(255) NOT NULL,
+  `topic_date` datetime NOT NULL,
+  `topic_cat` int NOT NULL,
+  `topic_by` int NOT NULL,
+  PRIMARY KEY (`topic_id`),
+  KEY `topic_cat` (`topic_cat`),
+  KEY `topic_by` (`topic_by`),
+  CONSTRAINT `Topics_ibfk_1` FOREIGN KEY (`topic_cat`) REFERENCES `Categories` (`cat_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Topics_ibfk_2` FOREIGN KEY (`topic_by`) REFERENCES `Account` (`account_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Topics`
+--
+
+LOCK TABLES `Topics` WRITE;
+/*!40000 ALTER TABLE `Topics` DISABLE KEYS */;
+INSERT INTO `Topics` VALUES (1,'Topic Subject 1','2021-02-25 12:20:10',1,2);
+/*!40000 ALTER TABLE `Topics` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2021-03-01 12:32:48
