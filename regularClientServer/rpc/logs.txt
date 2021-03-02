@@ -10,3 +10,11 @@
 02/22/2021, 15:10:11 | ./pyClient.py | on_response | Error!
 02/22/2021, 15:12:34 | ./pyClient.py | call | Error!
 02/22/2021, 15:14:54 | ./pyClient.py | __init__ | Error!
+03/01/2021, 15:44:56 | /home/dev/Documents/slackers490/regularClientServer/rpc/pyClient.py | call | Error!
+03/01/2021, 15:48:11 | /home/dev/Documents/slackers490/regularClientServer/rpc/pyClient.py | call | Error!
+03/01/2021, 15:58:27 | /home/dev/Documents/slackers490/regularClientServer/rpc/pyClient.py | call | Error!
+03/01/2021, 16:04:36 | /home/dev/Documents/slackers490/regularClientServer/rpc/pyClient.py | call | Error!
+03/01/2021, 16:05:55 | /home/dev/Documents/slackers490/regularClientServer/rpc/pyClient.py | call | Error!
+03/01/2021, 17:06:28 | VM_DB | pyServerDB.py/reciever | 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'account_id, quiz_id, user_selection, correct, date values (2,7,'C',True,'2021-03' at line 1
+03/01/2021, 17:09:20 | VM_DB | pyServerDB.py/reciever | 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'account_id, quiz_id, user_selection, correct, date values (2,7,'C',True,'2021-03' at line 1
+03/01/2021, 17:46:43 | VM_DB | pyServerDB.py/reciever | 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'account_id, quiz_id, user_selection, correct, date values (2,7,'C',True,'2021-03' at line 1
