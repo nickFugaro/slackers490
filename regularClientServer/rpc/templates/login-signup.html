@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Star Wars</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+<!-- form taken from https://codepen.io/perry_nt/pen/RrveeQ -->
+<br><br>
+<center>
+<a href="index.html" class="myButton">Home</a>
+</center>
+<form action="/login-signup.html/login", method="post">  
+  <input id="login" type="radio" name="tab"/>
+  <label class="tab_label" for="login">log in</label>
+  <input id="signup" type="radio" name="tab"/ form = "1">
+  <label class="tab_label" for="signup" form = "1">sign up</label> 
+  <figure class="reveal_login">
+    <p>Please log in with your account.</p>
+    <input id="emaillogin" name="emaillogin" type="email" placeholder="email address"/>      
+    <input id="passwordlogin" name="passwordlogin" type="password" placeholder="password"/> 
+    <input id="logged_in" type="checkbox"/>
+    <label class="content_label" for="logged_in">Keep me logged in</label>
+    <input type="submit" value="Log in"/>
+  </figure>
+  <form id = "2" action="/login-signup.html/signup", method="post">
+  <figure class="reveal_signin">
+    <p>Register a new account.</p>
+    <input id="name" name="name" type="text" placeholder="full name"/>  
+    <input id="email" name="email" type="email" placeholder="email address"/>     
+    <input id="password" name="password" type="password" placeholder="password"/> 
+    <input id="password2" name="password2" type="password" placeholder="confirm password"/>
+    <input type="submit" value="Sign up"/>
+  </figure>
+</form> 
+
+</html>
