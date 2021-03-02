@@ -17,3 +17,14 @@
 03/01/2021, 16:05:55 | /home/dev/Documents/slackers490/regularClientServer/rpc/pyClient.py | call | Error!
 03/01/2021, 17:06:28 | VM_DB | pyServerDB.py/reciever | 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'account_id, quiz_id, user_selection, correct, date values (2,7,'C',True,'2021-03' at line 1
 03/01/2021, 17:09:20 | VM_DB | pyServerDB.py/reciever | 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'account_id, quiz_id, user_selection, correct, date values (2,7,'C',True,'2021-03' at line 1
+03/02/2021, 16:37:47 | VM_DB | pyServerDB.py/reciever | 1062 (23000): Duplicate entry 'Category 3' for key 'Categories.cat_name_unique'
+03/02/2021, 16:38:30 | VM_DB | pyServerDB.py/reciever | 1062 (23000): Duplicate entry 'Category 3' for key 'Categories.cat_name_unique'
+03/02/2021, 16:53:57 | VM_DB | pyServerDB.py/reciever | 1062 (23000): Duplicate entry 'Category 3' for key 'Categories.cat_name_unique'
+03/02/2021, 16:54:21 | VM_DB | pyServerDB.py/reciever | 1062 (23000): Duplicate entry 'Category 3' for key 'Categories.cat_name_unique'
+03/02/2021, 16:55:10 | VM_DB | pyServerDB.py/reciever | 1062 (23000): Duplicate entry 'Category 3' for key 'Categories.cat_name_unique'
+03/02/2021, 16:56:02 | VM_DB | pyServerDB.py/reciever | 1062 (23000): Duplicate entry 'Category 3' for key 'Categories.cat_name_unique'
+03/02/2021, 16:57:26 | VM_DB | pyServerDB.py/reciever | 1062 (23000): Duplicate entry 'Category 3' for key 'Categories.cat_name_unique'
+03/02/2021, 16:58:14 | VM_DB | pyServerDB.py/reciever | 1062 (23000): Duplicate entry 'Category 3' for key 'Categories.cat_name_unique'
+03/02/2021, 16:58:46 | VM_DB | pyServerDB.py/reciever | 1062 (23000): Duplicate entry 'Category 3' for key 'Categories.cat_name_unique'
+03/02/2021, 16:59:17 | VM_DB | pyServerDB.py/reciever | 1062 (23000): Duplicate entry 'Category 3' for key 'Categories.cat_name_unique'
+03/02/2021, 17:28:50 | VM_DB | pyServerDB.py/reciever | 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`IT490`.`Topics`, CONSTRAINT `Topics_ibfk_1` FOREIGN KEY (`topic_cat`) REFERENCES `Categories` (`cat_id`) ON DELETE CASCADE ON UPDATE CASCADE)

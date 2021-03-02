@@ -26,7 +26,7 @@ def getMethod(methodName,data):
             'addCategory' : lambda data : forums.addCategory(data.get('name'),data.get('description')),
             'getTopics' : lambda data : forums.getTopics(data.get('cat_id')),
             'addTopic' : lambda data : forums.addTopic(data.get('subject'), data.get('cat_id'), data.get('email')),
-            'getPosts' : lambda data : forums.getPosts(data.get('id')),
+            'getPosts' : lambda data : forums.getPosts(data.get('topic_id')),
             'addPost' : lambda data : forums.addPost(data.get('id'),data.get('content'),data.get('email')),
             
             #REGION Quiz Functions

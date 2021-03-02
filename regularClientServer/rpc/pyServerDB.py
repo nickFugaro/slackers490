@@ -60,7 +60,13 @@ def reciever(ch, method, props, body):
             
         rtn = {'success' : True, 'message' : result}
         
-        
+    except mysql.connector.IntegrityError as Integrity_Error:
+        res = logError.call({'type':'log','vm_name':'VM_DB','function':'pyServerDB.py/reciever','message':str(Integrity_Error)})
+        if res.get('success'):
+            rtn = {'success': False, 'message':str(Integrity_Error)}
+        else:
+            rtn = {'success': False, 'message':'Error Has Occured Within DB, Error could not be recorded in log'}
+            
     except mysql.connector.Error as error:
         print(error)
         db.rollback()
@@ -69,7 +75,8 @@ def reciever(ch, method, props, body):
             rtn = {'success': False, 'message':'Error Has Occured Within DB, check logs for more details'}
         else:
             rtn = {'success': False, 'message':'Error Has Occured Within DB, Error could not be recorded in log'}
-        
+            
+            
     rtn = json.JSONEncoder().encode(rtn)
 
     ch.basic_publish(

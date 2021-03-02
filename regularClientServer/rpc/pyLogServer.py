@@ -23,7 +23,7 @@ def reciever(ch, method, props, body):
     data = json.loads(body.decode('utf-8'))
     func = getMethod(data.get('type'),data)
     rtn = json.JSONEncoder().encode(func)
-    
+    print('Error Logged')
     ch.basic_publish(
         exchange='',
         routing_key=props.reply_to,

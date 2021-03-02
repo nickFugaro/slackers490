@@ -12,8 +12,10 @@ response = backend.call({
 token = response.get('message')
 
 response = backend.call({
-    'type' : 'getHistory',
-    'Authorization' : token
-})
+	'type' : 'addPost',
+	'Authorization' : token,
+	'id' : '4',
+	'content' : 'Category 14, Topic 4, Post 1'
+ })
 
 print(response)
