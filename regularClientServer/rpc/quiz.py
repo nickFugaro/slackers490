@@ -8,7 +8,7 @@ DB = theClient('DB')
 def getQuestion():
     
     result = DB.call({
-        "query" : "select quiz_id, quiz_question, quiz_option_a AS 'A', quiz_option_b AS 'B', quiz_option_c AS 'C', quiz_option_d AS 'D' from Quiz order by rand() Limit 5",
+        "query" : "select quiz_id, quiz_question as Question, quiz_option_a AS 'A', quiz_option_b AS 'B', quiz_option_c AS 'C', quiz_option_d AS 'D' from Quiz order by rand() Limit 5",
         'params': 'NA'
     })
     
@@ -65,7 +65,7 @@ def saveAttempt(email, quiz_id, userSelection):
                 
                 #Create an entry within QuizHistory table to record user's answer
                 result = DB.call({
-                    'query' : 'insert into QuizHistory account_id, quiz_id, user_selection, correct, date values (%(account_id)s,%(quiz_id)s,%(userSelection)s,%(correct)s,%(date)s)',
+                    'query' : 'insert into QuizHistory (account_id, quiz_id, user_selection, correct, date) values (%(account_id)s,%(quiz_id)s,%(userSelection)s,%(correct)s,%(date)s)',
                     'params': {'account_id':acc_id, 'quiz_id': quiz_id, 'userSelection': userSelection, 'correct': True, 'date': datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
                 })
                 
@@ -91,4 +91,12 @@ def saveAttempt(email, quiz_id, userSelection):
     
 
 def getHistory(email):
-    return None
+    result = DB.call({
+        'query' : 'SELECT q.quiz_question as Question, q.quiz_option_a as A, q.quiz_option_b as B, q.quiz_option_c as C, q.quiz_option_d as D, qh.user_selection, qh.correct from QuizHistory qh join Account a on (SELECT account_id from Account where account_email = %(email)s) = qh .account_id JOIN Quiz q on q.quiz_id  = qh.quiz_id ',
+        'params': {'email':email}
+    })
+    
+    if len(result.get('message')) > 0:
+        return {'success' : True, 'message':result.get('message')}
+    else:
+        return {'success' : True, 'message': 'Seems Like You Have Not Taken A Quiz Yet'}

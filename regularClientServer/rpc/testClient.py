@@ -12,10 +12,8 @@ response = backend.call({
 token = response.get('message')
 
 response = backend.call({
-    'type' : 'saveAttempt',
-    'Authorization' : token,
-    'quiz_id' : 7,
-    'userSelection' : 'C'
+    'type' : 'getHistory',
+    'Authorization' : token
 })
 
 print(response)

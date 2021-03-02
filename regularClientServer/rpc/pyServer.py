@@ -32,7 +32,8 @@ def getMethod(methodName,data):
             #REGION Quiz Functions
             'getQuestion' : lambda data : quiz.getQuestion(),
             'checkAnswer' : lambda data : quiz.checkAnswer(data.get('quiz_id'),data.get('userSelection')),
-            'saveAttempt' : lambda data : quiz.saveAttempt(data.get('email'),data.get('quiz_id'),data.get('userSelection'))
+            'saveAttempt' : lambda data : quiz.saveAttempt(data.get('email'),data.get('quiz_id'),data.get('userSelection')),
+            'getHistory' : lambda data : quiz.getHistory(data.get('email'))
         
     }.get(methodName)(data)
 
