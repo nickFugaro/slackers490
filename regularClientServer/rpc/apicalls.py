@@ -16,7 +16,7 @@ def getTweet():
     totalArray = []
     for tweet in tweepy.Cursor(api.search,"Star Wars",tweet_mode='extended').items(10):
         tweettext = tweet.full_text 
-        tweetsource = tweet.source
+        tweetsource = tweet.entities["user_mentions"][0]["screen_name"]
         tweetArray.append(tweettext)
         sourceArray.append(tweetsource)
     totalArray.append(tweetArray)
