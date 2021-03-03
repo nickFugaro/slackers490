@@ -27,5 +27,5 @@ class JWT:
 			print("RETURN TOKEN EXPIRED")
 			return("TOKEN EXPIRED, Please Signin Again")
 			   
-		print("RETURN: ",decodedToken.get('email'))
-		return(decodedToken.get('email'))
+		
+		return{'success':True, 'email':decodedToken.get('email')}

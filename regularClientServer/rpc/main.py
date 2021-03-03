@@ -6,7 +6,7 @@ from flask import request, Response, redirect
 from pyClient import theClient
 
 app = flask.Flask(__name__)
-
+tolken = None
 #backend = theClient('BE')
 
 def movieCall(number):
@@ -67,9 +67,23 @@ def login():
 def loginaction():
     email = request.form.get('emaillogin')
     password = request.form.get('passwordlogin')
+    backend = theClient('BE')
+    login = backend.call({
+	'type' : 'login',
+    'email' : email,
+    'password' : password
+    })
+    if login.get('success'):
+        tolken = login.get('message')
+        print(tolken)
+        return redirect("/", code=302)
+    else:
+        print("unsucessful")
+        #handle unsuccessful backend call (display "could not sign in")
+        return redirect("/login-signup.html", message="Unsuccessful Login")
     print("Email:" + str(email))
     print(password)
-    return redirect("/", code=302)
+    
 
 
 @app.route('/login-signup.html/signup', methods=['POST'])

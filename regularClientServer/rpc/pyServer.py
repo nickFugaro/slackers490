@@ -6,10 +6,9 @@ import datetime
 import uuid
 import inspect
 from pyJWT import JWT
-from auth import login
-#from auth import login, signup
-#import forums
-#import quiz
+from auth import login, signup
+import forums
+import quiz
 from sendapi import *
 from pyClient import theClient
 
@@ -65,6 +64,7 @@ def validateToken(body):
             return {'success':False}
         else:
             result = jwt.verifyToken(body.get('Authorization'))
+            print(result)
             if result.get('success'):
                 return {'success':True,'email':result.get('email')}
             else:
@@ -78,9 +78,8 @@ def reciever(ch, method, props, body):
     data = json.loads(body.decode('utf-8'))
     show = data.get('type')
     print(show)
-    if (show == 'login' or show == 'signup'):
+    if (show == 'login' or show == 'signup' or show == 'getQuestion' or show == 'checkAnswer' or show == 'saveAttempt' or show == 'getHistory'):
         isValid = validateToken(data)
-   
         if isValid.get('success'):
             data['email'] = isValid.get('email')
             func = getMethod(data.get('type'),data)

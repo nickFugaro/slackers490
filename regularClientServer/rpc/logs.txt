@@ -57,3 +57,5 @@
 03/03/2021, 13:38:22 | ./pyServer.py | getMethod | Type doesnt exist
 03/03/2021, 13:51:37 | ./pyServerAPI.py | getMethod | Type doesnt exist
 03/03/2021, 13:53:50 | ./pyServer.py | getMethod | Type doesnt exist
+03/03/2021, 16:47:15 | ./pyServer.py | getMethod | Type doesnt exist
+03/03/2021, 16:47:40 | ./pyServer.py | getMethod | Type doesnt exist
