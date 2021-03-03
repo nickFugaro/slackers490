@@ -102,8 +102,13 @@ def movies():
 
 @app.route('/news.html')
 def news():
+    tweet1 = backend.call({
+        'type' : 'twitter'
+    })
+    tweet2 = tweet1.get('message')
     return flask.render_template(
         "news.html",
+        tweet1info=tweet2[0]
         )
         
 @app.route('/quizzes.html')
