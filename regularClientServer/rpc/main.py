@@ -108,7 +108,8 @@ def news():
     tweet2 = tweet1.get('message')
     return flask.render_template(
         "news.html",
-        tweetInfo=tweet2
+        tweetInfo=tweet2[0],
+        sourceInfo=tweet2[1]
         )
         
 @app.route('/quizzes.html')
