@@ -15,7 +15,6 @@ def getTweet():
     for tweet in tweepy.Cursor(api.search,"Star Wars",tweet_mode='extended').items(10):
         tweettext = tweet.full_text 
         tweetArray.append(tweettext)
-        break
     return {'success':True,'message':tweetArray}
 
 

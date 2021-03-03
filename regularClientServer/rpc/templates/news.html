@@ -63,6 +63,8 @@
     <div class="row">
       <div class="col-8">
         <h2 style = "color:white">Tweets on Star Wars, Latest.</h2>
+        {%for i in range(0, 10)%}
+          
         <div class="media my-3">
           <img
             width = "50px"
@@ -73,42 +75,12 @@
           <div class="media-body text-white rounded">
             <h5 class="mt-0">Top-aligned media</h5>
             <p>
-              Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-              scelerisque ante sollicitudin. Cras purus odio, vestibulum in
-              vulputate at, tempus viverra turpis. Fusce condimentum nunc ac
-              nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+              {{tweetInfo[i]}}
             </p>
           </div>
         </div>
-
-        <div class="media my-3 ">
-          <img
-            width = "50px"
-            class="align-self-start mr-3 rounded-circle"
-            src="https://cdn3.iconfinder.com/data/icons/star-wars-color/181/stormtrooper-512.png"
-            alt="Generic placeholder image"
-          />
-          <div class="media-body text-white rounded">
-            <h5 class="mt-0">An Actual Real Tweet</h5>
-            <p>
-              {{tweet1info}}
-            </p>
-          </div>
-        </div>
-
-        <div class="media my-3">
-          <img
-            width = "50px"
-            class="align-self-start mr-3 rounded-circle"
-            src="https://cdn3.iconfinder.com/data/icons/star-wars-color/181/stormtrooper-512.png"
-            alt="Generic placeholder image"
-          />
-          <div class="media-body text-white rounded">
-            <h5 class="mt-0">Top-aligned media</h5>
-            <p>
-              tweet2info
-            </p>
-          </div>
+          {%endfor%}
+        
         </div>
 
         <h2 style = "color:white">Trending on Instagram.</h2>
