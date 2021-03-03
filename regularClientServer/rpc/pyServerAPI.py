@@ -19,7 +19,7 @@ def getMethod(methodName,data):
                 'movies': lambda data : movieCall(),
 		    	'character' : lambda data : getCharacter(),
                 'twitter': lambda data : getTweet()
-                #'chatbot' : lambda data : chatbot(data.get('firstarg'), data.get('secondarg'))
+                
         }.get(methodName)(data)
     except:
         file = __file__

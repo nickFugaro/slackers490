@@ -16,3 +16,4 @@ def character(data):
 def twitter(data):
 	result = API.call(data)
 	return result
+

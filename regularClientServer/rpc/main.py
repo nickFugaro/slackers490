@@ -7,7 +7,7 @@ from pyClient import theClient
 
 app = flask.Flask(__name__)
 
-backend = theClient('BE')
+#backend = theClient('BE')
 
 def movieCall(number):
     req = requests.get("https://swapi.dev/api/films/" + str(number)+ "/")
@@ -85,6 +85,7 @@ def signupaction():
 
 @app.route('/movies.html')
 def movies():
+    backend = theClient('BE')
     movie1 = backend.call({
 	'type' : 'movies'
     })
@@ -102,14 +103,17 @@ def movies():
 
 @app.route('/news.html')
 def news():
-    tweet1 = backend.call({
-        'type' : 'twitter'
+    backend = theClient('BE')
+    tweets = backend.call({
+    'type' : 'twitter'
     })
-    tweet2 = tweet1.get('message')
+    tweetRec = tweets.get('message')
+
     return flask.render_template(
         "news.html",
-        tweetInfo=tweet2[0],
-        sourceInfo=tweet2[1]
+        tweetInfo=tweetRec[0],
+        userInfo=tweetRec[1]
+        
         )
         
 @app.route('/quizzes.html')

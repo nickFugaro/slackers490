@@ -12,16 +12,17 @@ def getTweet():
     auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
     api = tweepy.API(auth)
     tweetArray = []
-    sourceArray = []
+    userArray = []
     totalArray = []
     for tweet in tweepy.Cursor(api.search,"Star Wars",tweet_mode='extended').items(10):
         tweettext = tweet.full_text 
-        tweetsource = tweet.entities["user_mentions"][0]["screen_name"]
         tweetArray.append(tweettext)
-        sourceArray.append(tweetsource)
+        #tweetsource = tweet.entities["user_mentions"][0]["screen_name"]
+        userArray.append("heyo")
     totalArray.append(tweetArray)
-    totalArray.append(sourceArray)
+    totalArray.append(userArray)
     return {'success':True,'message':totalArray}
+
 
 
 def movieCall():
