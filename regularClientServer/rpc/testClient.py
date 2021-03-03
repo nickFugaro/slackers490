@@ -4,7 +4,7 @@ from pyClient import theClient
 backend = theClient('BE')
 
 response = backend.call({
-	'type' : 'movies'
+	'type' : 'twitter'
 })
 
 token = response.get('message')

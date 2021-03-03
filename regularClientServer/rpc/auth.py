@@ -76,7 +76,7 @@ def signup(email,password):
 			hashed = hashed.hexdigest()
 			signer = DB.call({
 				'query' : "INSERT INTO Account (account_email, account_password , account_salt) VALUES (%s,%s,%s)",
-				'params' : {'email':email}
+				'params' : {'email':email,}
 			})
 			query = ("INSERT INTO Account (account_email, account_password , account_salt) VALUES (%s,%s,%s)")
 			cursor.execute(query,(email,hashed,salt))

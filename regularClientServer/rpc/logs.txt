@@ -18,3 +18,5 @@
 03/01/2021, 17:06:28 | VM_DB | pyServerDB.py/reciever | 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'account_id, quiz_id, user_selection, correct, date values (2,7,'C',True,'2021-03' at line 1
 03/01/2021, 17:09:20 | VM_DB | pyServerDB.py/reciever | 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'account_id, quiz_id, user_selection, correct, date values (2,7,'C',True,'2021-03' at line 1
 03/01/2021, 17:46:43 | VM_DB | pyServerDB.py/reciever | 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'account_id, quiz_id, user_selection, correct, date values (2,7,'C',True,'2021-03' at line 1
+03/02/2021, 18:11:25 | ./pyServer.py | getMethod | Type doesnt exist
+03/02/2021, 18:12:15 | ./pyServer.py | getMethod | Type doesnt exist
