@@ -9,17 +9,6 @@ from pyClient import theClient
 
 jwt_obj = JWT()
 DB = theClient('DB')
-
-def connectDB():
-	config = {
-		'user' : 'admin',
-		'password' : 'adminIT490Ubuntu!',
-		'host' : 'localhost',
-		'database' : 'IT490'
-	}
-	db = mysql.connector.connect(**config)
-	return db
-
 	
 def login(email,password):
 	
@@ -63,32 +52,19 @@ def signup(email,password):
 	result = result.get('message')
 
 	if len(result) != 0:
-
-		
 		return {'success':False, 'message':'Email Already Registered'}
 
-	else:
-		try:
-
-			salt = str(uuid.uuid4())
-			password += salt
-			hashed = SHA512.new(str(password).encode('utf-8'))
-			hashed = hashed.hexdigest()
-			signer = DB.call({
-				'query' : "INSERT INTO Account (account_email, account_password , account_salt) VALUES (%s,%s,%s)",
-				'params' : {'email':email,}
+	salt = str(uuid.uuid4())
+	password += salt
+	hashed = SHA512.new(str(password).encode('utf-8'))
+	hashed = hashed.hexdigest()
+	
+	result = DB.call({
+				'query' : 'INSERT INTO Account (account_email, account_password , account_salt) VALUES (%(email)s,%(password)s,%(salt)s)',
+				'params' : {'email':email, 'password': hashed, 'salt': salt}
 			})
-			query = ("INSERT INTO Account (account_email, account_password , account_salt) VALUES (%s,%s,%s)")
-			cursor.execute(query,(email,hashed,salt))
-			cursor.fetchall()
-			db.commit()
-			token = jwt_obj.getToken(email)
-			cursor.close()
-			db.close()			
-			return {'success':True,'message':token}
-
-		except mysql.connector.Error as error:
-			cursor.close()
-			db.close()
-			print("Error: ",error)
-			return {'success':False,'message':'Could Not Create Account'}
+	if result.get('success'):
+		token = jwt_obj.getToken(email)
+		return {'success':True,'message':token}
+	else:
+		return {'success':False,'message':'Could Not Create Account'}

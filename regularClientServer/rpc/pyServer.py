@@ -41,7 +41,7 @@ def getMethod(methodName,data):
 
                 #REGION API Functions
 			    'movies' : lambda data : movies(data),
-                'character' : lambda data : character(data),
+                'character' : lambda data : character(data,data.get('number')),
                 'twitter' : lambda data : twitter(data)
                 
         
