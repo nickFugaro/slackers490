@@ -8,7 +8,7 @@ from apicalls import *
 from pyClient import theClient
 
 creds = pika.PlainCredentials('test','test')
-connection = pika.BlockingConnection(pika.ConnectionParameters('25.93.61.112',5672,'vhost',creds))
+connection = pika.BlockingConnection(pika.ConnectionParameters('25.93.61.112',5672,'vhost',creds,heartbeat=0,socket_timeout=None))
 channel = connection.channel()
 channel.queue_declare(queue='api_queue')
 channel.queue_bind(exchange='apiExchange', queue='api_queue')

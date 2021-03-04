@@ -9,7 +9,7 @@ import uuid
 
 #REGION: SETUP RABBITMQ CONNECTION
 creds = pika.PlainCredentials('test','test')
-connection = pika.BlockingConnection(pika.ConnectionParameters('25.93.61.112',5672,'vhost',creds))
+connection = pika.BlockingConnection(pika.ConnectionParameters('25.93.61.112',5672,'vhost',creds,heartbeat=0,socket_timeout=None))
 channel = connection.channel()
 channel.queue_declare(queue='db_queue')
 channel.queue_bind(exchange='dbExchange', queue='db_queue')
