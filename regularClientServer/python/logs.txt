@@ -1,3 +1,0 @@
-02/14/2021, 21:02:35 | pyClient | ClientFunction | ERROR MSG
-02/14/2021, 21:02:51 | pyClient | ClientFunction | ERROR MSG
-02/14/2021, 21:03:14 | pyClient | ClientFunction | ERROR MS9G

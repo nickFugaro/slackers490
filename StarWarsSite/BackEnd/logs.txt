@@ -1,0 +1,64 @@
+02/14/2021, 21:02:35 | pyClient | ClientFunction | ERROR MSG
+02/14/2021, 21:02:51 | pyClient | ClientFunction | ERROR MSG
+02/14/2021, 21:03:14 | pyClient | ClientFunction | ERROR MS9G
+02/22/2021, 14:35:18 | ./pyClient.py | PASSWORD | hey
+02/22/2021, 14:43:45 | ./pyClient.py | PASSWO | hey
+02/22/2021, 14:44:25 | ./pyClient.py | <module> | hey
+02/22/2021, 14:53:04 | ./pyClient.py | whoami | hey
+02/22/2021, 15:05:35 | ./pyClient.py | __init__ | hey
+02/22/2021, 15:08:40 | ./pyClient.py | __init__ | hey
+02/22/2021, 15:10:11 | ./pyClient.py | on_response | Error!
+02/22/2021, 15:12:34 | ./pyClient.py | call | Error!
+02/22/2021, 15:14:54 | ./pyClient.py | __init__ | Error!
+03/01/2021, 15:44:56 | /home/dev/Documents/slackers490/regularClientServer/rpc/pyClient.py | call | Error!
+03/01/2021, 15:48:11 | /home/dev/Documents/slackers490/regularClientServer/rpc/pyClient.py | call | Error!
+03/01/2021, 15:58:27 | /home/dev/Documents/slackers490/regularClientServer/rpc/pyClient.py | call | Error!
+03/01/2021, 16:04:36 | /home/dev/Documents/slackers490/regularClientServer/rpc/pyClient.py | call | Error!
+03/01/2021, 16:05:55 | /home/dev/Documents/slackers490/regularClientServer/rpc/pyClient.py | call | Error!
+03/01/2021, 17:06:28 | VM_DB | pyServerDB.py/reciever | 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'account_id, quiz_id, user_selection, correct, date values (2,7,'C',True,'2021-03' at line 1
+03/01/2021, 17:09:20 | VM_DB | pyServerDB.py/reciever | 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'account_id, quiz_id, user_selection, correct, date values (2,7,'C',True,'2021-03' at line 1
+03/01/2021, 17:46:43 | VM_DB | pyServerDB.py/reciever | 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'account_id, quiz_id, user_selection, correct, date values (2,7,'C',True,'2021-03' at line 1
+03/02/2021, 18:11:25 | ./pyServer.py | getMethod | Type doesnt exist
+03/02/2021, 18:12:15 | ./pyServer.py | getMethod | Type doesnt exist
+03/02/2021, 22:17:00 | ./pyServerAPI.py | getMethod | Type doesnt exist
+03/02/2021, 22:18:32 | ./pyServer.py | getMethod | Type doesnt exist
+03/02/2021, 22:18:33 | ./pyServerAPI.py | getMethod | Type doesnt exist
+03/02/2021, 22:18:35 | ./pyServer.py | getMethod | Type doesnt exist
+03/02/2021, 22:18:35 | ./pyServerAPI.py | getMethod | Type doesnt exist
+03/02/2021, 22:21:20 | ./pyServerAPI.py | getMethod | Type doesnt exist
+03/02/2021, 22:23:01 | ./pyServer.py | getMethod | Type doesnt exist
+03/02/2021, 22:23:04 | ./pyServer.py | getMethod | Type doesnt exist
+03/02/2021, 22:23:04 | ./pyServer.py | getMethod | Type doesnt exist
+03/02/2021, 22:28:30 | ./pyServerAPI.py | getMethod | Type doesnt exist
+03/02/2021, 22:33:07 | ./pyServerAPI.py | getMethod | Type doesnt exist
+03/02/2021, 22:34:29 | ./pyServer.py | getMethod | Type doesnt exist
+03/02/2021, 22:35:14 | ./pyServerAPI.py | getMethod | Type doesnt exist
+03/02/2021, 22:36:47 | ./pyServer.py | getMethod | Type doesnt exist
+03/02/2021, 22:40:56 | ./pyServerAPI.py | getMethod | Type doesnt exist
+03/02/2021, 23:47:28 | ./pyServerAPI.py | getMethod | Type doesnt exist
+03/02/2021, 23:48:54 | ./pyServer.py | getMethod | Type doesnt exist
+03/02/2021, 23:57:23 | ./pyServerAPI.py | getMethod | Type doesnt exist
+03/02/2021, 23:59:17 | ./pyServer.py | getMethod | Type doesnt exist
+03/03/2021, 00:01:01 | ./pyServerAPI.py | getMethod | Type doesnt exist
+03/03/2021, 00:10:16 | ./pyServerAPI.py | getMethod | Type doesnt exist
+03/03/2021, 00:11:57 | ./pyServer.py | getMethod | Type doesnt exist
+03/03/2021, 00:15:59 | ./pyServerAPI.py | getMethod | Type doesnt exist
+03/03/2021, 13:05:35 | ./pyServerAPI.py | getMethod | Type doesnt exist
+03/03/2021, 13:23:34 | ./pyServerAPI.py | getMethod | Type doesnt exist
+03/03/2021, 13:25:00 | ./pyServer.py | getMethod | Type doesnt exist
+03/03/2021, 13:27:42 | ./pyServer.py | getMethod | Type doesnt exist
+03/03/2021, 13:30:52 | ./pyServerAPI.py | getMethod | Type doesnt exist
+03/03/2021, 13:31:45 | ./pyServer.py | getMethod | Type doesnt exist
+03/03/2021, 13:32:51 | ./pyServerAPI.py | getMethod | Type doesnt exist
+03/03/2021, 13:33:24 | ./pyServer.py | getMethod | Type doesnt exist
+03/03/2021, 13:35:20 | ./pyServerAPI.py | getMethod | Type doesnt exist
+03/03/2021, 13:36:01 | ./pyServer.py | getMethod | Type doesnt exist
+03/03/2021, 13:38:06 | ./pyServerAPI.py | getMethod | Type doesnt exist
+03/03/2021, 13:38:22 | ./pyServer.py | getMethod | Type doesnt exist
+03/03/2021, 13:51:37 | ./pyServerAPI.py | getMethod | Type doesnt exist
+03/03/2021, 13:53:50 | ./pyServer.py | getMethod | Type doesnt exist
+03/03/2021, 16:47:15 | ./pyServer.py | getMethod | Type doesnt exist
+03/03/2021, 16:47:40 | ./pyServer.py | getMethod | Type doesnt exist
+03/03/2021, 18:26:33 | ./pyServerAPI.py | getMethod | Type doesnt exist
+03/03/2021, 18:26:52 | ./pyServer.py | getMethod | Type doesnt exist
+03/04/2021, 00:56:22 | VM_DB | pyServerDB.py/reciever | 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%s,%s,%s)' at line 1
