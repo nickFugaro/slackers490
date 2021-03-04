@@ -85,6 +85,7 @@ def loginaction():
     '''
     print("Email:" + str(email))
     print(password)
+    return redirect("/", code=302)
     
 
 
@@ -94,7 +95,7 @@ def signupaction():
     email = request.form.get('email')
     password = request.form.get('password')
     password2 = request.form.get('password2')
-    print("Email:" + str(email))
+    print("name:" + str(name))
     print(password)
     return redirect("/", code=302)
 
