@@ -86,7 +86,13 @@ def loginaction():
      '''
     print("Email:" + str(email))
     print(password)
-    return redirect("/", code=302)
+
+    if '' == email:
+        return flask.render_template("/login-signup.html", message='Empty email field, please fill that in.')
+    elif '' == password:
+        return flask.render_template("/login-signup.html", message='Empty password field, please fill that in.')
+    else:
+        return redirect("/", code=302)
     
 
 
@@ -97,15 +103,28 @@ def signupaction():
     password = request.form.get('password')
     password2 = request.form.get('password2')
     print("name:" + str(name))
+    '''
     backend = theClient('BE')
     login = backend.call({
 	'type' : 'signup',
     'email' : email,
     'password' : password
     })
+    '''
     print("Email:" + str(email))
     print(password)
-    return redirect("/", code=302)
+    if '' == name:
+        return flask.render_template("/login-signup.html", message='Empty name field, please fill that in.')
+    elif '' == email:
+        return flask.render_template("/login-signup.html", message='Empty email field, please fill that in.')
+    elif '' == password:
+        return flask.render_template("/login-signup.html", message='Empty password field, please fill that in.')
+    elif '' == password2:
+        return flask.render_template("/login-signup.html", message='Please confirm password.')
+    elif password != password2:
+        return flask.render_template("/login-signup.html", message='Passwords do not match please try again.')
+    else:
+        return redirect("/", code=302)
 
 
 @app.route('/movies.html')
