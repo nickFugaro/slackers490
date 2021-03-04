@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        h1 {
+            color: white;
+            text-align: center;
+            background: #343840;
+            border-radius: 10px;
+        }
+
+        body {
+            background-image: url("https://i.pinimg.com/originals/e6/66/83/e66683612ce467134ed4a3be9d0ce28e.png");
+            background-color: #cccccc;
+        }
+
+    </style>
+
+    <title>Star Wars</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <h1>Star Wars</h1>
+    <a href="login-signup.html"><button type="button" class="btn btn-dark float-right">Login</button></a>
+    <center>
+        <a href="index.html">
+            <button type="button" class="btn btn-dark">Home</button>
+        </a>
+        <a href="movies.html">
+            <button type="button" class="btn btn-dark">Movies</button>
+        </a>
+        <a href="characters.html">
+            <button type="button" class="btn btn-danger">Characters</button>
+        </a>
+        <a href="forum.html">
+            <button type="button" class="btn btn-dark">Forum</button>
+        </a>
+        <a href="quizzes.html">
+            <button type="button" class="btn btn-dark">Quizzes</button>
+        </a>
+        <a href="news.html">
+            <button type="button" class="btn btn-dark">News Feed</button>
+        </a>
+    </center>
+    <br>
+    <br>
+    <div class="card-columns">
+    <!-- create a for loop to iterate over the movies-->
+        <div class="card bg-dark text-white">
+            <img class="card-img-top" src="https://wallpapercave.com/wp/wp3984498.jpg" alt="Card image cap">
+            <div class="card-img-overlay">
+                <h5 class="card-title">{{ char1info['name'] }}</h5>
+                <p class="card-text">Date of birth: {{ char1info['dob'] }}</p>
+                <p class="card-text">Gender: {{ char1info['gender'] }}</p>
+                <p class="card-text">Height: {{ char1info['height'] }}</p>
+            </div>
+        </div>
+        <div class="card bg-dark text-white">
+            <img class="card-img-top" src="https://i.pinimg.com/originals/40/5e/cd/405ecd9380678e964f992084d39c2ffd.jpg" alt="Card image cap">
+            <div  class="card-img-overlay">
+                <h5 class="card-title">{{ char2info['name'] }}</h5>
+                <p class="card-text">Date of birth: {{ char2info['dob'] }}</p>
+                <p class="card-text">Gender: {{ char2info['gender'] }}</p>
+                <p class="card-text">Height: {{ char2info['height'] }}</p>
+            </div>
+        </div>
+        <div class="card bg-dark text-white">
+            <img class="card-img-top" src="https://images5.alphacoders.com/482/thumb-350-482332.jpg" alt="Card image cap">
+            <div  class="card-img-overlay">
+                <h5 class="card-title">{{ char3info['name'] }}</h5>
+                <p class="card-text">Date of birth: {{ char3info['dob'] }}</p>
+                <p class="card-text">Gender: {{ char3info['gender'] }}</p>
+                <p class="card-text">Height: {{ char3info['height'] }}</p>
+            </div>
+        </div>
+        <div class="card bg-dark text-white">
+            <img class="card-img-top" src="https://c4.wallpaperflare.com/wallpaper/878/610/411/movies-star-wars-darth-vader-wallpaper-preview.jpg" alt="Card image cap">
+            <div  class="card-img-overlay">
+                <h5 class="card-title">{{ char4info['name'] }}</h5>
+                <p class="card-text">Date of birth: {{ char4info['dob'] }}</p>
+                <p class="card-text">Gender: {{ char4info['gender'] }}</p>
+                <p class="card-text">Height: {{ char4info['height'] }}</p>
+            </div>
+        </div>
+        <div class="card bg-dark text-white">
+            <img class="card-img-top" src="https://fsa.zobj.net/crop.php?r=2Tbnvlc8k06KEDvLjVsalX-B89szprgX4ACBzAhq232gN0vCOGPakBOY1nEmfut_L0GnVDV2z9S3GdYvevldkSJyXrmZzETO7qj7p6RHVlZxSeNXnAGdnm_y5Us4XOthvinNvntxaQ4xY9x4" alt="Card image cap">
+            <div  class="card-img-overlay">
+                <h5 class="card-title">{{ char5info['name'] }}</h5>
+                <p class="card-text">Date of birth: {{ char5info['dob'] }}</p>
+                <p class="card-text">Gender: {{ char5info['gender'] }}</p>
+                <p class="card-text">Height: {{ char5info['height'] }}</p>
+            </div>
+        </div>
+        <div class="card bg-dark text-white">
+            <img class="card-img-top" src="https://lh3.googleusercontent.com/proxy/Blt7z4Z063aI1ezm9Q8vG93DI5OBoFRN1jVnL7ZjofBInWJWYpSl_wpdmZgaxYFLsVhOCQXfM79nB1hKbIbfK3pr0UfeHR1vCL_ZK1HfU5LEsIk8GbniPWA0GUjWXw" alt="Card image cap">
+            <div  class="card-img-overlay">
+                <h5 class="card-title">{{ char6info['name'] }}</h5>
+                <p class="card-text">Date of birth: {{ char6info['dob'] }}</p>
+                <p class="card-text">Gender: {{ char6info['gender'] }}</p>
+                <p class="card-text">Height: {{ char6info['height'] }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</body>
+</html>
