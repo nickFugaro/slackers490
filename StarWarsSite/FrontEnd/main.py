@@ -7,7 +7,6 @@ from pyClient import theClient
 
 app = flask.Flask(__name__)
 tolken = None
-#backend = theClient('BE')
 
 def movieCall(number):
     req = requests.get("https://swapi.dev/api/films/" + str(number)+ "/")
@@ -81,8 +80,12 @@ def loginaction():
         print("unsucessful")
         #handle unsuccessful backend call (display "could not sign in")
         return redirect("/error.html")
-    print("Email:" + str(email))
-    print(password)
+    if '' == email:
+        return flask.render_template("/login-signup.html", message='Empty email field, please fill that in.')
+    elif '' == password:
+        return flask.render_template("/login-signup.html", message='Empty password field, please fill that in.')
+    else:
+        return redirect("/", code=302)
     
 
 
@@ -93,15 +96,32 @@ def signupaction():
     password = request.form.get('password')
     password2 = request.form.get('password2')
     backend = theClient('BE')
-    login = backend.call({
+    signup = backend.call({
 	'type' : 'signup',
     'email' : email,
     'password' : password
     })
-    print("Email:" + str(email))
-    print(password)
-    return redirect("/", code=302)
-
+    if signup.get('success'):
+        tolken = signup.get('message')
+        print(tolken)
+        return redirect("/", code=302)
+    else:
+        print("unsucessful")
+        #handle unsuccessful backend call (display "could not sign in")
+        return redirect("/error.html")
+    if '' == name:
+        return flask.render_template("/login-signup.html", message='Empty name field, please fill that in.')
+    elif '' == email:
+        return flask.render_template("/login-signup.html", message='Empty email field, please fill that in.')
+    elif '' == password:
+        return flask.render_template("/login-signup.html", message='Empty password field, please fill that in.')
+    elif '' == password2:
+        return flask.render_template("/login-signup.html", message='Please confirm password.')
+    elif password != password2:
+        return flask.render_template("/login-signup.html", message='Passwords do not match please try again.')
+    else:
+        return redirect("/", code=302)
+    
 
 @app.route('/movies.html')
 def movies():
