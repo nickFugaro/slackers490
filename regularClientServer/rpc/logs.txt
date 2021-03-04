@@ -61,3 +61,4 @@
 03/03/2021, 16:47:40 | ./pyServer.py | getMethod | Type doesnt exist
 03/03/2021, 18:26:33 | ./pyServerAPI.py | getMethod | Type doesnt exist
 03/03/2021, 18:26:52 | ./pyServer.py | getMethod | Type doesnt exist
+03/04/2021, 00:56:22 | VM_DB | pyServerDB.py/reciever | 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%s,%s,%s)' at line 1

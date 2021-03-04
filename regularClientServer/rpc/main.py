@@ -82,7 +82,8 @@ def loginaction():
         print("unsucessful")
         #handle unsuccessful backend call (display "could not sign in")
         return redirect("/login-signup.html", message="Unsuccessful Login")
-    '''
+   
+     '''
     print("Email:" + str(email))
     print(password)
     return redirect("/", code=302)
@@ -96,6 +97,13 @@ def signupaction():
     password = request.form.get('password')
     password2 = request.form.get('password2')
     print("name:" + str(name))
+    backend = theClient('BE')
+    login = backend.call({
+	'type' : 'signup',
+    'email' : email,
+    'password' : password
+    })
+    print("Email:" + str(email))
     print(password)
     return redirect("/", code=302)
 
@@ -141,7 +149,22 @@ def news():
         userInfo=tweetRec[1]
         
         )
-        
+@app.route('/error.html')
+def errors():
+    return flask.render_template(
+        "error.html",
+    )
+"""
+@app.route('/characters.html')
+def errors():
+    backend = theClient('BE')
+    characters = backend.call({
+    'type' : 'character'
+    })
+    return flask.render_template(
+        "characters.html",
+    )  
+"""      
 @app.route('/quizzes.html')
 def quizzes():
     return flask.render_template(

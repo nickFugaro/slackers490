@@ -17,7 +17,7 @@ def getMethod(methodName,data):
     try:
         return{
                 'movies': lambda data : movieCall(),
-		    	'character' : lambda data : getCharacter(),
+		    	'character' : lambda data : getCharacter(data.get('number')),
                 'twitter': lambda data : getTweet()
                 
         }.get(methodName)(data)

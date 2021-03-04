@@ -36,12 +36,14 @@ def movieCall():
     return {'success':True,'message':movieDesc}
 
 
-def getCharacter():
+
+def getCharacter(number):
+
     req = requests.get("https://swapi.dev/api/people/" + str(number)+ "/")
     json = req.json()
     name = json["name"]
     dob = json["birth_year"]
     gender = json["gender"]
     height = json["height"]
-    info = {"name": name, "dob": dob, "gender": gender, height: "height"}
+    info = {"name": name, "dob": dob, "gender": gender, "height": height}
     return {'success':True,'message':info}
