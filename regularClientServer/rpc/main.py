@@ -3,7 +3,7 @@ import os
 import random
 import requests
 from flask import request, Response, redirect
-from pyClient import theClient
+#from pyClient import theClient
 
 app = flask.Flask(__name__)
 tolken = None
@@ -67,6 +67,7 @@ def login():
 def loginaction():
     email = request.form.get('emaillogin')
     password = request.form.get('passwordlogin')
+    '''
     backend = theClient('BE')
     login = backend.call({
 	'type' : 'login',
@@ -81,6 +82,7 @@ def loginaction():
         print("unsucessful")
         #handle unsuccessful backend call (display "could not sign in")
         return redirect("/login-signup.html", message="Unsuccessful Login")
+    '''
     print("Email:" + str(email))
     print(password)
     
@@ -99,11 +101,13 @@ def signupaction():
 
 @app.route('/movies.html')
 def movies():
+    '''
     backend = theClient('BE')
     movie1 = backend.call({
 	'type' : 'movies'
     })
     movie2 = movie1.get('message')
+    '''
     return flask.render_template(
         "movies.html",
         movie1info=movie2[0],
@@ -115,14 +119,21 @@ def movies():
        
         )
 
+@app.route('/characters.html')
+def characters():
+    return flask.render_template(
+        "chracters.html",
+        )
+
 @app.route('/news.html')
 def news():
+    '''
     backend = theClient('BE')
     tweets = backend.call({
     'type' : 'twitter'
     })
     tweetRec = tweets.get('message')
-
+    '''
     return flask.render_template(
         "news.html",
         tweetInfo=tweetRec[0],
