@@ -18,7 +18,7 @@ channel.queue_bind(exchange='beExchange', queue='be_queue')
 def getMethod(methodName,data):
     return{            
             #REGION Auth Functions
-            'signup': lambda data : signup(data.get('email'),data.get('password')),
+            'signup': lambda data : signup(data.get('email'),data.get('password'), data.get('username')),
             'login' : lambda data : login(data.get('email'), data.get('password')),
                
             #REGION Forums Functions
@@ -33,7 +33,8 @@ def getMethod(methodName,data):
             'getQuestion' : lambda data : quiz.getQuestion(),
             'checkAnswer' : lambda data : quiz.checkAnswer(data.get('quiz_id'),data.get('userSelection')),
             'saveAttempt' : lambda data : quiz.saveAttempt(data.get('email'),data.get('quiz_id'),data.get('userSelection')),
-            'getHistory' : lambda data : quiz.getHistory(data.get('email'))
+            'getHistory' : lambda data : quiz.getHistory(data.get('email')),
+            'getLeaderboard' : lambda data : quiz.getLeaderboard()
         
     }.get(methodName)(data)
 

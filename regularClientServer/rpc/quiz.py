@@ -2,6 +2,7 @@
 
 from pyClient import theClient
 import datetime
+from operator import itemgetter
 
 DB = theClient('DB')
 
@@ -100,3 +101,32 @@ def getHistory(email):
         return {'success' : True, 'message':result.get('message')}
     else:
         return {'success' : True, 'message': 'Seems Like You Have Not Taken A Quiz Yet'}
+    
+def getLeaderboard():
+    result = DB.call({
+        'query' : 'SELECT a.account_username as "user", json_arrayagg(qh.correct) as "Correct" from QuizHistory qh join Account a on qh.account_id = a.account_id GROUP BY a.account_username',
+        'params': 'NA'
+    })
+    
+    leaderboard = []
+    
+    account_info = None
+    
+    if result.get('success'):
+        account_info = result.get('message')
+        if len(account_info) == 0:
+            return {'success': True, 'message':'Seems Like No One Has Taken Our Quiz Yet'}
+        else:
+            for user in account_info:
+                correct = user.get('Correct')
+                ones = correct.count('1')
+                zeros = correct.count('0')
+                percentCorrect = ones/(ones+zeros)*100
+                leaderboard.append({'username' : user.get('user'),'percent':percentCorrect, 'totalAnswered' : (ones+zeros)})
+        
+        newlst = sorted(leaderboard,key=itemgetter('percent'),reverse=True)
+               
+        return {'success' : True, 'message':newlst}
+    else:
+        return {'success' : False, 'message' : 'Could Not Retrieve Quiz Results'}
+    

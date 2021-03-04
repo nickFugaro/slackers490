@@ -50,7 +50,7 @@ def addCategory(name,description):
 def getTopics(cat_id):
 	
 	result = DB.call({
-		'query' : "SELECT t.topic_subject, DATE_FORMAT(t.topic_date,'%m/%d/%Y, %I:%m %p') as Date, a.account_email from Topics t INNER JOIN Account a on a.account_id = t.topic_by and t.topic_cat = %(cat_id)s",
+		'query' : "SELECT t.topic_subject, DATE_FORMAT(t.topic_date,'%m/%d/%Y, %I:%m %p') as Date, a.account_username as user from Topics t INNER JOIN Account a on a.account_id = t.topic_by and t.topic_cat = %(cat_id)s",
 		'params': {'cat_id':cat_id}
 	})
 	
@@ -91,7 +91,7 @@ def addTopic(subject,cat_id,email):
 def getPosts(topic_id):
 
 	result = DB.call({
-		'query' : 'SELECT p.post_content , DATE_FORMAT(p.post_date,"%m/%d/%Y, %I:%m %p") as Date, a.account_email as "User" from Posts p INNER JOIN Account a on p.post_by = a.account_id and p.post_topic = %(topic_id)s',
+		'query' : 'SELECT p.post_content , DATE_FORMAT(p.post_date,"%m/%d/%Y, %I:%m %p") as Date, a.account_username as "user" from Posts p INNER JOIN Account a on p.post_by = a.account_id and p.post_topic = %(topic_id)s',
 		'params': {'topic_id':topic_id}
 	})
 

@@ -37,6 +37,7 @@ def reciever(ch, method, props, body):
     try:
         query = str(data.get('query'))
         params = data.get('params')
+        print(data)
     except:
         return {'success':False, 'message' : 'Query or Query Parameters Not Found'}
     

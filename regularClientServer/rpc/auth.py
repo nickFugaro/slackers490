@@ -43,17 +43,17 @@ def login(email,password):
 		return {'success':False, 'message':'Could Not Find Account, Please SignUp'}
 
 
-def signup(email,password):
+def signup(email,password,username):
     
     result = DB.call({
-		'query' : 'select account_email from Account where account_email=%(email)s',
-		'params' : {'email':email}
+		'query' : 'select account_email from Account where account_email=%(email)s or account_username =%(username)s',
+		'params' : {'email':email, 'username':username}
 	})
     
     result = result.get('message')
 	
     if len(result) != 0:
-        return {'success':False, 'message':'Email Already Registered'}
+        return {'success':False, 'message':'An Account Already Exists With This Email and Username'}
 
     salt = str(uuid.uuid4())
     password += salt
@@ -61,8 +61,8 @@ def signup(email,password):
     hashed = hashed.hexdigest()
 
     result = DB.call({
-		'query' : 'INSERT INTO Account (account_email, account_password , account_salt) VALUES (%(email)s,%(password)s,%(salt)s)',
-		'params': {'email':email, 'password': hashed, 'salt': salt}
+		'query' : 'INSERT INTO Account (account_username, account_email, account_password , account_salt) VALUES (%(username)s,%(email)s,%(password)s,%(salt)s)',
+		'params': {'username' : username,'email':email, 'password': hashed, 'salt': salt}
 	})
 
     if result.get('success'):
