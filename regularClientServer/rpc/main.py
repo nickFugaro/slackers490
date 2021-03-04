@@ -50,10 +50,10 @@ def commentaction():
     print("Comment:" + str(comment))
     return redirect("/forum.html", code=302)
 
-@app.route('/about.html')
+@app.route('/characters.html')
 def about():
     return flask.render_template(
-        "about.html",
+        "characters.html",
         )
 
 @app.route('/login-signup.html')
