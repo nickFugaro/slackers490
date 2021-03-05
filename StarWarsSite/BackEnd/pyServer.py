@@ -22,7 +22,7 @@ def getMethod(methodName,data):
     try:
         return{            
                 #REGION Auth Functions
-                'signup': lambda data : signup(data.get('email'),data.get('password')),
+                'signup': lambda data : signup(data.get('email'),data.get('password'), data.get('username')),
                 'login' : lambda data : login(data.get('email'), data.get('password')),
                
                 #REGION Forums Functions

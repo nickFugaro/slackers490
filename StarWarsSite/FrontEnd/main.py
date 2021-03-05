@@ -99,7 +99,8 @@ def signupaction():
     signup = backend.call({
 	'type' : 'signup',
     'email' : email,
-    'password' : password
+    'password' : password,
+    'username' : name
     })
     if signup.get('success'):
         tolken = signup.get('message')
