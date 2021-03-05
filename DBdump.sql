@@ -27,9 +27,10 @@ CREATE TABLE `Account` (
   `account_password` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `account_salt` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `account_id` int NOT NULL AUTO_INCREMENT,
+  `account_username` varchar(100) NOT NULL,
   UNIQUE KEY `id` (`account_id`),
   UNIQUE KEY `user_email_unique` (`account_email`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +39,7 @@ CREATE TABLE `Account` (
 
 LOCK TABLES `Account` WRITE;
 /*!40000 ALTER TABLE `Account` DISABLE KEYS */;
-INSERT INTO `Account` VALUES ('EMAIL','7d32ea9b6fe3f5a12e66680f2698fae06c851664fe0f39501ebc35547dc68eaf14e539dfb967731a674614f2247d31b512de521d6a1f5ecfa0b739c888d37530','a915cd06-2482-41b4-b7d6-67375ef2441b',1),('bMAIL','e108361cafba95815397828d78d865983ce975be0cefa1afe972bf136ae1a00dfed2ec7cb9cfce0ef86cec1f0b063e8fb01210f872ec499365ac501df3709ede','7c766ad0-3235-417e-be47-90445af3fd52',2);
+INSERT INTO `Account` VALUES ('EMAIL','7d32ea9b6fe3f5a12e66680f2698fae06c851664fe0f39501ebc35547dc68eaf14e539dfb967731a674614f2247d31b512de521d6a1f5ecfa0b739c888d37530','a915cd06-2482-41b4-b7d6-67375ef2441b',1,'email_username'),('bMAIL','e108361cafba95815397828d78d865983ce975be0cefa1afe972bf136ae1a00dfed2ec7cb9cfce0ef86cec1f0b063e8fb01210f872ec499365ac501df3709ede','7c766ad0-3235-417e-be47-90445af3fd52',2,'bmail_username'),('da354@njit.edu','3dd6a3c9e9537ac1d23b2928b364a48e99c0dcfd376bb4e976307f0acd34cd8703a0fa01acdc04239204f85f57078fd6f0dc4043a244260430526a3aa3b6409f','82bb3373-20ef-4709-b3db-af5f209eb6bb',3,'da354_username');
 /*!40000 ALTER TABLE `Account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -55,7 +56,7 @@ CREATE TABLE `Categories` (
   `cat_description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`cat_id`),
   UNIQUE KEY `cat_name_unique` (`cat_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -64,7 +65,7 @@ CREATE TABLE `Categories` (
 
 LOCK TABLES `Categories` WRITE;
 /*!40000 ALTER TABLE `Categories` DISABLE KEYS */;
-INSERT INTO `Categories` VALUES (1,'Category 1','Category 1 Description'),(2,'Category 2','Category 2 Description'),(3,'Category 3','Category 3 Description'),(4,'Category 4','Category 4 Description'),(5,'Category 5','Category 5 Description'),(6,'Category 6','Category 6 Description'),(7,'Category 7','Category 7 Description'),(8,'Category 8','Category 8 Description'),(9,'Category 9','Category 9 Description'),(10,'Category 10','Category 10 Description'),(16,'Category 11','Category 11 Description');
+INSERT INTO `Categories` VALUES (1,'Category 1','Category 1 Description'),(2,'Category 2','Category 2 Description'),(3,'Category 3','Category 3 Description'),(4,'Category 4','Category 4 Description'),(5,'Category 5','Category 5 Description'),(6,'Category 6','Category 6 Description'),(7,'Category 7','Category 7 Description'),(8,'Category 8','Category 8 Description'),(9,'Category 9','Category 9 Description'),(10,'Category 10','Category 10 Description'),(16,'Category 11','Category 11 Description'),(28,'Category 12','Category 3 Description'),(29,'Category 13','Category 13 Description');
 /*!40000 ALTER TABLE `Categories` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -86,7 +87,7 @@ CREATE TABLE `Posts` (
   KEY `post_by` (`post_by`),
   CONSTRAINT `Posts_ibfk_1` FOREIGN KEY (`post_topic`) REFERENCES `Topics` (`topic_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `Posts_ibfk_2` FOREIGN KEY (`post_by`) REFERENCES `Account` (`account_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -95,7 +96,7 @@ CREATE TABLE `Posts` (
 
 LOCK TABLES `Posts` WRITE;
 /*!40000 ALTER TABLE `Posts` DISABLE KEYS */;
-INSERT INTO `Posts` VALUES (1,'Post Content of Topic 1','2021-02-25 15:02:36',1,2),(2,'Post Content of Topic 1','2021-02-25 15:03:28',1,2);
+INSERT INTO `Posts` VALUES (1,'Post Content of Topic 1','2021-02-25 15:02:36',1,2),(2,'Post Content of Topic 1','2021-02-25 15:03:28',1,2),(3,'Category 14, Topic 4, Post 1','2021-03-02 17:46:39',4,2);
 /*!40000 ALTER TABLE `Posts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -154,6 +155,7 @@ CREATE TABLE `QuizHistory` (
 
 LOCK TABLES `QuizHistory` WRITE;
 /*!40000 ALTER TABLE `QuizHistory` DISABLE KEYS */;
+INSERT INTO `QuizHistory` VALUES (2,7,'C',1,'2021-03-01 17:21:01'),(2,7,'D',0,'2021-03-01 17:21:47'),(1,7,'D',0,'2021-03-01 17:31:57'),(1,7,'D',0,'2021-03-01 17:32:02'),(1,7,'D',0,'2021-03-01 17:32:21'),(1,7,'C',1,'2021-03-01 17:32:52');
 /*!40000 ALTER TABLE `QuizHistory` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -175,7 +177,7 @@ CREATE TABLE `Topics` (
   KEY `topic_by` (`topic_by`),
   CONSTRAINT `Topics_ibfk_1` FOREIGN KEY (`topic_cat`) REFERENCES `Categories` (`cat_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `Topics_ibfk_2` FOREIGN KEY (`topic_by`) REFERENCES `Account` (`account_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -184,7 +186,7 @@ CREATE TABLE `Topics` (
 
 LOCK TABLES `Topics` WRITE;
 /*!40000 ALTER TABLE `Topics` DISABLE KEYS */;
-INSERT INTO `Topics` VALUES (1,'Topic Subject 1','2021-02-25 12:20:10',1,2);
+INSERT INTO `Topics` VALUES (1,'Topic Subject 1','2021-02-25 12:20:10',1,2),(2,'Category 1 Subject SOMETHING RANDOM','2021-03-02 17:28:08',1,2),(4,'Category 11 Subject SOMETHING RANDOM SAGA','2021-03-02 17:29:23',16,2);
 /*!40000 ALTER TABLE `Topics` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -197,4 +199,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-03-01 12:32:48
+-- Dump completed on 2021-03-04 20:05:23
