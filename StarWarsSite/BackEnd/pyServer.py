@@ -38,6 +38,7 @@ def getMethod(methodName,data):
                 'checkAnswer' : lambda data : quiz.checkAnswer(data.get('quiz_id'),data.get('userSelection')),
                 'saveAttempt' : lambda data : quiz.saveAttempt(data.get('email'),data.get('quiz_id'),data.get('userSelection')),
                 'getHistory' : lambda data : quiz.getHistory(data.get('email')),
+                'getLeaderboard' : lambda data : quiz.getLeaderboard(),
 
                 #REGION API Functions
 			    'movies' : lambda data : movies(data),
@@ -53,9 +54,9 @@ def getMethod(methodName,data):
         stack = str(they)
         response = logError.call({'type':'log','vm_name':file,'function':stack,'message':'Type doesnt exist'})
         if response.get('success') == True:
-            rtn = {'success': False, 'message':'Error Has Occured Within DB, check logs for more details'}
+            rtn = {'success': False, 'message':'Error Has Occured Within BE, check logs for more details'}
         else:
-            rtn = {'success': False, 'message':'Error Has Occured Within DB, Error could not be recorded in log'}
+            rtn = {'success': False, 'message':'Error Has Occured Within BE, Error could not be recorded in log'}
 
 def validateToken(body):
     jwt = JWT()
@@ -78,7 +79,7 @@ def reciever(ch, method, props, body):
     data = json.loads(body.decode('utf-8'))
     show = data.get('type')
     print(show)
-    if (show == 'login' or show == 'signup' or show == 'getQuestion' or show == 'checkAnswer' or show == 'saveAttempt' or show == 'getHistory'):
+    if (show == 'login' or show == 'signup' or show == 'getQuestion' or show == 'checkAnswer' or show == 'saveAttempt' or show == 'getHistory' or show == 'getLeaderboard'):
         isValid = validateToken(data)
         if isValid.get('success'):
             data['email'] = isValid.get('email')

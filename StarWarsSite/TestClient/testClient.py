@@ -4,14 +4,16 @@ from pyClient import theClient
 backend = theClient('BE')
 
 response = backend.call({
-	'type' : 'twitter'
+	'type' : 'login',
+	'email' : 'bMAIL',
+	'password' : 'PASSWORD'
 })
 
 token = response.get('message')
-print(token)
-"""response = backend.call({
-    'type' : 'login',
-    'Authorization' : token
-})
 
-print(response)"""
+response = backend.call({
+	'type' : 'getLeaderboard',
+	'Authorization' : token
+ })
+
+print(response.get('message'))

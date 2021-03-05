@@ -9,7 +9,7 @@ import uuid
 
 #REGION: SETUP RABBITMQ CONNECTION
 creds = pika.PlainCredentials('test','test')
-connection = pika.BlockingConnection(pika.ConnectionParameters('25.93.61.112',5672,'vhost',creds,heartbeat=0,socket_timeout=None))
+connection = pika.BlockingConnection(pika.ConnectionParameters('25.93.61.112',5672,'vhost',creds))
 channel = connection.channel()
 channel.queue_declare(queue='db_queue')
 channel.queue_bind(exchange='dbExchange', queue='db_queue')
@@ -37,6 +37,7 @@ def reciever(ch, method, props, body):
     try:
         query = str(data.get('query'))
         params = data.get('params')
+        print(data)
     except:
         return {'success':False, 'message' : 'Query or Query Parameters Not Found'}
     
@@ -60,7 +61,13 @@ def reciever(ch, method, props, body):
             
         rtn = {'success' : True, 'message' : result}
         
-        
+    except mysql.connector.IntegrityError as Integrity_Error:
+        res = logError.call({'type':'log','vm_name':'VM_DB','function':'pyServerDB.py/reciever','message':str(Integrity_Error)})
+        if res.get('success'):
+            rtn = {'success': False, 'message':str(Integrity_Error)}
+        else:
+            rtn = {'success': False, 'message':'Error Has Occured Within DB, Error could not be recorded in log'}
+            
     except mysql.connector.Error as error:
         print(error)
         db.rollback()
@@ -69,7 +76,8 @@ def reciever(ch, method, props, body):
             rtn = {'success': False, 'message':'Error Has Occured Within DB, check logs for more details'}
         else:
             rtn = {'success': False, 'message':'Error Has Occured Within DB, Error could not be recorded in log'}
-        
+            
+            
     rtn = json.JSONEncoder().encode(rtn)
 
     ch.basic_publish(
