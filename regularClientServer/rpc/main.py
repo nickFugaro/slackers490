@@ -190,6 +190,14 @@ def quizzes():
         "quizzes.html",
         )
 
+@app.route('/quizzes.html', methods=['POST'])
+def quizaction():
+    # question = request.form.get('question')
+    option = request.form['options']
+    # print("Question:" + str(question))
+    print("Answer:" + str(option))
+    return redirect("/", code=302)
+
 app.run(
     host=os.getenv('IP', '0.0.0.0')
 )

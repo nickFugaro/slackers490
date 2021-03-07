@@ -61,25 +61,47 @@
     </div>
     <br />
     <br />
-    <div id="container">
-        <div id="start">Start Quiz!</div>
-        <div id="quiz" style="display: none">
-            <div id="question"></div>
-            <div id="qImg"></div>
-            <div id="choices">
-                <div class="choice" id="A" onclick="checkAnswer('A')"></div>
-                <div class="choice" id="B" onclick="checkAnswer('B')"></div>
-                <div class="choice" id="C" onclick="checkAnswer('C')"></div>
-            </div>
-            <div id="timer">
-                <div id="counter"></div>
-                <div id="btimeGauge"></div>
-                <div id="timeGauge"></div>
-            </div>
-            <div id="progress"></div>
+    <center>
+      <form action="/quizzes.html", method="post">
+      <!--Start loop-->
+
+        <div class="card w-50 my-4">
+          <div class="card-body">
+            <h5 class="card-title" name="question" id="question" value="question"> Question 1?</h5>
+          <br />
+              <input type="radio" name="options" id="option1" value="option1" /> <!-- add the jinja var for value -> {{Option}}-->
+              <span class="checkmark"></span>
+              <label class="card-text"
+              >Option 1 <!-- {{Option}}-->
+            </label>
+            <br />
+             <input type="radio" name="options" id="option2" value="option2"/>
+              <span class="checkmark"></span>
+              <label class="card-text"
+              >Option 2
+            </label>
+            <br />
+             <input type="radio" name="options"id="option3" value="option3" />
+              <span class="checkmark"></span>
+              <label class="card-text"
+              >Option 3
+            </label>
+            <br />
+             <input type="radio" name="options"id="option4" value="option4" />
+              <span class="checkmark"></span>
+              <label class="card-text"
+              >Option 4
+            </label>
+          </div>
         </div>
-        <div id="scoreContainer" style="display: none"></div>
-    </div>
-    <script src="{{url_for('static', filename='javascript/quiz.js')}}"></script>
+
+
+      <!--end loop-->
+        <div class="container w-50">
+          <button class="btn btn-danger float-right">Submit</button>
+        </div>
+      </form>
+    </center>
+    
   </body>
 </html>
