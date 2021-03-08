@@ -65,7 +65,7 @@ def discussionaction():
 
 @app.route('/forum.html/comment', methods=['GET'])
 def commentaction():
-    id = request.args.get('id')
+    id = request.form.get('id')
     backend = theClient('BE')
     result = backend.call({
         'type' : 'getPosts',

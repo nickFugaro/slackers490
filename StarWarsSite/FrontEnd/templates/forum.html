@@ -181,6 +181,7 @@
                         data-target=".forum-content"
                       ></a>
                       <div class="media-body">
+                      <form action="/forum.html/comment" method="POST">
                       {%if session['topics'] and session['topics']['message']|length > 0 %}
                       {%for topic in session['topics']['message']%}
                         <h6>
@@ -189,6 +190,9 @@
                               data-toggle="collapse"
                               data-target=".forum-content"
                               class ='text-body'
+                              name='cat_id' 
+                              type="submit" 
+                              value="{{id}}"
                               >{{topic.topic_subject}}
                             </a>
                         </h6>
@@ -200,6 +204,7 @@
                         {%else%}
                           No Topics Discussions Found :/
                         {%endif%}
+                      </form>
                       </div>
                     </div>
                   </div>
