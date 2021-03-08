@@ -61,22 +61,52 @@
     </div>
     <br />
     <br />
-<<<<<<< HEAD:regularClientServer/rpc/templates/quizzes.html
+
     <center>
+    <div class = "container">
+      <table  class="table table-striped table-dark">
+        <thead>
+          <tr>
+            <th scope="col">No.</th>
+            <th scope="col">Name</th>
+            <th scope="col">Score</th>
+          </tr>
+        </thead>
+        <tbody style = "color-white">
+          <tr>
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>32</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Jacob</td>
+            <td>31</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>Larry</td>
+            <td>05</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+      
+      
       <form action="/quizzes.html", method="post">
       <!--Start loop-->
 
-        <div class="card w-50 my-4">
-          <div class="card-body">
-            <h5 class="card-title" name="question" id="question" value="question"> Question 1?</h5>
+        <div class="card w-50 my-4" style="display: inline-block">
+          <h5>Question 1?</h5>
           <br />
-              <input type="radio" name="options" id="option1" value="option1" /> <!-- add the jinja var for value -> {{Option}}-->
+             <input type="radio" name="options"id="option1" value="option1" />
               <span class="checkmark"></span>
               <label class="card-text"
-              >Option 1 <!-- {{Option}}-->
+              >Option 1
             </label>
             <br />
-             <input type="radio" name="options" id="option2" value="option2"/>
+             <input type="radio" name="options"id="option2" value="option2" />
               <span class="checkmark"></span>
               <label class="card-text"
               >Option 2
@@ -93,57 +123,8 @@
               <label class="card-text"
               >Option 4
             </label>
-          </div>
-=======
-    <div class = "container">
-    <table  class="table table-striped table-dark">
-      <thead>
-        <tr>
-          <th scope="col">No.</th>
-          <th scope="col">Name</th>
-          <th scope="col">Score</th>
-        </tr>
-      </thead>
-      <tbody style = "color-white">
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>32</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>31</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>Larry</td>
-          <td>05</td>
-        </tr>
-      </tbody>
-    </table>
-    </div>
-    <br><br>
-    <div id="container">
-        <div id="start">Start Quiz!</div>
-        <div id="quiz" style="display: none">
-            <div id="question"></div>
-            <div id="qImg"></div>
-            <div id="choices">
-                <div class="choice" id="A" onclick="checkAnswer('A')"></div>
-                <div class="choice" id="B" onclick="checkAnswer('B')"></div>
-                <div class="choice" id="C" onclick="checkAnswer('C')"></div>
-            </div>
-            <div id="timer">
-                <div id="counter"></div>
-                <div id="btimeGauge"></div>
-                <div id="timeGauge"></div>
-            </div>
-            <div id="progress"></div>
->>>>>>> nick:StarWarsSite/FrontEnd/templates/quizzes.html
-        </div>
-
-
+      </div>
+      </div>
       <!--end loop-->
         <div class="container w-50">
           <button class="btn btn-danger float-right">Submit</button>
