@@ -9,7 +9,7 @@ DB = theClient('DB')
 def getAllCategories():
     	
 	result = DB.call({
-		'query' : 'select cat_name as Name, cat_description as Description from Categories',
+		'query' : 'select cat_id as id, cat_name as Name, cat_description as Description from Categories',
 		'params': 'NA'
 	})
 
@@ -39,7 +39,7 @@ def addCategory(name,description):
 def getTopics(cat_id):
 	
 	result = DB.call({
-		'query' : "SELECT t.topic_subject, DATE_FORMAT(t.topic_date,'%m/%d/%Y, %I:%m %p') as Date, a.account_username as user from Topics t INNER JOIN Account a on a.account_id = t.topic_by and t.topic_cat = %(cat_id)s",
+		'query' : "SELECT t.topic_id as id,t.topic_subject, DATE_FORMAT(t.topic_date,'%m/%d/%Y, %I:%m %p') as Date, a.account_username as user from Topics t INNER JOIN Account a on a.account_id = t.topic_by and t.topic_cat = %(cat_id)s",
 		'params': {'cat_id':cat_id}
 	})
 	

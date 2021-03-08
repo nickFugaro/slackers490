@@ -2,11 +2,12 @@ import flask
 import os
 import random
 import requests
-from flask import request, Response, redirect
+from flask import request, Response, redirect, session
 from pyClient import theClient
 
 app = flask.Flask(__name__)
-tolken = None
+app.secret_key = 'SOME_SECRET_KEY'
+token = None
 
 def movieCall(number):
     req = requests.get("https://swapi.dev/api/films/" + str(number)+ "/")
@@ -29,25 +30,56 @@ def index():
 
 @app.route('/forum.html')
 def forum():
-    return flask.render_template(
-        "forum.html",
+    backend = theClient('BE')
+    result = backend.call({
+        'type':'getAllCategories',
+        'Authorization' : token
+    })
+
+    if result.get('success'):
+        return flask.render_template(
+            "forum.html",
+            Categories = result.get('message')
         )
+    else:
+        print(result.get('message'))
+        #HANDLE ERROR IS NO CATEGORIES FOUND
+        print('ERROR IN /forums.html')
 
 @app.route('/forum.html/discussion', methods=['POST'])
 def discussionaction():
-    topic = request.form.get('threadTitle')
-    discription = request.form.get('threadDiscription')
-    category = request.form.get('threadCategory')
-    print("Topic:" + str(topic))
-    print("Discription:" + str(discription))
-    print("Category:" + str(category))
-    return redirect("/forum.html", code=302)
+    cat_id = request.form.get('cat_id')
+    backend = theClient('BE')
+    result = backend.call({
+        'type':'getTopics',
+        'Authorization': token,
+        'cat_id' : cat_id
+    })
 
-@app.route('/forum.html/comment', methods=['POST'])
+    if result.get('success'):
+        session['topics'] = result.get('message')
+        return redirect("/forum.html", code=302)
+    else:
+        print('ERROR IN /forum.html/discussion')
+    
+
+@app.route('/forum.html/comment', methods=['GET'])
 def commentaction():
-    comment = request.form.get('threadComment')
-    print("Comment:" + str(comment))
-    return redirect("/forum.html", code=302)
+    id = request.args.get('id')
+    backend = theClient('BE')
+    result = backend.call({
+        'type' : 'getPosts',
+        'Authorization' : token,
+        'id' : id
+    })
+    
+    if result.get('success'):
+        session['comments'] = result.get('message')
+        return redirect("/forum.html", code=302)
+    else:
+        print('ERROR /forum.html/comment')
+    
+    
 
 @app.route('/about.html')
 def about():

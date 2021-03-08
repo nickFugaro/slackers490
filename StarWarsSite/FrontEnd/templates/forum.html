@@ -108,21 +108,13 @@
                           style="height: 100%; overflow: hidden scroll"
                         >
                           <div class="simplebar-content" style="padding: 16px" id = "categories">
+                            <form action="/forum.html/discussion" method="POST">
                             <nav class="nav nav-pills nav-gap-y-1 flex-column">
-                              <a
-                                class="nav-link nav-link-faded has-icon active my-1"
-                                >All Threads</a
-                              >
-                              <a
-                                class="nav-link nav-link-faded has-icon my-1"
-                                >Lores</a
-                              >
-                              <a
-                                href=""
-                                class="nav-link nav-link-faded has-icon my-1"
-                                >Events</a
-                              >
+                              {%for cats in Categories%}
+                              <button class="nav-link nav-link-faded has-icon active my-1" name='cat_id' type="submit" value="{{cats.id}}">{{cats.Name}}</button>
+                              {%endfor%}
                             </nav>
+                          </form>
                           </div>
                         </div>
                       </div>
@@ -189,25 +181,25 @@
                         data-target=".forum-content"
                       ></a>
                       <div class="media-body">
+                      {%if session['topics'] and session['topics']['message']|length > 0 %}
+                      {%for topic in session['topics']['message']%}
                         <h6>
                           <a
-                            href="#"
-                            data-toggle="collapse"
-                            data-target=".forum-content"
-                            class="text-body"
-                            >Realtime fetching data</a
-                          >
+                              href="{{url_for('commentaction', id=topic.id)}}"
+                              data-toggle="collapse"
+                              data-target=".forum-content"
+                              class="text-body"
+                              >{{topic.topic_subject}}
+                            </a>
                         </h6>
-                        <p class="text-secondary">
-                          lorem ipsum dolor sit amet lorem ipsum dolor sit amet
-                          lorem ipsum dolor sit amet
-                        </p>
                         <p class="text-muted">
-                          <a href="javascript:void(0)">drewdan</a> replied
-                          <span class="text-secondary font-weight-bold"
-                            >13 minutes ago</span
-                          >
+                          Create By: <b>{{topic.user}}</b>
+                          Date: <span class="text-secondary font-weight-bold">{{topic.Date}}</span>
                         </p>
+                        {%endfor%}
+                        {%else%}
+                          No Topics Discussions Found :/
+                        {%endif%}
                       </div>
                     </div>
                   </div>

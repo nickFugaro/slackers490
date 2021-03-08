@@ -9,7 +9,7 @@ class theClient(object):
     def __init__(self):
         creds = pika.PlainCredentials('test','test')
         print('Establishing Connection To Server')
-        self.connection = pika.BlockingConnection(pika.ConnectionParameters('25.93.61.112',5672,'vhost',creds))
+        self.connection = pika.BlockingConnection(pika.ConnectionParameters('localhost',5672,'vhost',creds))
         self.channel = self.connection.channel()
         result = self.channel.queue_declare(queue='clientLogCallback', exclusive=True)
         self.callback_queue = result.method.queue

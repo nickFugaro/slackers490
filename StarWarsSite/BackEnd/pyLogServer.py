@@ -8,7 +8,7 @@ from pyLogger import log
 
 
 creds = pika.PlainCredentials('test','test')
-connection = pika.BlockingConnection(pika.ConnectionParameters('25.93.61.112',5672,'vhost',creds,heartbeat=0,socket_timeout=None))
+connection = pika.BlockingConnection(pika.ConnectionParameters('localhost',5672,'vhost',creds,heartbeat=0,socket_timeout=None))
 channel = connection.channel()
 channel.queue_declare(queue='log_queue')
 channel.queue_bind(exchange='logExchange', queue='log_queue')
