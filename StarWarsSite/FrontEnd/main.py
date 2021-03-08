@@ -215,7 +215,20 @@ def characters():
 def quizzes():
     return flask.render_template(
         "quizzes.html",
+        dictionaries=[{"Question": "Question 1", "A": "Option1", "B": "Option2", "C": "Option3", "D": "Option4"}, {"Question": "Question 2", "A": "Option1", "B": "Option2", "C": "Option3", "D": "Option4"}]
+    
         )
+@app.route('/quizzes.html', methods=['POST'])
+def quizaction():
+    dictionaries=[{"Question": "Question 1", "A": "Option1", "B": "Option2", "C": "Option3", "D": "Option4"}, {"Question": "Question 2", "A": "Option1", "B": "Option2", "C": "Option3", "D": "Option4"}]
+    # question = request.form.get('question')
+    option1 = request.form[dictionaries[0]["Question"]]
+    option2 = request.form[dictionaries[1]["Question"]]
+    # print("Question:" + str(question))
+    print("Answer:" + str(option1))
+    print("Answer:" + str(option2))
+    # print("Answer:" + str(option1))
+    return redirect("/", code=302)
 
 app.run(
     host=os.getenv('IP', '0.0.0.0')

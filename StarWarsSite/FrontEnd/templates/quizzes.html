@@ -96,36 +96,35 @@
       
       <form action="/quizzes.html", method="post">
       <!--Start loop-->
-
+      {%for i in dictionaries%}
         <div class="card w-50 my-4" style="display: inline-block">
-          <h5>Question 1?</h5>
+          <h5>{{ i["Question"] }}</h5>
           <br />
-             <input type="radio" name="options"id="option1" value="option1" />
+             <input type="radio" name="{{ i["Question"] }}" id="option1" value="option1" />
               <span class="checkmark"></span>
               <label class="card-text"
-              >Option 1
+              >{{ i["A"] }}
             </label>
             <br />
-             <input type="radio" name="options"id="option2" value="option2" />
+             <input type="radio" name="{{ i["Question"] }}" id="option2" value="option2" />
               <span class="checkmark"></span>
               <label class="card-text"
-              >Option 2
+              >{{ i["B"] }}
             </label>
             <br />
-             <input type="radio" name="options"id="option3" value="option3" />
+             <input type="radio" name="{{ i["Question"] }}" id="option3" value="option3" />
               <span class="checkmark"></span>
               <label class="card-text"
-              >Option 3
+              >{{ i["C"] }}
             </label>
             <br />
-             <input type="radio" name="options"id="option4" value="option4" />
+             <input type="radio" name="{{ i["Question"] }}" id="option4" value="option4" />
               <span class="checkmark"></span>
               <label class="card-text"
-              >Option 4
+              >{{ i["D"] }}
             </label>
       </div>
-      </div>
-      <!--end loop-->
+      {%endfor%}
         <div class="container w-50">
           <button class="btn btn-danger float-right">Submit</button>
         </div>
