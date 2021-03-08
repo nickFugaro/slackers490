@@ -184,11 +184,11 @@
                       {%if session['topics'] and session['topics']['message']|length > 0 %}
                       {%for topic in session['topics']['message']%}
                         <h6>
-                          <a
+                            <a
                               href="{{url_for('commentaction', id=topic.id)}}"
                               data-toggle="collapse"
                               data-target=".forum-content"
-                              class="text-body"
+                              class ='text-body'
                               >{{topic.topic_subject}}
                             </a>
                         </h6>
@@ -240,6 +240,9 @@
                   ><i class="fa fa-arrow-left mr-2"></i>Back</a
                 >
                 <div class="card mb-2">
+                  {%if session['comments'] and session['comments']['message']|length > 0%}
+                  {%for comment in session['comments']%}
+                  {{comment.message}}
                   <div class="card-body">
                     <div class="media forum-item">
                       <div class="media-body ml-3">
@@ -261,6 +264,10 @@
                       </div>
                     </div>
                   </div>
+                  {%endfor%}
+                  {%else%}
+                    No Comments Found :/
+                  {%endif%}
                 </div>
                 <div class="container">
                   <div class="card mb-3">

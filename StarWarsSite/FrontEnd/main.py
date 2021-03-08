@@ -74,6 +74,7 @@ def commentaction():
     })
     
     if result.get('success'):
+        print(result.get('message'))
         session['comments'] = result.get('message')
         return redirect("/forum.html", code=302)
     else:
