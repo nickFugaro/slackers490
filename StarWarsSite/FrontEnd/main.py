@@ -30,6 +30,7 @@ def index():
 
 @app.route('/forum.html')
 def forum():
+    global token
     backend = theClient('BE')
     result = backend.call({
         'type':'getAllCategories',
@@ -105,8 +106,9 @@ def loginaction():
     'password' : password
     })
     if login.get('success'):
-        tolken = login.get('message')
-        print(tolken)
+        global token 
+        token = login.get('message')
+        print(token)
         return redirect("/", code=302)
     else:
         print("unsucessful")
@@ -135,8 +137,9 @@ def signupaction():
     'username' : name
     })
     if signup.get('success'):
-        tolken = signup.get('message')
-        print(tolken)
+        global token
+        token = signup.get('message')
+        print(token)
         return redirect("/", code=302)
     else:
         print("unsucessful")
@@ -213,21 +216,66 @@ def characters():
     
 @app.route('/quizzes.html')
 def quizzes():
+    global token
+    print(token)
+    backend = theClient('BE')
+    questions = backend.call({
+    'type' : 'getQuestion',
+    'Authorization' : token,
+    })
+    leaderboard = backend.call({
+        'type' : 'getLeaderboard',
+        'Authorization' : token
+        })
+    print(leaderboard.get('message'))
+    if questions['success']:
+        global dictionariesList
+        dictionariesList = questions['message'] #make global for reference to quizaction
+    else:
+        #handle error
+        print(questions["message"])
+        return redirect("/", code=302)
+
     return flask.render_template(
         "quizzes.html",
-        dictionaries=[{"Question": "Question 1", "A": "Option1", "B": "Option2", "C": "Option3", "D": "Option4"}, {"Question": "Question 2", "A": "Option1", "B": "Option2", "C": "Option3", "D": "Option4"}]
-    
+        dictionaries=dictionariesList
         )
 @app.route('/quizzes.html', methods=['POST'])
 def quizaction():
-    dictionaries=[{"Question": "Question 1", "A": "Option1", "B": "Option2", "C": "Option3", "D": "Option4"}, {"Question": "Question 2", "A": "Option1", "B": "Option2", "C": "Option3", "D": "Option4"}]
-    # question = request.form.get('question')
-    option1 = request.form[dictionaries[0]["Question"]]
-    option2 = request.form[dictionaries[1]["Question"]]
-    # print("Question:" + str(question))
-    print("Answer:" + str(option1))
-    print("Answer:" + str(option2))
-    # print("Answer:" + str(option1))
+    global token
+    backend = theClient('BE')
+    correct = 0
+    for i in dictionariesList:
+        option = request.form[i["Question"]]
+        ID = i["id"]
+        if option == "option1":
+            option = "A"
+        if option == "option2":
+            option = "B"
+        if option == "option3":
+            option = "C"
+        if option == "option4":
+            option = "D"
+        result = backend.call({
+        'type' : 'checkAnswer',
+        'Authorization' : token,
+        'quiz_id' : ID,
+        'userSelection' : option
+        })
+        if result.get('success'):
+            saveAttempt = backend.call({
+                'type' : 'saveAttempt',
+                'Authorization' : token,
+                'quiz_id' : ID,
+                'userSelection' : option
+            })
+            if result.get('message') == "Answer Correct":
+                correct+=1
+        else:
+            print(result.get('message'))
+    
+    score = (correct/5)*100
+    print(score) # reload quiz page w score
     return redirect("/", code=302)
 
 app.run(
