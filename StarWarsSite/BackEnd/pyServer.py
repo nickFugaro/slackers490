@@ -13,7 +13,7 @@ from sendapi import *
 from pyClient import theClient
 
 creds = pika.PlainCredentials('test','test')
-connection = pika.BlockingConnection(pika.ConnectionParameters('25.93.61.112',5672,'vhost',creds,heartbeat=0,socket_timeout=None))
+connection = pika.BlockingConnection(pika.ConnectionParameters('localhost',5672,'vhost',creds,heartbeat=0,socket_timeout=None))
 channel = connection.channel()
 channel.queue_declare(queue='be_queue')
 channel.queue_bind(exchange='beExchange', queue='be_queue')
@@ -60,16 +60,20 @@ def getMethod(methodName,data):
 
 def validateToken(body):
     jwt = JWT()
+    exclusions = ['getAllCategories', 'getTopics', 'getPosts', 'getLeaderboard', 'movies', 'character', 'twitter']
     if body.get('type') != 'signup' and body.get('type')!= 'login':
-        if not body.get('Authorization'):
-            return {'success':False}
+        if body.get('type') in exclusions:
+            return {'success':True}
         else:
-            result = jwt.verifyToken(body.get('Authorization'))
-            print(result)
-            if result.get('success'):
-                return {'success':True,'email':result.get('email')}
-            else:
+            if not body.get('Authorization'):
                 return {'success':False}
+            else:
+                result = jwt.verifyToken(body.get('Authorization'))
+                print(result)
+                if result.get('success'):
+                    return {'success':True,'email':result.get('email')}
+                else:
+                    return {'success':False}
     else:
         return {'success':True, 'email':body.get('email')}
     
@@ -79,19 +83,15 @@ def reciever(ch, method, props, body):
     data = json.loads(body.decode('utf-8'))
     show = data.get('type')
     print(show)
-    if (show == 'login' or show == 'signup' or show == 'getQuestion' or show == 'checkAnswer' or show == 'saveAttempt' or show == 'getHistory' or show == 'getLeaderboard'):
-        isValid = validateToken(data)
-        if isValid.get('success'):
-            data['email'] = isValid.get('email')
-            func = getMethod(data.get('type'),data)
-            response = func
-            rtn = json.JSONEncoder().encode(response)    
-        else:
-            rtn = json.JSONEncoder().encode({'success':False,'message':'Invalid Token'})
-    else:
+    isValid = validateToken(data)
+    if isValid.get('success'):
+        data['email'] = isValid.get('email')
         func = getMethod(data.get('type'),data)
         response = func
-        rtn = json.JSONEncoder().encode(response)
+        rtn = json.JSONEncoder().encode(response)    
+    else:
+        rtn = json.JSONEncoder().encode({'success':False,'message':'Invalid Token'})
+    
     
     ch.basic_publish(exchange='',
                      routing_key=props.reply_to,

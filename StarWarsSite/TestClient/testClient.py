@@ -12,7 +12,7 @@ response = backend.call({
 token = response.get('message')
 
 response = backend.call({
-	'type' : 'getLeaderboard',
+	'type' : 'getQuestions',
 	'Authorization' : token
  })
 

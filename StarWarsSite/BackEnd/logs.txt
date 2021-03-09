@@ -63,3 +63,7 @@
 03/03/2021, 18:26:52 | ./pyServer.py | getMethod | Type doesnt exist
 03/04/2021, 00:56:22 | VM_DB | pyServerDB.py/reciever | 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%s,%s,%s)' at line 1
 03/04/2021, 20:16:36 | ./pyServer.py | getMethod | Type doesnt exist
+03/07/2021, 15:50:28 | VM_DB | pyServerDB.py/reciever | 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'cat_name as Name, cat_description as Description from Categories' at line 1
+03/07/2021, 15:52:09 | VM_DB | pyServerDB.py/reciever | 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'cat_name as Name, cat_description as Description from Categories' at line 1
+03/07/2021, 19:59:39 | ./pyServer.py | getMethod | Type doesnt exist
+03/07/2021, 20:00:22 | ./pyServer.py | getMethod | Type doesnt exist

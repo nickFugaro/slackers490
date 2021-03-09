@@ -39,7 +39,6 @@ def movieCall():
         return {'success':False,'message':'No Movie Descriptions Found'}
     return {'success':True,'message':movieDesc}
 
-
 def getCharacter():
     charList = []
     for i in range (1,7):
