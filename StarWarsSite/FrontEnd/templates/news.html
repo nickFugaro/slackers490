@@ -64,6 +64,8 @@
     <br />
     <div  class = "container">
     <div class="row">
+      <center><h5 style="color:white;">{{ message }}</h5></center>
+      {%if tweetInfo%}
       <div class="col-8">
         <h2 style = "color:white">Tweets on Star Wars, Latest.</h2>
         {%for i in range(0, 10)%}
@@ -85,7 +87,10 @@
         {%endfor%}
         
       </div>
-
+      {% else %}
+      <br />
+      <center><h5 style="color: white">Unable to retrieve news, please try again.</h5></center>
+      {% endif %}
         <h2 style = "color:white">Trending on Instagram.</h2>
         <br>
         <rssapp-carousel id="kBeJK7qLp1gZ7QBF"></rssapp-carousel><script src="https://widget.rss.app/v1/carousel.js" type="text/javascript" async></script>

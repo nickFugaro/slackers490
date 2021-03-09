@@ -184,11 +184,6 @@ def errors():
         "characters.html",
     )  
 """      
-@app.route('/quizzes.html')
-def quizzes():
-    return flask.render_template(
-        "quizzes.html",
-        )
 
 @app.route('/quizzes.html', methods=['POST'])
 def quizaction():

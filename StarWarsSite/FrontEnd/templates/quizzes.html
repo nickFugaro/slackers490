@@ -63,71 +63,71 @@
     <br />
 
     <center>
+    <h2 style="color: white"> Leaderboard </h2>
     <div class = "container">
+      <h3 style="color: white">{{ error }}</h5>
       <table  class="table table-striped table-dark">
         <thead>
           <tr>
             <th scope="col">No.</th>
             <th scope="col">Name</th>
-            <th scope="col">Score</th>
+            <th scope="col">Percentage</th>
           </tr>
         </thead>
         <tbody style = "color-white">
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>32</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>31</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>05</td>
-          </tr>
+          {%if length%}
+            {%for i in range(0, length)%}
+            <tr>
+              <th scope="row">{{ i+1 }}</th>
+              <td>{{ leaderboard[i]["username"] }}</td>
+              <td>{{ leaderboard[i]["percent"] }}%</td>
+            </tr>
+            {%endfor%}
+          {% endif %}
         </tbody>
       </table>
     </div>
 
-      
+      <h5>{{ userScore }}</h5>
       
       <form action="/quizzes.html", method="post">
       <!--Start loop-->
-      {%for i in dictionaries%}
-        <div class="card w-50 my-4" style="display: inline-block">
-          <h5>{{ i["Question"] }}</h5>
-          <br />
-             <input type="radio" name="{{ i["Question"] }}" id="option1" value="option1" />
-              <span class="checkmark"></span>
-              <label class="card-text"
-              >{{ i["A"] }}
-            </label>
+      {%if dictionaries%}
+        {%for i in dictionaries%}
+          <div class="card w-50 my-4" style="display: inline-block">
+            <h5>{{ i["Question"] }}</h5>
             <br />
-             <input type="radio" name="{{ i["Question"] }}" id="option2" value="option2" />
-              <span class="checkmark"></span>
-              <label class="card-text"
-              >{{ i["B"] }}
-            </label>
-            <br />
-             <input type="radio" name="{{ i["Question"] }}" id="option3" value="option3" />
-              <span class="checkmark"></span>
-              <label class="card-text"
-              >{{ i["C"] }}
-            </label>
-            <br />
-             <input type="radio" name="{{ i["Question"] }}" id="option4" value="option4" />
-              <span class="checkmark"></span>
-              <label class="card-text"
-              >{{ i["D"] }}
-            </label>
-      </div>
-      {%endfor%}
+               <input type="radio" name="{{ i["Question"] }}" id="option1" value="option1" />
+                <span class="checkmark"></span>
+                <label class="card-text"
+                >{{ i["A"] }}
+              </label>
+              <br />
+               <input type="radio" name="{{ i["Question"] }}" id="option2" value="option2" />
+                <span class="checkmark"></span>
+                <label class="card-text"
+                >{{ i["B"] }}
+              </label>
+              <br />
+               <input type="radio" name="{{ i["Question"] }}" id="option3" value="option3" />
+                <span class="checkmark"></span>
+                <label class="card-text"
+                >{{ i["C"] }}
+              </label>
+              <br />
+               <input type="radio" name="{{ i["Question"] }}" id="option4" value="option4" />
+                <span class="checkmark"></span>
+                <label class="card-text"
+                >{{ i["D"] }}
+              </label>
+        </div>
+        {%endfor%}
         <div class="container w-50">
           <button class="btn btn-danger float-right">Submit</button>
         </div>
+        {% else %}
+        <h5 style="color: white">Login if you wish to take a quiz</h5>
+      {% endif %}
       </form>
     </center>
     

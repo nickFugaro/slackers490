@@ -51,6 +51,8 @@
     </center>
     <br>
     <br>
+    <center><h5 style="color:white;">{{ message }}</h5></center>
+    {%if char1info%}
     <div class="card-columns">
     <!-- create a for loop to iterate over the movies-->
         <div class="card bg-dark text-white">
@@ -91,7 +93,7 @@
         </div>
         <div class="card bg-dark text-white">
             <img class="card-img-top" src="https://fsa.zobj.net/crop.php?r=2Tbnvlc8k06KEDvLjVsalX-B89szprgX4ACBzAhq232gN0vCOGPakBOY1nEmfut_L0GnVDV2z9S3GdYvevldkSJyXrmZzETO7qj7p6RHVlZxSeNXnAGdnm_y5Us4XOthvinNvntxaQ4xY9x4" alt="Card image cap">
-            <div  class="card-img-overlay">
+            <div  class="card-img-overlay">s
                 <h5 class="card-title">{{ char5info['name'] }}</h5>
                 <p class="card-text">Date of birth: {{ char5info['dob'] }}</p>
                 <p class="card-text">Gender: {{ char5info['gender'] }}</p>
@@ -108,6 +110,9 @@
             </div>
         </div>
     </div>
+    {% else %}
+    <center><h5 style="color: white">Unable to retrieve characters.</h5></center>
+    {% endif %}
 </div>
 
     

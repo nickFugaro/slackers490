@@ -55,6 +55,8 @@
     <br>
     <br>
     <center>
+    <h5 style="color:white;">{{ message }}</h5>
+    {%if movie1info%}
     <div class="card-columns">
     <!-- create a for loop to iterate over the movies-->
         <div class="card text-white bg-secondary my-2" style="width: 18rem">
@@ -106,6 +108,9 @@
             </div>
         </div>
     </div>
+    {% else %}
+    <h5 style="color: white">Unable to retrieve movies, please try again.</h5>
+    {% endif %}
 </div>
 </center>
     
