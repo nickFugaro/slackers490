@@ -68,7 +68,7 @@
       {%if tweetInfo%}
       <div class="col-8">
         <h2 style = "color:white">Tweets on Star Wars, Latest.</h2>
-        {%for i in range(0, 10)%}
+        {%for i in range(0, length)%}
           
         <div class="media my-3">
           <img
@@ -91,10 +91,11 @@
       <br />
       <center><h5 style="color: white">Unable to retrieve news, please try again.</h5></center>
       {% endif %}
-        <h2 style = "color:white">Trending on Instagram.</h2>
-        <br>
-        <rssapp-carousel id="kBeJK7qLp1gZ7QBF"></rssapp-carousel><script src="https://widget.rss.app/v1/carousel.js" type="text/javascript" async></script>
       </div>
+      <center><h2 style = "color:white">Trending on Instagram.</h2></center>
+      <br />
+        <rssapp-carousel id="NfycW94i3zpWpVGt"></rssapp-carousel><script src="https://widget.rss.app/v1/carousel.js" type="text/javascript" async></script>
+        <br />
       <div class="col-4">
       <h4> Get your Star Wars gear! </h4>
         <div class="card my-3 text-white bg-dark" style="width: 18rem">

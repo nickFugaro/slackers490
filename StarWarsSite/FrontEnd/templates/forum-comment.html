@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Star Wars</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/forum.css') }}" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Star Wars</h1>
+        <a href="login-signup.html"><button type="button" class="btn btn-dark float-right">
+                Login
+            </button></a>
+        <center>
+            <a href="index.html">
+                <button type="button" class="btn btn-dark">Home</button>
+            </a>
+            <a href="movies.html">
+                <button type="button" class="btn btn-dark">Movies</button>
+            </a>
+            <a href="characters.html">
+                <button type="button" class="btn btn-dark">Characters</button>
+            </a>
+            <a href="forum.html">
+                <button type="button" class="btn btn-danger">Forum</button>
+            </a>
+            <a href="quizzes.html">
+                <button type="button" class="btn btn-dark">Quizzes</button>
+            </a>
+            <a href="news.html">
+                <button type="button" class="btn btn-dark">News Feed</button>
+            </a>
+            <a href="about.html">
+                <button type="button" class="btn btn-dark">About</button>
+            </a>
+        </center>
+    </div>
+
+    <br />
+    <br />
+    <center>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css"
+            integrity="sha256-46r060N2LrChLLb5zowXQ72/iKKNiw/lAmygmHExk/o=" crossorigin="anonymous" />
+        <div class="container">
+            <div class="main-body p-0">
+                <div class="inner-wrapper">
+                    <!-- Inner sidebar -->
+                    <div class="inner-sidebar">
+                        <!-- Inner sidebar header -->
+                        <div class="inner-sidebar-header justify-content-center">
+                            <button class="btn btn-danger has-icon btn-block" type="button" data-toggle="modal"
+                                data-target="#threadModal">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-plus mr-2">
+                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
+                                NEW DISCUSSION
+                            </button>
+                        </div>
+                        <div class="inner-sidebar-body p-0">
+                            <div class="p-3 h-100" data-simplebar="init">
+                                <div class="simplebar-wrapper" style="margin: -16px">
+                                    <div class="simplebar-height-auto-observer-wrapper">
+                                        <div class="simplebar-height-auto-observer"></div>
+                                    </div>
+                                    <div class="simplebar-mask">
+                                        <div class="simplebar-offset" style="right: 0px; bottom: 0px">
+                                            <div class="simplebar-content-wrapper"
+                                                style="height: 100%; overflow: hidden scroll">
+                                                <div class="simplebar-content" style="padding: 16px" id="categories">
+                                                    <form action="/forum.html/discussion" method="POST">
+                                                        <nav class="nav nav-pills nav-gap-y-1 flex-column">
+                                                            {%for cats in Categories%}
+                                                            <button class="nav-link nav-link-faded has-icon active my-1"
+                                                                name='cat_id' type="submit"
+                                                                value="{{cats.id}}">{{cats.Name}}</button>
+                                                            {%endfor%}
+                                                        </nav>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="simplebar-placeholder" style="width: 234px; height: 292px"></div>
+                                </div>
+                                <div class="simplebar-track simplebar-horizontal" style="visibility: hidden">
+                                    <div class="simplebar-scrollbar" style="width: 0px; display: none"></div>
+                                </div>
+                                <div class="simplebar-track simplebar-vertical" style="visibility: visible">
+                                    <div class="simplebar-scrollbar" style="
+                                        height: 151px;
+                                        display: block;
+                                        transform: translate3d(0px, 0px, 0px);
+                                    "></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="inner-main">
+                        <!-- Inner main header -->
+                        <div class="inner-main-header">
+                            <span class="input-icon input-icon-sm ml-auto w-auto">
+                                <input type="text"
+                                    class="form-control form-control-sm bg-gray-200 border-gray-200 shadow-none mb-4 mt-4"
+                                    placeholder="Search forum" />
+                            </span>
+                        </div>
+                        <div class="inner-main-body p-2 p-sm-3 collapse forum-content show">
+                            <center>
+                                <a onclick="goBack()" class="myButton">Go Back</a>
+                            </center>
+                            {%if Comments|length > 0 %} 
+                            {%for comment in Comments%}
+                            <p> {{ comment.user }} </p>
+                            <div class="media bg-white my-3">
+                                <div class="media-body">
+                                    <a class="text-secondary">{{comment.user}}</a>
+                                    <h6 class="text-muted ml-2">{{comment.Date}}</h6>
+                                    <h5 class="mt-0">{{comment.post_content}}</h5>
+                                </div>
+                            </div>
+                            {%endfor%}
+                            {%else%}
+                            <h5 class="text-white">No Topics Comments Found :/ </h5>
+                            {%endif%}
+                        
+                            <form action="/forum.html/commenting", method="post" class="card mb-2">
+                                <div class="card-body">
+                                    <div class="media forum-item">
+                                        <div class="media-body ml-3">
+                                            <div class="form-group">
+                                                <label class = "float-left" for="commenting">Start adding to the discussion</label>
+                                                <textarea class="form-control" name="threadComment"
+                                                    rows="3" required ></textarea>
+                                                </textarea>
+                                                <button type="Submit" id="commentSubmitting"
+                                                    class="btn btn-danger float-right my-1">
+                                                    Submit
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- New Thread Modal -->
+                        <div class="modal fade" id="threadModal" tabindex="-1" role="dialog"
+                            aria-labelledby="threadModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <form action="/forum.html/addtopic" , method="post">
+                                        <div class="modal-header d-flex align-items-left bg-dark text-white">
+                                            <h6 class="modal-title mb-0" id="threadModalLabel">
+                                                New Discussion
+                                            </h6>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="threadTitle"
+                                                    name="threadTitle" placeholder="Enter title" autofocus="" required = "true"/>
+                                            </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-light" data-dismiss="modal">
+                                                        Cancel
+                                                    </button>
+                                                    <button type="Submit" class="btn btn-danger">Post</button>
+                                                </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </center>
+    <!-- Code to show 10 threads at a page-->
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+
+</html>
