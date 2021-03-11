@@ -116,8 +116,8 @@
             </div>
             <div class="inner-main-body p-2 p-sm-3 collapse forum-content show">
               <form action="/forum.html/comment" method="POST">
-                {%if session['topics'] and session['topics']['message']|length > 0 %}
-                {%for topic in session['topics']['message']%}
+                {%if topics|length > 0 %}
+                {%for topic in topics%}
                 <div class="media bg-white my-3">
                   <div class="media-body">
                     <h5>
@@ -132,7 +132,7 @@
                 </div>
                 {%endfor%}
                 {%else%}
-                <h5 class="text-white">No Topics Discussions Found</h5>
+                <h5 class="text-white">Click on a Category to view Topics.</h5>
                 {%endif%}
               </form>
             </div>

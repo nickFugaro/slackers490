@@ -26,6 +26,7 @@ def index():
     return flask.render_template(
         "index.html",
         )
+
 @app.route('/forum.html/addtopic', methods=['POST'])
 def addtopicaction():
     global token
@@ -62,7 +63,7 @@ def addcommentaction():
         return redirect("/forum.html", code = 302)
     else:
         print(result.get('message'))
-        print('ERROR IN /forums.html/addcomments')
+        print('ERROR IN /forum.html/addcomments')
 
 
 
@@ -83,11 +84,12 @@ def forum():
     else:
         print(result.get('message'))
         #HANDLE ERROR IS NO CATEGORIES FOUND
-        print('ERROR IN /forums.html')
+        print('ERROR IN /forum.html')
 
 @app.route('/forum.html/discussion', methods=['POST'])
 def discussionaction():
     cat_id = request.form.get('cat_id')
+    print(cat_id)
     backend = theClient('BE')
     result = backend.call({
         'type':'getTopics',
@@ -96,10 +98,14 @@ def discussionaction():
     })
 
     if result.get('success'):
-        session['topics'] = result.get('message')
-        session['cat_id'] = cat_id
-        print(result.get('message'))
-        return redirect("/forum.html", code=302)
+        topic = result.get('message')
+        catID = cat_id
+        print(topic)
+        return flask.render_template(
+            "forum.html",
+            topics=topic,
+            catid=catID
+        )
     else:
         print('ERROR IN /forum.html/discussion')
     
@@ -122,8 +128,7 @@ def commentaction():
             Comments=results.get('message'),
         )
     else:
-        print('ERROR /forum.html/comment')
-    
+        print('ERROR /forum.html/comment')    
     
 
 @app.route('/about.html')
