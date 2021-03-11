@@ -13,7 +13,7 @@ from sendapi import *
 from pyClient import theClient
 
 creds = pika.PlainCredentials('test','test')
-connection = pika.BlockingConnection(pika.ConnectionParameters('localhost',5672,'vhost',creds,heartbeat=0,socket_timeout=None))
+connection = pika.BlockingConnection(pika.ConnectionParameters('25.93.61.112',5672,'vhost',creds,heartbeat=0,socket_timeout=None))
 channel = connection.channel()
 channel.queue_declare(queue='be_queue')
 channel.queue_bind(exchange='beExchange', queue='be_queue')

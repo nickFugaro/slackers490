@@ -9,6 +9,12 @@ app = flask.Flask(__name__)
 app.secret_key = 'SOME_SECRET_KEY'
 token = None
 
+def movieCall(number):
+    req = requests.get("https://swapi.dev/api/films/" + str(number)+ "/")
+    json = req.json()
+    return json
+
+
 @app.route('/')
 def indexload():
     return flask.render_template(
@@ -20,6 +26,44 @@ def index():
     return flask.render_template(
         "index.html",
         )
+@app.route('/forum.html/addtopic', methods=['POST'])
+def addtopicaction():
+    global token
+    title = request.form.get('threadTitle')
+    cat = session['cat_id']
+
+    backend = theClient('BE')
+    result = backend.call({
+        'type':'addTopic',
+        'Authorization' : token,
+        'cat_id': cat,
+        'subject': str(title)
+    })
+    if result.get('success'):
+        print(result)
+        return redirect("/forum.html", code = 302)
+    else:
+        print(result.get('message'))
+        print('ERROR IN /forums.html/addcomments')
+
+@app.route('/forum.html/commenting', methods=['POST'])
+def addcommentaction():
+    comment = request.form.get('threadComment')
+    top_id = session['topic_id']
+    backend = theClient('BE')
+    result = backend.call({
+        "type" : 'addPost',
+        "Authorization": token,
+        'id' : top_id,
+        'content' : str(comment)
+        })
+    if result.get('success'):
+        print(result)
+        return redirect("/forum.html", code = 302)
+    else:
+        print(result.get('message'))
+        print('ERROR IN /forums.html/addcomments')
+
 
 
 @app.route('/forum.html')
@@ -53,24 +97,30 @@ def discussionaction():
 
     if result.get('success'):
         session['topics'] = result.get('message')
+        session['cat_id'] = cat_id
+        print(result.get('message'))
         return redirect("/forum.html", code=302)
     else:
         print('ERROR IN /forum.html/discussion')
     
 
-@app.route('/forum.html/comment', methods=['GET'])
+@app.route('/forum.html/comment', methods=['POST'])
 def commentaction():
-    id = request.args.get('id')
+    id = request.form.get('id')
     backend = theClient('BE')
-    result = backend.call({
+    results = backend.call({
         'type' : 'getPosts',
         'Authorization' : token,
         'id' : id
     })
     
-    if result.get('success'):
-        session['comments'] = result.get('message')
-        return redirect("/forum.html", code=302)
+    if results.get('success'):
+        session['topic_id'] = id
+        print(results.get('message'))
+        return flask.render_template(
+            "forum-comment.html",
+            Comments=results.get('message'),
+        )
     else:
         print('ERROR /forum.html/comment')
     
@@ -105,7 +155,9 @@ def loginaction():
         print(token)
         return redirect("/", code=302)
     else:
-        return flask.render_template("/login-signup.html", message=signup.get('message'))
+        print("unsucessful")
+        #handle unsuccessful backend call (display "could not sign in")
+        return redirect("/error.html")
     if '' == email:
         return flask.render_template("/login-signup.html", message='Empty email field, please fill that in.')
     elif '' == password:
@@ -134,7 +186,9 @@ def signupaction():
         print(token)
         return redirect("/", code=302)
     else:
-        return flask.render_template("/login-signup.html", message=signup.get('message'))
+        print("unsucessful")
+        #handle unsuccessful backend call (display "could not sign in")
+        return redirect("/error.html")
     if '' == name:
         return flask.render_template("/login-signup.html", message='Empty name field, please fill that in.')
     elif '' == email:
@@ -155,10 +209,7 @@ def movies():
     movie1 = backend.call({
 	'type' : 'movies'
     })
-    if movie1.get('success'):
-        movie2 = movie1.get('message')
-    else:
-        return flask.render_template("/movies.html", message=movie1.get('message'))
+    movie2 = movie1.get('message')
     return flask.render_template(
         "movies.html",
         movie1info=movie2[0],
@@ -176,11 +227,7 @@ def news():
     tweets = backend.call({
     'type' : 'twitter'
     })
-    if tweets.get('success'):
-        tweetRec = tweets.get('message')
-    else:
-        return flask.render_template("/news.html", message=tweets.get('message'))
-    
+    tweetRec = tweets.get('message')
 
     return flask.render_template(
         "news.html",
@@ -200,11 +247,7 @@ def characters():
     characters = backend.call({
     'type' : 'character'
     })
-    if characters.get('success'):
-        charRec = characters.get('message')
-    else:
-        return flask.render_template("/characters.html", message=characters.get('message'))
-    
+    charRec = characters.get('message')
     return flask.render_template(
         "characters.html",
         char1info=charRec[0],
@@ -228,31 +271,19 @@ def quizzes():
         'type' : 'getLeaderboard',
         'Authorization' : token
         })
-    if leaderboard['success']:
-        leng = len(leaderboard.get('message'))
-        if questions['success']:
-            global dictionariesList
-            dictionariesList = questions['message'] #make global for reference to quizaction
-            return flask.render_template(
-            "quizzes.html",
-            dictionaries=dictionariesList,
-            leaderboard=leaderboard.get('message'),
-            length=leng
-            )
-        else: 
-            return flask.render_template(
-            "quizzes.html",
-            leaderboard=leaderboard.get('message'),
-            length=leng
-            )
-        
+    print(leaderboard.get('message'))
+    if questions['success']:
+        global dictionariesList
+        dictionariesList = questions['message'] #make global for reference to quizaction
     else:
+        #handle error
         print(questions["message"])
-        return flask.render_template(
+        return redirect("/", code=302)
+
+    return flask.render_template(
         "quizzes.html",
-        error=questions["message"]
+        dictionaries=dictionariesList
         )
-    
 @app.route('/quizzes.html', methods=['POST'])
 def quizaction():
     global token
@@ -285,18 +316,11 @@ def quizaction():
             if result.get('message') == "Answer Correct":
                 correct+=1
         else:
-            return flask.render_template(
-            "quizzes.html",
-            error=questions["message"]
-            )
+            print(result.get('message'))
     
     score = (correct/5)*100
     print(score) # reload quiz page w score
-    score = "Your score was:" + str(score) + "%"
-    return flask.render_template(
-            "quizzes.html",
-            userScore=score
-    )
+    return redirect("/", code=302)
 
 app.run(
     host=os.getenv('IP', '0.0.0.0')

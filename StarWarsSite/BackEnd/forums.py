@@ -44,7 +44,7 @@ def getTopics(cat_id):
 	})
 	
 	if result.get('success'):
-  		return {'success':True, 'message':result}
+  		return {'success':True, 'message':result.get('message')}
 	else:
 		return {'success' : False, 'message' : 'Could Not Find Any Topics'}	
 	
@@ -85,7 +85,7 @@ def getPosts(topic_id):
 	})
 
 	if result.get('success'):
-		return {'success':True, 'message':result}
+		return {'success':True, 'message':result.get('message')}
 	else:
 		return {'success':False, 'message':'Could Not Find Any Posts'}
 
