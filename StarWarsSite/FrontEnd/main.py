@@ -26,6 +26,7 @@ def index():
     return flask.render_template(
         "index.html",
         )
+
 @app.route('/forum.html/addtopic', methods=['POST'])
 def addtopicaction():
     global token
@@ -122,8 +123,7 @@ def commentaction():
             Comments=results.get('message'),
         )
     else:
-        print('ERROR /forum.html/comment')
-    
+        print('ERROR /forum.html/comment')    
     
 
 @app.route('/about.html')
