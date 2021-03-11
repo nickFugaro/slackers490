@@ -145,27 +145,23 @@ def loginaction():
     password = request.form.get('passwordlogin')
     backend = theClient('BE')
     login = backend.call({
-	'type' : 'login',
+    'type' : 'login',
     'email' : email,
     'password' : password
     })
+    if '' == email:
+        return flask.render_template("/login-signup.html", message='Empty email field, please fill that in.')
+    elif '' == password:
+        return flask.render_template("/login-signup.html", message='Empty password field, please fill that in.')
+
     if login.get('success'):
         global token 
         token = login.get('message')
         print(token)
         return redirect("/", code=302)
     else:
-        print("unsucessful")
-        #handle unsuccessful backend call (display "could not sign in")
-        return redirect("/error.html")
-    if '' == email:
-        return flask.render_template("/login-signup.html", message='Empty email field, please fill that in.')
-    elif '' == password:
-        return flask.render_template("/login-signup.html", message='Empty password field, please fill that in.')
-    else:
-        return redirect("/", code=302)
+        return flask.render_template("/login-signup.html", message=signup.get('message'))
     
-
 
 @app.route('/login-signup.html/signup', methods=['POST'])
 def signupaction():
@@ -175,20 +171,11 @@ def signupaction():
     password2 = request.form.get('password2')
     backend = theClient('BE')
     signup = backend.call({
-	'type' : 'signup',
+    'type' : 'signup',
     'email' : email,
     'password' : password,
     'username' : name
     })
-    if signup.get('success'):
-        global token
-        token = signup.get('message')
-        print(token)
-        return redirect("/", code=302)
-    else:
-        print("unsucessful")
-        #handle unsuccessful backend call (display "could not sign in")
-        return redirect("/error.html")
     if '' == name:
         return flask.render_template("/login-signup.html", message='Empty name field, please fill that in.')
     elif '' == email:
@@ -199,17 +186,28 @@ def signupaction():
         return flask.render_template("/login-signup.html", message='Please confirm password.')
     elif password != password2:
         return flask.render_template("/login-signup.html", message='Passwords do not match please try again.')
-    else:
+
+    if signup.get('success'):
+        global token
+        token = signup.get('message')
+        print(token)    
         return redirect("/", code=302)
+            
+    else:
+        return flask.render_template("/login-signup.html", message=signup.get('message'))
+    
     
 
 @app.route('/movies.html')
 def movies():
     backend = theClient('BE')
     movie1 = backend.call({
-	'type' : 'movies'
+    'type' : 'movies'
     })
-    movie2 = movie1.get('message')
+    if movie1.get('success'):
+        movie2 = movie1.get('message')
+    else:
+        return flask.render_template("/movies.html", message=movie1.get('message'))
     return flask.render_template(
         "movies.html",
         movie1info=movie2[0],
@@ -227,12 +225,19 @@ def news():
     tweets = backend.call({
     'type' : 'twitter'
     })
-    tweetRec = tweets.get('message')
+    if tweets.get('success'):
+        tweetRec = tweets.get('message')
+    else:
+        return flask.render_template("/news.html", message=tweets.get('message'))
+    
+
+    leng = len(tweetRec[0])
 
     return flask.render_template(
         "news.html",
         tweetInfo=tweetRec[0],
-        userInfo=tweetRec[1]
+        userInfo=tweetRec[1],
+        length=leng
         
         )
 @app.route('/error.html')
@@ -247,7 +252,11 @@ def characters():
     characters = backend.call({
     'type' : 'character'
     })
-    charRec = characters.get('message')
+    if characters.get('success'):
+        charRec = characters.get('message')
+    else:
+        return flask.render_template("/characters.html", message=characters.get('message'))
+    
     return flask.render_template(
         "characters.html",
         char1info=charRec[0],
@@ -271,25 +280,42 @@ def quizzes():
         'type' : 'getLeaderboard',
         'Authorization' : token
         })
-    print(leaderboard.get('message'))
-    if questions['success']:
-        global dictionariesList
-        dictionariesList = questions['message'] #make global for reference to quizaction
+    if leaderboard['success']:
+        leng = len(leaderboard.get('message'))
+        if questions['success']:
+            global dictionariesList
+            dictionariesList = questions['message'] #make global for reference to quizaction
+            return flask.render_template(
+            "quizzes.html",
+            dictionaries=dictionariesList,
+            leaderboard=leaderboard.get('message'),
+            length=leng
+            )
+        else: 
+            return flask.render_template(
+            "quizzes.html",
+            leaderboard=leaderboard.get('message'),
+            length=leng
+            )
+        
     else:
-        #handle error
         print(questions["message"])
-        return redirect("/", code=302)
-
-    return flask.render_template(
+        return flask.render_template(
         "quizzes.html",
-        dictionaries=dictionariesList
+        error=questions["message"]
         )
+    
 @app.route('/quizzes.html', methods=['POST'])
 def quizaction():
     global token
     backend = theClient('BE')
     correct = 0
+    leaderboard = backend.call({
+        'type' : 'getLeaderboard',
+        'Authorization' : token
+        })
     for i in dictionariesList:
+        print(i)
         option = request.form[i["Question"]]
         ID = i["id"]
         if option == "option1":
@@ -316,15 +342,29 @@ def quizaction():
             if result.get('message') == "Answer Correct":
                 correct+=1
         else:
-            print(result.get('message'))
+            return flask.render_template(
+            "quizzes.html",
+            error=result.get('message')
+            )
     
     score = (correct/5)*100
     print(score) # reload quiz page w score
-    return redirect("/", code=302)
+    score = "Your score was:" + str(score) + "%"
+    if leaderboard['success']:
+        leng = len(leaderboard.get('message'))
+        return flask.render_template(
+        "quizzes.html",
+        leaderboard=leaderboard.get('message'),
+        length=leng,
+        userScore=score
+        )
+    else: 
+        return flask.render_template(
+        "quizzes.html",
+        error=result.get('message')
+        )
 
+    
 app.run(
     host=os.getenv('IP', '0.0.0.0')
 )
-    
-    
-    

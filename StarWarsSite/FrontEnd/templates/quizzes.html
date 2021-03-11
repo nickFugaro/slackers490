@@ -88,7 +88,6 @@
       </table>
     </div>
 
-      <h5>{{ userScore }}</h5>
       
       <form action="/quizzes.html", method="post">
       <!--Start loop-->
@@ -125,6 +124,8 @@
         <div class="container w-50">
           <button class="btn btn-danger float-right">Submit</button>
         </div>
+        {%elif userScore%}
+        <h3 style="color: white">{{ userScore }}</h3>
         {% else %}
         <h5 style="color: white">Login if you wish to take a quiz</h5>
       {% endif %}

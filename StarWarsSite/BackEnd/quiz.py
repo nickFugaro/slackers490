@@ -9,7 +9,7 @@ DB = theClient('DB')
 def getQuestion():
     
     result = DB.call({
-        "query" : "select quiz_id, quiz_question as Question, quiz_option_a AS 'A', quiz_option_b AS 'B', quiz_option_c AS 'C', quiz_option_d AS 'D' from Quiz order by rand() Limit 5",
+        "query" : "select quiz_id as id, quiz_question as Question, quiz_option_a AS 'A', quiz_option_b AS 'B', quiz_option_c AS 'C', quiz_option_d AS 'D' from Quiz order by rand() Limit 5",
         'params': 'NA'
     })
     
