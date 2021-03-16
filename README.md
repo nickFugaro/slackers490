@@ -19,8 +19,14 @@
  
  >sudo apt install python3-pip -y
 
-**Install Git**
+**Install Git and clone the repo**
  >sudo apt install gitk -y
+ 
+ >mkdir git
+ 
+ >cd git/
+ 
+ >git clone --branch local (https://github.com/nickFugaro/slackers490.git)
 
 **Install MYSQL**
  >sudo apt install mysql-server -y
@@ -32,11 +38,24 @@
  Press N then Enter\
  Press Y then Enter\
  Press Y then Enter\
- Press Y then Enter\
+ Press Y then Enter
  
  >sudo mysql
  
  **In MYSQL Shell**
  >CREATE DATABASE IT490;
+ 
+ >CREATE USER 'admin'@'localhost' IDENTIFIED BY 'adminIT490Ubuntu!';
+ 
+ >GRANT ALL PRIVILEGES ON * . * TO 'admin'@'localhost';
+ 
+ >exit
+ 
+ **In Terminal**
+ >cd git/slackers490/StarWarsSite/DBServer
+ 
+ >mysql -u admin -p IT490 < DBdump.sql
+ 
+ password:>adminIT490Ubuntu!
  
  
