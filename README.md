@@ -22,3 +22,21 @@
 **Install Git**
  >sudo apt install gitk -y
 
+**Install MYSQL**
+ >sudo apt install mysql-server -y
+ 
+ >sudo mysql_secure_installation
+ 
+ Press N then Enter\
+ Set your password\
+ Press N then Enter\
+ Press Y then Enter\
+ Press Y then Enter\
+ Press Y then Enter\
+ 
+ >sudo mysql
+ 
+ **In MYSQL Shell**
+ >CREATE DATABASE IT490;
+ 
+ 
