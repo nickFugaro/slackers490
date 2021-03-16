@@ -132,11 +132,11 @@
  >nano custom.env
  
  Copy and paste this configuration and enter your keys:
- >#Twitter
- >export API_KEY="your key"
- >export API_KEY_SECRET="your key"
- >export BEARER_TOKEN="your key"
- >export ACCESS_TOKEN="your key"
+ >#Twitter\
+ >export API_KEY="your key"\
+ >export API_KEY_SECRET="your key"\
+ >export BEARER_TOKEN="your key"\
+ >export ACCESS_TOKEN="your key"\
  >export ACCESS_TOKEN_SECRET="your key"
  
  >ctrl+o
