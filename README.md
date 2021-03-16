@@ -87,4 +87,93 @@
  Password is
  >guest
  
+ Navigate to Admin tab\
+ Click Users tab in Admin tab\
+ Add a User\
+ Username:
+ >test
+ 
+ Password:
+ >test
+ 
+ Navigate to Virtual Hosts tab in Admin tab\
+ Add a new virtual host\
+ name:
+ >vhost
+ 
+ Click on vhost in the list of virtual hosts\
+ Go to the permissions tab\
+ Choose guest and give * on all permissions\
+ CLick Set Permission\
+ Do the same with test account\
+ Scroll up and select the dropdown in the top right(it should currently be a /)\
+ Change it to vhost\
+ Navigate to the Exchanges tab\
+ Scroll down to Add new exchange\
+ Name:
+ >beExchange
+ 
+ Type: Direct\
+ Durable\
+ No\
+ No\
+ Repeat this process but just change the name to the following 3:
+ >dbExchange
+ 
+ >apiExchange
+ 
+ >logExchange
+ 
+**Create API Source File**
+
+ In terminal
+ >cd git/slackers490/StarwarsSite/APIServer
+ 
+ >nano custom.env
+ 
+ Copy and paste this configuration and enter your keys:
+ >#Twitter
+ >export API_KEY="your key"
+ >export API_KEY_SECRET="your key"
+ >export BEARER_TOKEN="your key"
+ >export ACCESS_TOKEN="your key"
+ >export ACCESS_TOKEN_SECRET="your key"
+ 
+ >ctrl+o
+ 
+ >ctrl+x
+ 
+**Start the various servers**
+
+ >cd git/slackers490/StarWarsSite
+ 
+ Open **5** terminal tabs in that directory\
+ Tab One:
+ >cd BackEnd
+ 
+ >./pyLogServer.py
+ 
+ Tab Two:
+ >cd APIServer
+ 
+ >source custom.env
+ 
+ >./pyServerAPI.py
+ 
+ Tab Three:
+ >cd DBServer
+ 
+ >./pyServerDB.py
+ 
+ Tab Four:
+ >cd BackEnd
+ 
+ >./pyServer.py
+ 
+ Tab Five:
+ >cd FrontEnd
+ 
+ >python3 main.py
+ 
+ CTRL+Click the Link
  
