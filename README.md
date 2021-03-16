@@ -76,6 +76,7 @@
  >pip3 install Flask
  
 **Configure RabbitMQ Server**
+ 
  Open Firefox\
  Navigate to 
  >localhost:15672
