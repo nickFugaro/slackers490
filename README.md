@@ -56,7 +56,32 @@
  
  >mysql -u admin -p IT490 < DBdump.sql
  
- password:\
+ password:
  >adminIT490Ubuntu!
+ 
+**Install Pip Packages**
+
+ >pip3 install tweepy
+ 
+ >pip3 install pika
+ 
+ >pip3 install cryptohash
+ 
+ >pip3 install mysql-connector
+ 
+ >pip3 install PyJWT
+ 
+ >pip3 install simplejson
+ 
+ >pip3 install Flask
+ 
+**Configure RabbitMQ Server**
+ Open Firefox\
+ Navigate to 
+ >localhost:15672
+ Username is
+ >guest
+ Password is
+ >guest
  
  
