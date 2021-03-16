@@ -79,8 +79,10 @@
  Open Firefox\
  Navigate to 
  >localhost:15672
+ 
  Username is
  >guest
+ 
  Password is
  >guest
  
