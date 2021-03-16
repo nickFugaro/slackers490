@@ -26,7 +26,7 @@
  
  >cd git/
  
- >git clone --branch local (https://github.com/nickFugaro/slackers490.git)
+ >git clone --branch local https://github.com/nickFugaro/slackers490.git
 
 **Install MYSQL**
  >sudo apt install mysql-server -y
@@ -56,6 +56,7 @@
  
  >mysql -u admin -p IT490 < DBdump.sql
  
- password:>adminIT490Ubuntu!
+ password:\
+ >adminIT490Ubuntu!
  
  
