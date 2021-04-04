@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style>
+ h1 {
+   color: white;
+   text-align: center;
+   background: #343840;
+   border-radius: 10px;
+ }
+ body  {
+  background-image: url("https://i.pinimg.com/originals/e6/66/83/e66683612ce467134ed4a3be9d0ce28e.png");
+  background-color: #cccccc;
+}
+
+</style>
+
+  <title>More Packages</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <h1>More Packages</h1>
+  <center>
+    <a href="index.html"><button type="button" class="btn btn-danger">Home</button></a>
+    <a href="requests.html"><button type="button" class="btn btn-dark">Requests</button></a>
+    <a href="backups.html"><button type="button" class="btn btn-dark">Back-Ups</button></a>
+  </center>
+  
+  
+</div>
+
+<br>
+<br>
+<center>
+  <h1>Package Explorer</h1>
+  <br>
+  </div>
+
+
+</center>
+
+    <br>
+    <br>
+    <center>
+    
+    <div class="card-columns">
+    {%for this in packInfo%}
+        <div class="card text-white bg-secondary my-2" style="width: 18rem">
+            
+            <div class="card-body">
+                <h5 class="card-title">{{ this }}</h5>
+                
+            </div>
+        </div>
+    {%endfor%}
+
+
+
+</body>
+</html>
