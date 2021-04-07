@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style>
+ h1 {
+   color: white;
+   text-align: center;
+   background: #343840;
+   border-radius: 10px;
+ }
+ body  {
+  background-image: url("https://i.pinimg.com/originals/e6/66/83/e66683612ce467134ed4a3be9d0ce28e.png");
+  background-color: #cccccc;
+}
+
+</style>
+
+  <title>Star Wars</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <h1>Star Wars</h1> 
+  <a href="login-signup.html"><button type="button" class="btn btn-dark float-right">Login</button></a>
+  <a href="profile.html"><button type="button" class="btn btn-danger float-right">Profile</button></a>
+  <center>
+    <a href="index.html"><button type="button" class="btn btn-dark">Home</button></a>
+    <a href="movies.html"><button type="button" class="btn btn-dark">Movies</button></a>
+    <a href="characters.html"><button type="button" class="btn btn-dark">Characters</button></a>
+    <a href="forum.html"><button type="button" class="btn btn-dark">Forum</button></a>
+    <a href="quizzes.html"><button type="button" class="btn btn-dark">Quizzes</button></a>
+    <a href="news.html"><button type="button" class="btn btn-dark">News Feed</button></a>
+    <a href="about.html"><button type="button" class="btn btn-dark">About</button></a>
+  </center>
+
+
+</div>
+
+<br>
+<br>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-10 col-xl-8 mx-auto">
+            <div class="my-4">
+                <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="false">Profile</a>
+                    </li>
+                </ul>
+                <form>
+                    <div class="row mt-5 align-items-center">
+                        <div class="col-md-3 text-center mb-5">
+                            <div class="avatar avatar-xl">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="..." class="avatar-img rounded-circle" />
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="row align-items-center">
+                                <div class="col-md-7">
+                                    <h4 class="text-white mb-1">Brown, Asher</h4>
+                                </div>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col-md-7">
+                                    <p class=" text-white text-muted">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit nisl ullamcorper, rutrum metus in, congue lectus. In hac habitasse platea dictumst. Cras urna quam, malesuada vitae risus at,
+                                        pretium blandit sapien.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="my-4" />
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label class = "text-white"for="firstname">Firstname</label>
+                            <input type="text" id="firstname" class="form-control" placeholder="Brown" />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class = "text-white" for="lastname">Lastname</label>
+                            <input type="text" id="lastname" class="form-control" placeholder="Asher" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class = "text-white" for="inputEmail4">Email</label>
+                        <input type="email" class="form-control" id="inputEmail4" placeholder="brown@asher.me" />
+                    </div>
+                    <hr class="my-4" />
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class = "text-white" for="inputPassword4">Old Password</label>
+                                <input type="password" class="form-control" id="inputPassword5" />
+                            </div>
+                            <div class="form-group">
+                                <label class = "text-white" for="inputPassword5">New Password</label>
+                                <input type="password" class="form-control" id="inputPassword5" />
+                            </div>
+                            <div class="form-group">
+                                <label class = "text-white" for="inputPassword6">Confirm Password</label>
+                                <input type="password" class="form-control" id="inputPassword6" />
+                            </div>
+                        </div>
+                        <div class="text-white col-md-6">
+                            <p class="mb-2">Password requirements</p>
+                            <p class="text-white small mb-2">To create a new password, you have to meet all of the following requirements:</p>
+                            <ul class="text-white small pl-4 mb-0">
+                                <li>Minimum 8 character</li>
+                                <li>At least one special character</li>
+                                <li>At least one number</li>
+                                <li>Can’t be the same as a previous password</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-danger">Save Change</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    </div>
+</body>
+</html>
