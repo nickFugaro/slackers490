@@ -251,6 +251,13 @@ def errors():
         "error.html",
     )
 
+@app.route('/profile.html')
+def profile():
+    return flask.render_template(
+        "profile.html",
+    )
+
+
 @app.route('/characters.html')
 def characters():
     backend = theClient('BE')
