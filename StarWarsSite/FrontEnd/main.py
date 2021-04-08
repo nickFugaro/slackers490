@@ -258,6 +258,50 @@ def profile():
     )
 
 
+@app.route('/profile.html/changeinfo', methods=['POST'])
+def profilechange():
+    name = request.form.get('name')
+    email = request.form.get('email')
+    oldpassword = request.form.get('oldpassword')
+    newpassword = request.form.get('newpassword')
+    confirmpassword = request.form.get('confirmpassword')
+    print(name)
+    print(confirmpassword)
+    print(oldpassword)
+    '''
+    backend = theClient('BE')
+    login = backend.call({
+    'type' : 'login',
+    'email' : email,
+    'password' : password
+    })
+    '''
+    if '' == email:
+        return flask.render_template("/profile.html", message='Empty email field, please fill that in.')
+    elif '' == name:
+        return flask.render_template("/profile.html", message='Empty name field, please fill that in.')
+    elif '' == oldpassword:
+        return flask.render_template("/profile.html", message='Empty password field, please fill that in.')
+    elif '' == newpassword:
+        return flask.render_template("/profile.html", message='Empty password field, please fill that in.')
+    elif newpassword != confirmpassword:
+        return flask.render_template("/profile.html", message='Passwords do not match please try again.')
+    elif oldpassword == newpassword:
+        return flask.render_template("/profile.html", message='Do not create a new password with an already used one.')
+    else:
+        return flask.render_template("/profile.html", message='Credentials successfully changed.')
+    '''
+    if login.get('success'):
+        global token 
+        token = login.get('message')
+        print(token)
+        return redirect("/", code=302)
+    else:
+        return flask.render_template("/login-signup.html", message=signup.get('message'))
+    '''
+
+
+
 @app.route('/characters.html')
 def characters():
     backend = theClient('BE')
