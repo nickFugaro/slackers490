@@ -251,6 +251,21 @@ def errors():
         "error.html",
     )
 
+@app.route('/contentmanager.html')
+def contentmanager():
+    return flask.render_template(
+        "contentmanager.html",
+    )
+
+@app.route('/contentmanager.html/bookmark', methods=['POST'])
+def bookmarkaction():
+    bookmark_link = request.form.get('bookmark')
+    print(bookmark_link)
+    return flask.render_template(
+        "/contentmanager.html",
+    )
+    
+
 @app.route('/profile.html')
 def profile():
     return flask.render_template(
