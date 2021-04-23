@@ -12,7 +12,45 @@
   background-image: url("https://i.pinimg.com/originals/e6/66/83/e66683612ce467134ed4a3be9d0ce28e.png");
   background-color: #cccccc;
 }
+.gradient-border {
+    --borderWidth: 4px;
+    background: #1D1F20;
+    position: relative;
+    border-radius: var(--borderWidth);
+    flex-grow: 1;
+    color: white;
+    background-color: black;
+    text-align: center;
+    flex-wrap: 'wrap';
+    top: 10px;
+    padding: 14px;
+    width: 50%;
+  }
 
+  .gradient-border:after {
+    content: '';
+    position: absolute;
+    top: calc(-1 * var(--borderWidth));
+    left: calc(-1 * var(--borderWidth));
+    height: calc(100% + var(--borderWidth) * 2);
+    width: calc(100% + var(--borderWidth) * 2);
+    background: linear-gradient(60deg, #c13d3d, #2d2c2c);
+    border-radius: calc(2 * var(--borderWidth));
+    z-index: -1;
+    animation: animatedgradient 3s ease alternate infinite;
+    background-size: 300% 300%;
+  }
+   @keyframes animatedgradient {
+      0% {
+          background-position: 0% 50%;
+      }
+      50% {
+          background-position: 100% 50%;
+      }
+      100% {
+          background-position: 0% 50%;
+      }
+  }
 </style>
 
   <title>Star Wars</title>
@@ -44,8 +82,8 @@
 <br>
 <br>
 <center>
-    <div class="container">
-        
+    <div class="container-fluid">
+        <div class="gradient-border">
         <form action="/contentmanager.html/bookmark" method="POST">
             <iframe width="760" height="485" src="https://www.youtube.com/embed/8x2gb3xHNFc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             <div>
@@ -53,7 +91,10 @@
             </div>
             <br><br>
         </form> 
-
+      </div>
+      <br />
+      <br />
+      <div class="gradient-border">
         <form action="/contentmanager.html/bookmark" method="POST">
             <iframe width="760" height="485" src="https://www.youtube.com/embed/GOTaFQ99sUo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             <div>
@@ -61,7 +102,7 @@
             </div>
             <br><br>
         </form>  
-
+      </div>
     </div>
 </center>
 
