@@ -2,16 +2,50 @@
 <html lang="en">
 <head>
 <style>
- h1 {
-   color: white;
-   text-align: center;
-   background: #343840;
-   border-radius: 10px;
- }
  body  {
   background-image: url("https://i.pinimg.com/originals/e6/66/83/e66683612ce467134ed4a3be9d0ce28e.png");
   background-color: #cccccc;
 }
+
+.gradient-border {
+    --borderWidth: 4px;
+    background: #1D1F20;
+    position: relative;
+    border-radius: var(--borderWidth);
+    flex-grow: 1;
+    color: white;
+    background-color: black;
+    text-align: center;
+    flex-wrap: 'wrap';
+    top: 10px;
+    padding: 14px;
+    width: 50%;
+  }
+
+  .gradient-border:after {
+    content: '';
+    position: absolute;
+    top: calc(-1 * var(--borderWidth));
+    left: calc(-1 * var(--borderWidth));
+    height: calc(100% + var(--borderWidth) * 2);
+    width: calc(100% + var(--borderWidth) * 2);
+    background: linear-gradient(60deg, #c13d3d, #2d2c2c);
+    border-radius: calc(2 * var(--borderWidth));
+    z-index: -1;
+    animation: animatedgradient 3s ease alternate infinite;
+    background-size: 300% 300%;
+  }
+   @keyframes animatedgradient {
+      0% {
+          background-position: 0% 50%;
+      }
+      50% {
+          background-position: 100% 50%;
+      }
+      100% {
+          background-position: 0% 50%;
+      }
+  }
 
 </style>
 
@@ -25,33 +59,36 @@
 </head>
 <body>
 
-  <div class="container">
-    <h1>Star Wars</h1> 
-    <a href="login-signup.html"><button type="button" class="btn btn-dark float-right">Login</button></a>
-    <a href="profile.html"><button type="button" class="btn btn-dark float-right">Profile</button></a>
-    <center>
-      <a href="index.html"><button type="button" class="btn btn-danger">Home</button></a>
-      <a href="movies.html"><button type="button" class="btn btn-dark">Movies</button></a>
-      <a href="characters.html"><button type="button" class="btn btn-dark">Characters</button></a>
-      <a href="forum.html"><button type="button" class="btn btn-dark">Forum</button></a>
-      <a href="quizzes.html"><button type="button" class="btn btn-dark">Quizzes</button></a>
-      <a href="news.html"><button type="button" class="btn btn-dark">News Feed</button></a>
-      <a href="contentmanager.html"><button type="button" class="btn btn-dark">Videos</button></a>
-      <a href="about.html"><button type="button" class="btn btn-dark">About</button></a>
-    </center>
+
+  <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark" style="background-image: url(https://cdn.hipwallpaper.com/i/37/96/rj5eV3.jpg); background-size: 5000px;">
+    <a class="navbar-brand" href="#">
+      <img src="https://th.bing.com/th/id/R171057266971967defb395ce23f2bb9c?rik=ZDCTKIi%2bxZfXDg&riu=http%3a%2f%2fwww.shmee.me%2fwp-content%2fuploads%2f2013%2f02%2fstarwars-logo.png&ehk=dT4Za66Euzuw9ljt%2fEOfDQFsrOeWI9pCKS8eUXWCWjo%3d&risl=&pid=ImgRaw" width="125" height="60" alt="">
+    </a>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav ml-auto">
+        <a class="nav-item nav-link active"style="font-size: 1.2em; color: yellow;" href="index.html">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-item nav-link" style="font-size: 1.2em;"href="movies.html">Movies</a>
+        <a class="nav-item nav-link" style="font-size: 1.2em;"href="characters.html">Characters</a>
+        <a class="nav-item nav-link" style="font-size: 1.2em;"href="forum.html">Forum</a>
+        <a class="nav-item nav-link" style="font-size: 1.2em;"href="quizzes.html">Quizzes</a>
+        <a class="nav-item nav-link" style="font-size: 1.2em;"href="news.html">News Feed</a>
+        <a class="nav-item nav-link" style="font-size: 1.2em;"href="contentmanager.html">Videos</a>
+      </div>
+      <div class="navbar-nav mr-auto"></div>
+        <a class="nav-item nav-link" style="font-size: 1.2em;"href="profile.html">Profile</a>
+        <a class="nav-item nav-link" style="font-size: 1.2em;"href="login-signup.html">Login</a>
+      </div>
+    </div>
+  </nav>
+<div >
+  <div class="jumbotron" style="background-image: url(https://cdn.hipwallpaper.com/i/37/96/rj5eV3.jpg); background-size: cover;">
+    <br><br><br>
+    <h1 class="display-4" style="color: white">Welcome to our Star Wars Page!</h1>
+    <br>
+    <p class="lead" style="color: white">You can learn more about Star Wars, keep up to date with news, <br> chat with others about Star Wars Topics, and test your knowledge against our quizzes!</p>
+    <br><br><br><br><br><br><br><br><br><br><br>
   </div>
-
-<br>
-<br>
-<center>
-<div class="jumbotron text-white bg-dark mb-3 w-75">
-  <h1 class="display-4">Welcome to our Star Wars Page!</h1>
-  <br>
   </div>
-
-
-</center>
-
 
 </body>
 </html>
