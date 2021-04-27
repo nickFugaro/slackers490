@@ -253,6 +253,13 @@ def errors():
 
 @app.route('/contentmanager.html')
 def contentmanager():
+    backend = theClient('BE')
+    content = backend.call({
+    'type' : 'addBookmark',
+    })
+
+    
+        
     return flask.render_template(
         "contentmanager.html",
     )
@@ -260,6 +267,22 @@ def contentmanager():
 @app.route('/contentmanager.html/bookmark', methods=['POST'])
 def bookmarkaction():
     bookmark_link = request.form.get('bookmark')
+    backend = theClient('BE')
+    global token
+    bookmark = backend.call({
+    'type' : 'addBookmark',
+    'Authorization' : token,
+    })
+
+    if bookmark.get('success'):
+        continue
+          
+    else:
+        return flask.render_template(
+            "contentmanager.html",
+            error=bookmark.get('message')
+        )
+
     print(bookmark_link)
     return flask.render_template(
         "/contentmanager.html",
@@ -268,15 +291,31 @@ def bookmarkaction():
 
 @app.route('/profile.html')
 def profile():
+    backend = theClient('BE')
+    global token
+    profile = backend.call({
+    'type' : 'getProfile',
+    'Authorization' : token,
+    })
+
+    if profile.get('success'):
+       info = profile.get('message')
+       email = info.get('email')
+       username = info.get('username')
+       bookmarks = info.get('Bookmarks') #this will be array of urls
+        
     return flask.render_template(
         "profile.html",
+        userName=username,
+        bookMarkList=bookmarks,
+        userEmail=email
     )
 
 
 @app.route('/profile.html/changeinfo', methods=['POST'])
 def profilechange():
-    name = request.form.get('name')
-    email = request.form.get('email')
+    username = request.form.get('name')
+    newemail = request.form.get('email')
     oldpassword = request.form.get('oldpassword')
     newpassword = request.form.get('newpassword')
     confirmpassword = request.form.get('confirmpassword')
@@ -305,6 +344,29 @@ def profilechange():
         return flask.render_template("/profile.html", message='Do not create a new password with an already used one.')
     else:
         return flask.render_template("/profile.html", message='Credentials successfully changed.')
+    
+    backend = theClient('BE')
+    global token
+    profileChange = backend.call({
+    'type' : 'updateProfile',
+    'Authorization' : token,
+    'email' : email,
+    'newEmail' : newemail,
+    'username' : username,
+    'password' : newpassword
+    })
+
+    if profileChange.get('success'):
+        global token
+        token = profileChange.get('message')
+        print(token)    
+        return redirect("/", code=302)
+            
+    else:
+        return flask.render_template("/login-signup.html", message=signup.get('message'))
+    
+
+
     '''
     if login.get('success'):
         global token 
