@@ -257,9 +257,7 @@ def contentmanager():
     content = backend.call({
     'type' : 'addBookmark',
     })
-
-    
-        
+ 
     return flask.render_template(
         "contentmanager.html",
     )
