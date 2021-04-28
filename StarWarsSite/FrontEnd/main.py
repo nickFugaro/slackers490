@@ -273,8 +273,7 @@ def bookmarkaction():
     })
 
     if bookmark.get('success'):
-        continue
-          
+        pass  
     else:
         return flask.render_template(
             "contentmanager.html",
@@ -355,7 +354,6 @@ def profilechange():
     })
 
     if profileChange.get('success'):
-        global token
         token = profileChange.get('message')
         print(token)    
         return redirect("/", code=302)
@@ -497,5 +495,6 @@ def quizaction():
 
     
 app.run(
-    host=os.getenv('IP', '0.0.0.0')
+    host=os.getenv('IP', '0.0.0.0'),
+    ssl_context='adhoc'
 )
