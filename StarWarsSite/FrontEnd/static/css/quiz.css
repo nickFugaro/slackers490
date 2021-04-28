@@ -1,8 +1,8 @@
-body{
-    font-size: 20px;
-    font-family: monospace;
-}
-
+body {
+    background-image: url("https://cdn.hipwallpaper.com/i/37/96/rj5eV3.jpg");
+    background-color: #cccccc;
+    background-size: 5000px;
+  }
 #container{
     margin : 20px auto;
     background-color: white;
