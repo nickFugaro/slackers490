@@ -253,11 +253,12 @@ def errors():
 
 @app.route('/contentmanager.html')
 def contentmanager():
+    '''
     backend = theClient('BE')
     content = backend.call({
     'type' : 'addBookmark',
     })
- 
+    '''
     return flask.render_template(
         "contentmanager.html",
     )
