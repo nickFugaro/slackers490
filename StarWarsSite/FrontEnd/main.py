@@ -253,14 +253,29 @@ def errors():
 
 @app.route('/contentmanager.html')
 def contentmanager():
-    '''
+    
     backend = theClient('BE')
     content = backend.call({
-    'type' : 'addBookmark',
+    'type' : 'getAllContent',
     })
+    vids = content.get('message')
+    print(vids)
+    #ID = vids.get('id')
+    #URL = vids.get('url')
+    #print(ID)
+
+    '''
+    print("Get bookmark success")
+        saved = bookmark.get('Bookmarks')
+        print(saved)
+        return flask.render_template(
+        "/contentmanager.html",
+        bookMarkList=saved
+        )
     '''
     return flask.render_template(
         "contentmanager.html",
+        content=vids
     )
 
 @app.route('/contentmanager.html/bookmark', methods=['POST'])
@@ -271,10 +286,15 @@ def bookmarkaction():
     bookmark = backend.call({
     'type' : 'addBookmark',
     'Authorization' : token,
+    'id' : bookmark_link
     })
 
     if bookmark.get('success'):
-        pass  
+        return flask.render_template(
+            "contentmanager.html",
+            message="Added Bookmark!"
+        )
+      
     else:
         return flask.render_template(
             "contentmanager.html",
@@ -282,9 +302,7 @@ def bookmarkaction():
         )
 
     print(bookmark_link)
-    return flask.render_template(
-        "/contentmanager.html",
-    )
+    
     
 
 @app.route('/profile.html')
@@ -297,83 +315,105 @@ def profile():
     })
 
     if profile.get('success'):
-       info = profile.get('message')
+       info = profile.get('message')[0]
+       print(info)
        email = info.get('email')
        username = info.get('username')
        bookmarks = info.get('Bookmarks') #this will be array of urls
-        
-    return flask.render_template(
-        "profile.html",
-        userName=username,
-        bookMarkList=bookmarks,
-        userEmail=email
-    )
+       
+       bookmarks = bookmarks.strip('][').split(', ')
+       for i in bookmarks:
+            index = bookmarks.index(i)
+            i = i.strip('"')
+            bookmarks[index] = i
 
+       print(bookmarks)
+       length = len(bookmarks)  
+       print("Got profile success")
+       return flask.render_template(
+            "profile.html",
+            userName=username,
+            bookMarkList=bookmarks,
+            userEmail=email,
+            len=length
+        )
+    else:
+        return flask.render_template(
+            "profile.html",
+            error="Cannot load profile credentials"
+        )
 
 @app.route('/profile.html/changeinfo', methods=['POST'])
 def profilechange():
-    username = request.form.get('name')
+    username = request.form.get('username')
     newemail = request.form.get('email')
-    oldpassword = request.form.get('oldpassword')
     newpassword = request.form.get('newpassword')
     confirmpassword = request.form.get('confirmpassword')
-    print(name)
-    print(confirmpassword)
-    print(oldpassword)
-    '''
-    backend = theClient('BE')
-    login = backend.call({
-    'type' : 'login',
-    'email' : email,
-    'password' : password
-    })
-    '''
-    if '' == email:
-        return flask.render_template("/profile.html", message='Empty email field, please fill that in.')
-    elif '' == name:
-        return flask.render_template("/profile.html", message='Empty name field, please fill that in.')
-    elif '' == oldpassword:
-        return flask.render_template("/profile.html", message='Empty password field, please fill that in.')
-    elif '' == newpassword:
-        return flask.render_template("/profile.html", message='Empty password field, please fill that in.')
-    elif newpassword != confirmpassword:
-        return flask.render_template("/profile.html", message='Passwords do not match please try again.')
-    elif oldpassword == newpassword:
-        return flask.render_template("/profile.html", message='Do not create a new password with an already used one.')
-    else:
-        return flask.render_template("/profile.html", message='Credentials successfully changed.')
     
+   
+    if newpassword != confirmpassword:
+        return flask.render_template("/profile.html", message='Passwords do not match please try again.')
+    
+
     backend = theClient('BE')
     global token
-    profileChange = backend.call({
-    'type' : 'updateProfile',
-    'Authorization' : token,
-    'email' : email,
-    'newEmail' : newemail,
-    'username' : username,
-    'password' : newpassword
-    })
+    body = None
+    if newpassword != '':
+        body = {
+        'type' : 'updateProfile',
+        'Authorization' : token,
+        'newEmail' : newemail,
+        'username' : username,
+        'password' : newpassword
+        }
+    else:
+        body = {
+        'type' : 'updateProfile',
+        'Authorization' : token,
+        'newEmail' : newemail,
+        'username' : username,
+        }
 
+
+    profileChange = backend.call(body)
     if profileChange.get('success'):
         token = profileChange.get('message')
-        print(token)    
-        return redirect("/", code=302)
+        profile = backend.call({
+        'type' : 'getProfile',
+        'Authorization' : token,
+        })
+
+        if profile.get('success'):
+           info = profile.get('message')[0]
+           print(info)
+           email = info.get('email')
+           username = info.get('username')
+           bookmarks = info.get('Bookmarks') #this will be array of urls
+           
+           bookmarks = bookmarks.strip('][').split(', ')
+           for i in bookmarks:
+                index = bookmarks.index(i)
+                i = i.strip('"')
+                bookmarks[index] = i
+
+           print(bookmarks)
+           length = len(bookmarks)  
+           print("Got profile success")
+           return flask.render_template(
+                "profile.html",
+                userName=username,
+                bookMarkList=bookmarks,
+                userEmail=email,
+                len=length
+            )
+        else:
+            return flask.render_template(
+                "profile.html",
+                error="Cannot load profile credentials"
+            )
             
-    else:
-        return flask.render_template("/login-signup.html", message=signup.get('message'))
     
-
-
-    '''
-    if login.get('success'):
-        global token 
-        token = login.get('message')
-        print(token)
-        return redirect("/", code=302)
-    else:
-        return flask.render_template("/login-signup.html", message=signup.get('message'))
-    '''
-
+    
 
 
 @app.route('/characters.html')

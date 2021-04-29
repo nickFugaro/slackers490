@@ -48,31 +48,22 @@
   </nav>
 <center>
     <div class="container-fluid">
+        {%for i in content%}
         <div class="gradient-border">
-        <form action="/contentmanager.html/bookmark" method="POST">
-            <iframe width="760" height="485" src="https://www.youtube.com/embed/8x2gb3xHNFc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            
+        <form action="/contentmanager.html/bookmark" method="POST"> <!--you will need embedded wrapper around youtube link to embed-->
+            <iframe width="760" height="485" src="{{ i.url }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             <div>
               <br />
-                <button type="submit" value='https://www.youtube.com/embed/8x2gb3xHNFc' name = 'bookmark'class="btn btn-warning">Bookmark</button>
+                <button type="submit" value="{{ i.id }}" name = 'bookmark' class="btn btn-danger">Bookmark</button>
             </div>
             <br><br>
         </form> 
       </div>
       <br />
       <br />
-      <div class="gradient-border">
-        <form action="/contentmanager.html/bookmark" method="POST">
-            <iframe width="760" height="485" src="https://www.youtube.com/embed/GOTaFQ99sUo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            
-            <div>
-              <br />
-                <button type="submit" value='https://www.youtube.com/embed/GOTaFQ99sUo' name = 'bookmark' class="btn btn-warning">Bookmark</button>
-            </div>
-            <br><br>
-        </form>  
-      </div>
+      {%endfor%}
     </div>
+  <p>{{ message }}</p>
 </center>
 
 </body>

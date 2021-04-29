@@ -16,21 +16,21 @@ class theClient:
 				'API' : 'apiExchange',
 				'DB' : 'dbExchange',
 				'LOG' : 'logExchange',
-				'BE' : 'beExchange'
+				'BE' : 'ProdBeExchange'
 			}
 			
 			getRoutingKey = {
 				'API': 'api_queue',
 				'DB' : 'db_queue',
 				'LOG' : 'log_queue',
-				'BE' : 'be_queue'
+				'BE' : ''
 			}
 			
 			self.exchange = getExchange.get(connectionType)
 			self.routing_key = getRoutingKey.get(connectionType)
 			creds = pika.PlainCredentials('test','test')
 			print('Establishing Connection To '+connectionType+' Server')
-			self.connection = pika.BlockingConnection(pika.ConnectionParameters('25.93.61.112',5672,'vhost',creds,heartbeat=0,socket_timeout=None))
+			self.connection = pika.BlockingConnection(pika.ConnectionParameters('25.122.171.33',5672,'vhost',creds,heartbeat=0,socket_timeout=None))
 			self.channel = self.connection.channel()
 			result = self.channel.queue_declare(queue='', exclusive=True)
 			self.callback_queue = result.method.queue
